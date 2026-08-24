@@ -6,7 +6,7 @@
 <title>本物の宇治抹茶 / Authentic Uji Matcha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -652,6 +652,68 @@
   .delay-3 { animation-delay: 0.4s; }
   .delay-4 { animation-delay: 0.55s; }
 
+  /* ── 3D INTRO ── */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--forest);
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #intro.done { opacity: 0; pointer-events: none; }
+
+  #intro-canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #intro-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 46%, transparent 0%, rgba(9, 24, 16, 0.55) 100%);
+  }
+
+  #intro-skip {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 2.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid rgba(212, 184, 122, 0.45);
+    color: rgba(212, 184, 122, 0.75);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.15rem;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.4s forwards;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  #intro-skip:hover {
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
+  /* hold the hero's entrance until the intro clears */
+  body.intro-active { overflow: hidden; }
+  body.intro-active .fade-up { animation-play-state: paused; }
+
+  @media (max-width: 900px) {
+    #intro-skip { right: 1.5rem; bottom: 1.5rem; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
@@ -674,6 +736,328 @@
 </head>
 <body>
 
+<!-- ── 3D INTRO ──
+     A perspective-projected cloud of matcha powder motes swirls out of the dark,
+     gathers into the word "matcha", then scatters as the wordmark resolves.
+     Built on a plain canvas — no library, no external scene file.
+
+     To drive this from a published Spline scene instead, publish the scene in
+     Spline (Export → Code / Web) and swap the canvas for:
+       <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+       <spline-viewer url="https://prod.spline.design/YOUR_SCENE/scene.splinecode"></spline-viewer>
+     The skip / fade-out / session logic below works either way. -->
+<script>
+(function () {
+  var SEEN_KEY = 'ujiIntroSeen';
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var seen = false;
+  try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch (e) {}
+  if (reduceMotion || seen) return;
+  try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+
+  var body = document.body;
+  body.classList.add('intro-active');
+
+  var root = document.createElement('div');
+  root.id = 'intro';
+  root.innerHTML =
+    '<canvas id="intro-canvas"></canvas>' +
+    '<div id="intro-vignette"></div>' +
+    '<button id="intro-skip" type="button">Skip intro</button>';
+  body.appendChild(root);
+
+  var cv = root.querySelector('#intro-canvas');
+  var ctx = cv.getContext('2d');
+
+  /* ── timeline, in seconds ── */
+  // Phases must not overlap: the powder has to finish spelling the word
+  // (gather + its per-mote stagger) before the wordmark resolves over it.
+  var T = {
+    gather: 0.60, gatherDur: 1.50,   // powder pulls into the letterforms
+    word:   2.85, wordDur:   1.00,   // …holds, then the wordmark resolves
+    scatter:3.70, scatterDur:1.40,   // …then the powder lets go
+    slogan: 4.20, sloganDur: 1.00,
+    out:    5.70, outDur:    0.70
+  };
+  var END = T.out + T.outDur;
+
+  var FOV = 900;
+  var WORD = 'matcha';
+  var LINE_TOP = 'the quiet ritual of';
+  var LINE_BOT = '宇治、京都  ·  uji, kyoto';
+
+  var W = 0, H = 0, dpr = 1, wordPx = 0, wordFont = '', motes = [], pts = [];
+  var camX = 0, camY = 0, tCamX = 0, tCamY = 0;
+  var raf = 0, t0 = 0, finished = false;
+
+  /* ── easing ── */
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function p(t, start, dur) { return clamp01((t - start) / dur); }
+  function easeInOut(x) { return 0.5 - Math.cos(Math.PI * x) / 2; }
+  function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+
+  var seed = 20240;
+  function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+
+  /* ── sample the letterforms into a point cloud ── */
+  function fontFor(px, weight, style) {
+    return (style ? style + ' ' : '') + weight + ' ' + px +
+           'px "Cormorant Garamond", Georgia, serif';
+  }
+
+  function sampleWord(text, px, f) {
+    var c = document.createElement('canvas');
+    var g = c.getContext('2d', { willReadFrequently: true });
+    g.font = f;
+    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
+    var w = Math.ceil(g.measureText(text).width + px);
+    var h = Math.ceil(px * 2);
+    c.width = w; c.height = h;
+    // canvas.width truncates to an integer — read the backing size back, or a
+    // fractional stride makes every row index land off-buffer and read undefined
+    w = c.width; h = c.height;
+    g.font = f;                                  // resizing the canvas clears state
+    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillStyle = '#fff';
+    g.fillText(text, w / 2, h / 2);
+
+    var d = g.getImageData(0, 0, w, h).data;
+    var out = [];
+    var step = Math.max(2, Math.round(px / 60));
+    for (var y = 0; y < h; y += step) {
+      for (var x = 0; x < w; x += step) {
+        if (d[(y * w + x) * 4 + 3] > 130) { out.push(x - w / 2, y - h / 2); }
+      }
+    }
+    return out;
+  }
+
+  /* ── build / rebuild the mote cloud for the current viewport ── */
+  var TINTS = ['#f5efe0', '#e8e2cf', '#cddcbe', '#b8ceac'];
+
+  function layout() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = root.clientWidth;
+    H = root.clientHeight;
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    wordPx = Math.round(Math.max(46, Math.min(W * 0.185, 190)));
+
+    // The sampler and the renderer MUST use the same face, or the powder would
+    // spell the word in one font while the wordmark resolves in another. Pick
+    // one string here and let both sides share it.
+    wordFont = fontFor(wordPx, 600);
+    if (!(document.fonts && document.fonts.check(wordFont))) {
+      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+    }
+    pts = sampleWord(WORD, wordPx, wordFont);
+
+    // A face that reports ready but rasterises blank yields almost no points;
+    // fall back to a face that is always present rather than ship 70 motes.
+    if (pts.length / 2 < 300) {
+      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+      pts = sampleWord(WORD, wordPx, wordFont);
+    }
+
+    var n = pts.length / 2;
+    var count = W < 700 ? 620 : 1200;
+    seed = 20240;
+    motes = new Array(count);
+
+    for (var i = 0; i < count; i++) {
+      var j = n ? Math.floor(rnd() * n) * 2 : 0;
+      var a = rnd() * Math.PI * 2;
+      var r = (W * 0.28) + rnd() * (W * 0.55);
+      var b = rnd() * Math.PI * 2;
+
+      motes[i] = {
+        // target: a point inside a letterform
+        tx: n ? pts[j] + (rnd() - 0.5) * 2.5 : 0,
+        ty: n ? pts[j + 1] + (rnd() - 0.5) * 2.5 : 0,
+        tz: (rnd() - 0.5) * 14,
+        // origin: a loose shell around the camera axis
+        sx: Math.cos(a) * r,
+        sy: (rnd() - 0.5) * H * 0.9,
+        sz: -260 + rnd() * 780,
+        // exit: drifting up and out
+        ox: Math.cos(b) * (W * 0.18 + rnd() * W * 0.4),
+        oy: -(H * 0.12) - rnd() * H * 0.35,
+        oz: (rnd() - 0.5) * 420,
+        dIn: rnd() * 0.7,
+        dGa: rnd() * 0.55,
+        dSc: rnd() * 0.60,
+        r: 0.7 + rnd() * 1.9,
+        ph: rnd() * Math.PI * 2,
+        sp: 0.25 + rnd() * 0.5,
+        lingers: (i % 7 === 0),
+        c: TINTS[(rnd() * TINTS.length) | 0]
+      };
+    }
+  }
+
+  /* ── frame ── */
+  function draw(now) {
+    var t = (now - t0) / 1000;
+    if (t >= END) { finish(); return; }
+
+    var out = 1 - p(t, T.out, T.outDur);
+
+    camX += (tCamX - camX) * 0.06;
+    camY += (tCamY - camY) * 0.06;
+    var cx = W / 2, cy = H / 2;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < motes.length; i++) {
+      var m = motes[i];
+      var fade = p(t, m.dIn, 0.9);
+      if (fade <= 0) continue;
+
+      var gp = easeInOut(p(t, T.gather + m.dGa, T.gatherDur));
+      var sp = easeOutCubic(p(t, T.scatter + m.dSc, T.scatterDur));
+      var sw = 1 - gp;
+
+      // drifting swirl, plus a slow yaw of the whole cloud — reads as depth
+      var ang = t * m.sp + m.ph;
+      var sx = m.sx + Math.sin(ang) * 30 * sw;
+      var sy = m.sy + Math.cos(ang * 0.8) * 24 * sw - t * 10 * sw;
+      var sz = m.sz + Math.sin(ang * 0.6) * 26 * sw;
+      var yaw = Math.sin(t * 0.26) * 0.34 * sw;
+      var cs = Math.cos(yaw), sn = Math.sin(yaw);
+      var rx = sx * cs - sz * sn;
+      var rz = sx * sn + sz * cs;
+
+      // settle-jitter while held in the letterform, then blow outward
+      var jit = 0.9 * gp * (1 - sp);
+      var x = rx * sw + m.tx * gp + m.ox * sp + Math.sin(t * 1.7 + m.ph) * jit;
+      var y = sy * sw + m.ty * gp + m.oy * sp + Math.cos(t * 1.9 + m.ph) * jit;
+      var z = rz * sw + m.tz * gp + m.oz * sp;
+
+      if (m.lingers) {
+        x += Math.sin(t * 0.33 + m.ph) * 36 * sp;
+        y += Math.cos(t * 0.27 + m.ph * 1.4) * 28 * sp;
+      }
+
+      var pr = FOV / (FOV + z);
+      if (pr <= 0.05) continue;
+
+      var alpha = fade * out * (1 - sp * (m.lingers ? 0.55 : 0.95));
+      if (alpha <= 0.004) continue;
+
+      var rad = m.r * pr * (1 - sp * 0.35);
+      if (rad < 0.15) continue;
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = m.c;
+      ctx.beginPath();
+      ctx.arc(cx + (x - camX) * pr, cy + (y - camY) * pr, rad, 0, 6.2832);
+      ctx.fill();
+    }
+
+    // the wordmark resolves in the exact spot the motes gathered
+    var wx = cx - camX, wy = cy - camY;
+    var wa = p(t, T.word, T.wordDur) * out;
+    if (wa > 0) {
+      ctx.globalAlpha = wa;
+      ctx.fillStyle = '#f5efe0';
+      ctx.font = wordFont;
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.04em';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(WORD, wx, wy);
+    }
+
+    var sa = p(t, T.slogan, T.sloganDur) * out;
+    if (sa > 0) {
+      ctx.globalAlpha = sa;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      ctx.fillStyle = '#bfd3b4';
+      ctx.font = fontFor(Math.max(15, Math.round(wordPx * 0.20)), 400, 'italic');
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.14em';
+      ctx.fillText(LINE_TOP, wx, wy - wordPx * 0.64);
+
+      ctx.fillStyle = '#9dba95';
+      ctx.font = Math.max(11, Math.round(wordPx * 0.14)) +
+                 'px "Cormorant Garamond", "Noto Serif JP", Georgia, serif';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.26em';
+      ctx.fillText(LINE_BOT, wx, wy + wordPx * 0.62);
+    }
+
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(draw);
+  }
+
+  /* ── teardown ── */
+  function finish() {
+    if (finished) return;
+    finished = true;
+    cancelAnimationFrame(raf);
+    root.classList.add('done');
+    body.classList.remove('intro-active');   // hero entrance resumes here
+    window.removeEventListener('resize', onResize);
+    setTimeout(function () {
+      if (root.parentNode) root.parentNode.removeChild(root);
+    }, 1200);
+  }
+
+  function onResize() { if (!finished) layout(); }
+
+  // A page opened in a background tab throttles rAF to ~1fps, so the intro
+  // would burn its whole timeline unseen. Hold the clock while hidden.
+  var hiddenAt = 0;
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { hiddenAt = performance.now(); }
+    else if (hiddenAt) { t0 += performance.now() - hiddenAt; hiddenAt = 0; }
+  });
+
+  root.addEventListener('pointermove', function (e) {
+    tCamX = (e.clientX / W - 0.5) * 110;
+    tCamY = (e.clientY / H - 0.5) * 70;
+  });
+  root.addEventListener('pointerdown', finish);
+  root.addEventListener('wheel', finish, { passive: true });
+  root.addEventListener('touchmove', finish, { passive: true });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') finish();
+  });
+  window.addEventListener('resize', onResize);
+
+  function start() {
+    layout();
+    t0 = performance.now();
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Start at once. The opening swirl needs no webfont, and holding a blank
+  // green screen while Google Fonts loads is worse than starting on a fallback:
+  // layout() samples Georgia until Cormorant is available. If the display face
+  // lands before the powder starts gathering, re-sample so the motes spell the
+  // real face — re-seeding is deterministic, so the swirl doesn't jump.
+  start();
+
+  if (document.fonts && document.fonts.load) {
+    var upgrade = function () {
+      if (finished) return;
+      if (wordFont.indexOf('Cormorant') !== -1) return;
+      if ((performance.now() - t0) / 1000 >= T.gather) return;
+      if (document.fonts.check(fontFor(wordPx, 600))) layout();
+    };
+    Promise.all([
+      document.fonts.load(fontFor(129, 600)),
+      document.fonts.load(fontFor(40, 400, 'italic'))
+    ]).then(upgrade, upgrade);
+  }
+})();
+</script>
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">宇治抹茶 Uji Matcha</a>
@@ -691,7 +1075,7 @@
   <div class="hero-left">
     <div class="hero-eyebrow fade-up">Uji, Kyoto — 宇治、京都</div>
     <h1 class="hero-title fade-up delay-1">
-      <span lang-en>The World Thinks<br>It Knows <em>Matcha.</em><br>It Doesn't.</span>
+      <span lang-en>The World Thinks Matcha Is <em>Everywhere.</em><br>Real Uji Matcha Is Disappearing.</span>
       <span lang-ja style="display:none;">世界は抹茶を<br>知っていると<br><em>思っている。</em></span>
     </h1>
     <p class="hero-jp fade-up delay-2">本物の宇治抹茶を守る</p>
