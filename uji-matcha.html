@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本物の宇治抹茶 / Authentic Uji Matcha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --sage: #5a7c5e;
+    --tea: #8aac6e;
+    --ivory: #f7f3eb;
+    --parchment: #ede8dc;
+    --warm-white: #faf8f4;
+    --ink: #1c1c18;
+    --muted: #5c5848;
+    --gold: #b8985a;
+    --gold-light: #d4b87a;
+    --border: rgba(90, 80, 60, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(247, 243, 235, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--forest);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--forest); }
+
+  .nav-lang {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    cursor: pointer;
+    border: 0.5px solid var(--gold);
+    padding: 0.3rem 0.8rem;
+    transition: all 0.3s;
+  }
+
+  .nav-lang:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 10%; bottom: 10%;
+    width: 0.5px;
+    background: var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 0.5px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--forest);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--moss);
+  }
+
+  .hero-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--sage);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-body {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 3rem;
+    line-height: 1.9;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--forest);
+    color: var(--ivory);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { background: var(--moss); }
+
+  .btn-ghost {
+    color: var(--forest);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--forest);
+    padding-bottom: 0.1rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-right {
+    background: var(--forest);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem 3rem;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #fff 0, #fff 1px,
+      transparent 0, transparent 50%
+    );
+    background-size: 20px 20px;
+  }
+
+  .hero-stat-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .hero-stat {
+    border-top: 0.5px solid rgba(255,255,255,0.2);
+    padding-top: 1.25rem;
+  }
+
+  .hero-stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-kanji {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.1em;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 7rem 5rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem;
+    height: 0.5px;
+    background: var(--gold);
+  }
+
+  /* ── PROBLEM ── */
+  .problem {
+    background: var(--parchment);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .problem-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 300;
+    color: var(--forest);
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .problem-left p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .problem-right {
+    padding-top: 3rem;
+  }
+
+  .issue-card {
+    border-left: 2px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255,255,255,0.5);
+  }
+
+  .issue-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+  }
+
+  .issue-card-body {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── WHAT WE'RE DOING ── */
+  .doing {
+    background: var(--warm-white);
+  }
+
+  .doing h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--forest);
+    margin-bottom: 4rem;
+    max-width: 30ch;
+  }
+
+  .doing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--border);
+  }
+
+  .doing-card {
+    padding: 2.5rem 2rem;
+    border-right: 0.5px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .doing-card:last-child { border-right: none; }
+  .doing-card:hover { background: var(--parchment); }
+
+  .doing-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .doing-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--forest);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .doing-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.9rem;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .doing-body {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  /* ── FARMERS ── */
+  .farmers {
+    background: var(--forest);
+    color: var(--ivory);
+    padding: 7rem 5rem;
+  }
+
+  .farmers .section-label { color: var(--gold-light); }
+  .farmers .section-label::before { background: var(--gold-light); }
+
+  .farmers h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--ivory);
+    margin-bottom: 3.5rem;
+  }
+
+  .farmer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+
+  .farmer-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2.5rem 2rem;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+
+  .farmer-card:hover { background: rgba(255,255,255,0.08); }
+
+  .farmer-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .farmer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.25rem;
+  }
+
+  .farmer-name-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .farmer-gen {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 0.5px solid rgba(184, 152, 90, 0.4);
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .farmer-quote {
+    font-size: 0.87rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .farmer-add {
+    background: transparent;
+    border: 0.5px dashed rgba(255,255,255,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    color: rgba(255,255,255,0.2);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    gap: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .farmer-add:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.4);
+  }
+
+  .farmer-add-icon {
+    font-size: 2rem;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+  }
+
+  /* ── GET INVOLVED ── */
+  .involve {
+    background: var(--ivory);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+
+  .involve-left {
+    padding: 7rem 5rem;
+    border-right: 0.5px solid var(--border);
+  }
+
+  .involve-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--forest);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .involve-left p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+    max-width: 36ch;
+  }
+
+  .involve-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: flex; gap: 1rem; }
+
+  .form-input {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    border: 0.5px solid var(--border);
+    background: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.87rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-input:focus { border-color: var(--sage); }
+  .form-input::placeholder { color: rgba(90,80,60,0.4); }
+
+  .form-select {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    border: 0.5px solid var(--border);
+    background: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.87rem;
+    color: var(--ink);
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+
+  .form-select:focus { border-color: var(--sage); }
+
+  .involve-right {
+    padding: 7rem 4rem;
+    background: var(--parchment);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-item {
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .contact-item:first-child { border-top: 0.5px solid var(--border); }
+
+  .contact-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .contact-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--forest);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.3);
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── LANG TOGGLE ── */
+  [lang-en], [lang-ja] { transition: opacity 0.3s; }
+  body.ja [lang-en] { display: none; }
+  body.ja [lang-ja] { display: block; }
+  body:not(.ja) [lang-ja] { display: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+
+  /* ── 3D INTRO ── */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--forest);
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #intro.done { opacity: 0; pointer-events: none; }
+
+  #intro-canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #intro-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 46%, transparent 0%, rgba(9, 24, 16, 0.55) 100%);
+  }
+
+  #intro-skip {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 2.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid rgba(212, 184, 122, 0.45);
+    color: rgba(212, 184, 122, 0.75);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.15rem;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.4s forwards;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  #intro-skip:hover {
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
+  /* hold the hero's entrance until the intro clears */
+  body.intro-active { overflow: hidden; }
+  body.intro-active .fade-up { animation-play-state: paused; }
+
+  @media (max-width: 900px) {
+    #intro-skip { right: 1.5rem; bottom: 1.5rem; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    .hero-left { padding: 4rem 2rem; }
+    section { padding: 5rem 2rem; }
+    .problem { grid-template-columns: 1fr; gap: 3rem; }
+    .doing-grid { grid-template-columns: 1fr 1fr; }
+    .doing-card { border-bottom: 0.5px solid var(--border); }
+    .farmer-grid { grid-template-columns: 1fr; }
+    .involve { grid-template-columns: 1fr; }
+    .involve-left { padding: 4rem 2rem; border-right: none; border-bottom: 0.5px solid var(--border); }
+    .involve-right { padding: 4rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+    .farmers { padding: 5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 3D INTRO ──
+     A perspective-projected cloud of matcha powder motes swirls out of the dark,
+     gathers into the word "matcha", then scatters as the wordmark resolves.
+     Built on a plain canvas — no library, no external scene file.
+
+     To drive this from a published Spline scene instead, publish the scene in
+     Spline (Export → Code / Web) and swap the canvas for:
+       <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+       <spline-viewer url="https://prod.spline.design/YOUR_SCENE/scene.splinecode"></spline-viewer>
+     The skip / fade-out / session logic below works either way. -->
+<script>
+(function () {
+  var SEEN_KEY = 'ujiIntroSeen';
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var seen = false;
+  try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch (e) {}
+  if (reduceMotion || seen) return;
+  try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+
+  var body = document.body;
+  body.classList.add('intro-active');
+
+  var root = document.createElement('div');
+  root.id = 'intro';
+  root.innerHTML =
+    '<canvas id="intro-canvas"></canvas>' +
+    '<div id="intro-vignette"></div>' +
+    '<button id="intro-skip" type="button">Skip intro</button>';
+  body.appendChild(root);
+
+  var cv = root.querySelector('#intro-canvas');
+  var ctx = cv.getContext('2d');
+
+  /* ── timeline, in seconds ── */
+  // Phases must not overlap: the powder has to finish spelling the word
+  // (gather + its per-mote stagger) before the wordmark resolves over it.
+  var T = {
+    gather: 0.60, gatherDur: 1.50,   // powder pulls into the letterforms
+    word:   2.85, wordDur:   1.00,   // …holds, then the wordmark resolves
+    scatter:3.70, scatterDur:1.40,   // …then the powder lets go
+    slogan: 4.20, sloganDur: 1.00,
+    out:    5.70, outDur:    0.70
+  };
+  var END = T.out + T.outDur;
+
+  var FOV = 900;
+  var WORD = 'matcha';
+  var LINE_TOP = 'the quiet ritual of';
+  var LINE_BOT = '宇治、京都  ·  uji, kyoto';
+
+  var W = 0, H = 0, dpr = 1, wordPx = 0, wordFont = '', motes = [], pts = [];
+  var camX = 0, camY = 0, tCamX = 0, tCamY = 0;
+  var raf = 0, t0 = 0, finished = false;
+
+  /* ── easing ── */
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function p(t, start, dur) { return clamp01((t - start) / dur); }
+  function easeInOut(x) { return 0.5 - Math.cos(Math.PI * x) / 2; }
+  function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+
+  var seed = 20240;
+  function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+
+  /* ── sample the letterforms into a point cloud ── */
+  function fontFor(px, weight, style) {
+    return (style ? style + ' ' : '') + weight + ' ' + px +
+           'px "Cormorant Garamond", Georgia, serif';
+  }
+
+  function sampleWord(text, px, f) {
+    var c = document.createElement('canvas');
+    var g = c.getContext('2d', { willReadFrequently: true });
+    g.font = f;
+    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
+    var w = Math.ceil(g.measureText(text).width + px);
+    var h = Math.ceil(px * 2);
+    c.width = w; c.height = h;
+    // canvas.width truncates to an integer — read the backing size back, or a
+    // fractional stride makes every row index land off-buffer and read undefined
+    w = c.width; h = c.height;
+    g.font = f;                                  // resizing the canvas clears state
+    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillStyle = '#fff';
+    g.fillText(text, w / 2, h / 2);
+
+    var d = g.getImageData(0, 0, w, h).data;
+    var out = [];
+    var step = Math.max(2, Math.round(px / 60));
+    for (var y = 0; y < h; y += step) {
+      for (var x = 0; x < w; x += step) {
+        if (d[(y * w + x) * 4 + 3] > 130) { out.push(x - w / 2, y - h / 2); }
+      }
+    }
+    return out;
+  }
+
+  /* ── build / rebuild the mote cloud for the current viewport ── */
+  var TINTS = ['#f5efe0', '#e8e2cf', '#cddcbe', '#b8ceac'];
+
+  function layout() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = root.clientWidth;
+    H = root.clientHeight;
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    wordPx = Math.round(Math.max(46, Math.min(W * 0.185, 190)));
+
+    // The sampler and the renderer MUST use the same face, or the powder would
+    // spell the word in one font while the wordmark resolves in another. Pick
+    // one string here and let both sides share it.
+    wordFont = fontFor(wordPx, 600);
+    if (!(document.fonts && document.fonts.check(wordFont))) {
+      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+    }
+    pts = sampleWord(WORD, wordPx, wordFont);
+
+    // A face that reports ready but rasterises blank yields almost no points;
+    // fall back to a face that is always present rather than ship 70 motes.
+    if (pts.length / 2 < 300) {
+      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+      pts = sampleWord(WORD, wordPx, wordFont);
+    }
+
+    var n = pts.length / 2;
+    var count = W < 700 ? 620 : 1200;
+    seed = 20240;
+    motes = new Array(count);
+
+    for (var i = 0; i < count; i++) {
+      var j = n ? Math.floor(rnd() * n) * 2 : 0;
+      var a = rnd() * Math.PI * 2;
+      var r = (W * 0.28) + rnd() * (W * 0.55);
+      var b = rnd() * Math.PI * 2;
+
+      motes[i] = {
+        // target: a point inside a letterform
+        tx: n ? pts[j] + (rnd() - 0.5) * 2.5 : 0,
+        ty: n ? pts[j + 1] + (rnd() - 0.5) * 2.5 : 0,
+        tz: (rnd() - 0.5) * 14,
+        // origin: a loose shell around the camera axis
+        sx: Math.cos(a) * r,
+        sy: (rnd() - 0.5) * H * 0.9,
+        sz: -260 + rnd() * 780,
+        // exit: drifting up and out
+        ox: Math.cos(b) * (W * 0.18 + rnd() * W * 0.4),
+        oy: -(H * 0.12) - rnd() * H * 0.35,
+        oz: (rnd() - 0.5) * 420,
+        dIn: rnd() * 0.7,
+        dGa: rnd() * 0.55,
+        dSc: rnd() * 0.60,
+        r: 0.7 + rnd() * 1.9,
+        ph: rnd() * Math.PI * 2,
+        sp: 0.25 + rnd() * 0.5,
+        lingers: (i % 7 === 0),
+        c: TINTS[(rnd() * TINTS.length) | 0]
+      };
+    }
+  }
+
+  /* ── frame ── */
+  function draw(now) {
+    var t = (now - t0) / 1000;
+    if (t >= END) { finish(); return; }
+
+    var out = 1 - p(t, T.out, T.outDur);
+
+    camX += (tCamX - camX) * 0.06;
+    camY += (tCamY - camY) * 0.06;
+    var cx = W / 2, cy = H / 2;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < motes.length; i++) {
+      var m = motes[i];
+      var fade = p(t, m.dIn, 0.9);
+      if (fade <= 0) continue;
+
+      var gp = easeInOut(p(t, T.gather + m.dGa, T.gatherDur));
+      var sp = easeOutCubic(p(t, T.scatter + m.dSc, T.scatterDur));
+      var sw = 1 - gp;
+
+      // drifting swirl, plus a slow yaw of the whole cloud — reads as depth
+      var ang = t * m.sp + m.ph;
+      var sx = m.sx + Math.sin(ang) * 30 * sw;
+      var sy = m.sy + Math.cos(ang * 0.8) * 24 * sw - t * 10 * sw;
+      var sz = m.sz + Math.sin(ang * 0.6) * 26 * sw;
+      var yaw = Math.sin(t * 0.26) * 0.34 * sw;
+      var cs = Math.cos(yaw), sn = Math.sin(yaw);
+      var rx = sx * cs - sz * sn;
+      var rz = sx * sn + sz * cs;
+
+      // settle-jitter while held in the letterform, then blow outward
+      var jit = 0.9 * gp * (1 - sp);
+      var x = rx * sw + m.tx * gp + m.ox * sp + Math.sin(t * 1.7 + m.ph) * jit;
+      var y = sy * sw + m.ty * gp + m.oy * sp + Math.cos(t * 1.9 + m.ph) * jit;
+      var z = rz * sw + m.tz * gp + m.oz * sp;
+
+      if (m.lingers) {
+        x += Math.sin(t * 0.33 + m.ph) * 36 * sp;
+        y += Math.cos(t * 0.27 + m.ph * 1.4) * 28 * sp;
+      }
+
+      var pr = FOV / (FOV + z);
+      if (pr <= 0.05) continue;
+
+      var alpha = fade * out * (1 - sp * (m.lingers ? 0.55 : 0.95));
+      if (alpha <= 0.004) continue;
+
+      var rad = m.r * pr * (1 - sp * 0.35);
+      if (rad < 0.15) continue;
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = m.c;
+      ctx.beginPath();
+      ctx.arc(cx + (x - camX) * pr, cy + (y - camY) * pr, rad, 0, 6.2832);
+      ctx.fill();
+    }
+
+    // the wordmark resolves in the exact spot the motes gathered
+    var wx = cx - camX, wy = cy - camY;
+    var wa = p(t, T.word, T.wordDur) * out;
+    if (wa > 0) {
+      ctx.globalAlpha = wa;
+      ctx.fillStyle = '#f5efe0';
+      ctx.font = wordFont;
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.04em';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(WORD, wx, wy);
+    }
+
+    var sa = p(t, T.slogan, T.sloganDur) * out;
+    if (sa > 0) {
+      ctx.globalAlpha = sa;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      ctx.fillStyle = '#bfd3b4';
+      ctx.font = fontFor(Math.max(15, Math.round(wordPx * 0.20)), 400, 'italic');
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.14em';
+      ctx.fillText(LINE_TOP, wx, wy - wordPx * 0.64);
+
+      ctx.fillStyle = '#9dba95';
+      ctx.font = Math.max(11, Math.round(wordPx * 0.14)) +
+                 'px "Cormorant Garamond", "Noto Serif JP", Georgia, serif';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.26em';
+      ctx.fillText(LINE_BOT, wx, wy + wordPx * 0.62);
+    }
+
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(draw);
+  }
+
+  /* ── teardown ── */
+  function finish() {
+    if (finished) return;
+    finished = true;
+    cancelAnimationFrame(raf);
+    root.classList.add('done');
+    body.classList.remove('intro-active');   // hero entrance resumes here
+    window.removeEventListener('resize', onResize);
+    setTimeout(function () {
+      if (root.parentNode) root.parentNode.removeChild(root);
+    }, 1200);
+  }
+
+  function onResize() { if (!finished) layout(); }
+
+  // A page opened in a background tab throttles rAF to ~1fps, so the intro
+  // would burn its whole timeline unseen. Hold the clock while hidden.
+  var hiddenAt = 0;
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { hiddenAt = performance.now(); }
+    else if (hiddenAt) { t0 += performance.now() - hiddenAt; hiddenAt = 0; }
+  });
+
+  root.addEventListener('pointermove', function (e) {
+    tCamX = (e.clientX / W - 0.5) * 110;
+    tCamY = (e.clientY / H - 0.5) * 70;
+  });
+  root.addEventListener('pointerdown', finish);
+  root.addEventListener('wheel', finish, { passive: true });
+  root.addEventListener('touchmove', finish, { passive: true });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') finish();
+  });
+  window.addEventListener('resize', onResize);
+
+  function start() {
+    layout();
+    t0 = performance.now();
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Start at once. The opening swirl needs no webfont, and holding a blank
+  // green screen while Google Fonts loads is worse than starting on a fallback:
+  // layout() samples Georgia until Cormorant is available. If the display face
+  // lands before the powder starts gathering, re-sample so the motes spell the
+  // real face — re-seeding is deterministic, so the swirl doesn't jump.
+  start();
+
+  if (document.fonts && document.fonts.load) {
+    var upgrade = function () {
+      if (finished) return;
+      if (wordFont.indexOf('Cormorant') !== -1) return;
+      if ((performance.now() - t0) / 1000 >= T.gather) return;
+      if (document.fonts.check(fontFor(wordPx, 600))) layout();
+    };
+    Promise.all([
+      document.fonts.load(fontFor(129, 600)),
+      document.fonts.load(fontFor(40, 400, 'italic'))
+    ]).then(upgrade, upgrade);
+  }
+})();
+</script>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">宇治抹茶 Uji Matcha</a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Issue</a></li>
+    <li><a href="#doing">Our Work</a></li>
+    <li><a href="#farmers">Farmers</a></li>
+    <li><a href="#involve">Get Involved</a></li>
+  </ul>
+  <div class="nav-lang" onclick="toggleLang()">日本語 / EN</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up">Uji, Kyoto — 宇治、京都</div>
+    <h1 class="hero-title fade-up delay-1">
+      <span lang-en>The World Thinks Matcha Is <em>Everywhere.</em><br>Real Uji Matcha Is Disappearing.</span>
+      <span lang-ja style="display:none;">世界は抹茶を<br>知っていると<br><em>思っている。</em></span>
+    </h1>
+    <p class="hero-jp fade-up delay-2">本物の宇治抹茶を守る</p>
+    <p class="hero-body fade-up delay-3" lang-en>
+      Behind every bowl of authentic Uji matcha is an aging farmer, centuries of knowledge, and a name being quietly stolen by the global market. We are students from Uji working to change that.
+    </p>
+    <p class="hero-body fade-up delay-3" lang-ja style="display:none;">
+      本物の宇治抹茶の一椀の裏には、年老いた農家、何世紀もの知識、そして世界市場に静かに奪われつつある名前があります。私たちは宇治の高校生として、それを変えるために活動しています。
+    </p>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#involve" class="btn-primary" lang-en>Get Involved</a>
+      <a href="#involve" class="btn-primary" lang-ja style="display:none;">参加する</a>
+      <a href="#problem" class="btn-ghost" lang-en>Learn the Issue</a>
+      <a href="#problem" class="btn-ghost" lang-ja style="display:none;">問題を知る</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-kanji">抹</div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat">
+        <div class="hero-stat-number">800+</div>
+        <div class="hero-stat-label">Years of Uji Tea History</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">↓62%</div>
+        <div class="hero-stat-label">Farmers in 20 Years</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">¥0</div>
+        <div class="hero-stat-label">Legal Protection Abroad</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">~30%</div>
+        <div class="hero-stat-label">Leaves Discarded as Over-Spec</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-left">
+    <div class="section-label" lang-en>The Issue</div>
+    <div class="section-label" lang-ja style="display:none;">問題</div>
+    <h2 lang-en>A name without<br>protection is a name<br>without meaning.</h2>
+    <h2 lang-ja style="display:none;">守られない名前は、<br>意味を失う。</h2>
+    <p lang-en>
+      Walk into any café in the world and order "matcha." What arrives is almost certainly not from Uji — or even from Japan. The word matcha has been borrowed, diluted, and mass-produced globally, with no legal framework to stop it.
+    </p>
+    <p lang-ja style="display:none;">
+      世界中のカフェで「抹茶」を注文してください。届くのはほぼ確実に宇治産ではなく、日本産ですらないでしょう。「抹茶」という言葉は世界中で借用・希薄化・大量生産されており、それを止める法的枠組みは存在しません。
+    </p>
+    <p lang-en>
+      Meanwhile, the farmers in Uji — the people who have cultivated this art for generations — watch their income shrink and their knowledge go unrecognised.
+    </p>
+    <p lang-ja style="display:none;">
+      一方、何世代にもわたってこの技術を培ってきた宇治の農家は、収入が減り、知識が認められないまま見守っています。
+    </p>
+  </div>
+  <div class="problem-right">
+    <div class="issue-card">
+      <div class="issue-card-title" lang-en>Brand Misrepresentation</div>
+      <div class="issue-card-title" lang-ja style="display:none;">ブランドの誤表示</div>
+      <p class="issue-card-body" lang-en>Products worldwide are labeled and sold as "matcha" without meeting any standard for origin, quality, or production method. There is no international GI protection for the Uji name.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">世界中の製品が原産地・品質・製造方法の基準を満たさないまま「抹茶」として販売されています。宇治の名称に対する国際的なGI保護は存在しません。</p>
+    </div>
+    <div class="issue-card">
+      <div class="issue-card-title" lang-en>An Aging, Successor-Less Industry</div>
+      <div class="issue-card-title" lang-ja style="display:none;">高齢化と後継者不足</div>
+      <p class="issue-card-body" lang-en>Most Uji tea farmers are elderly. The knowledge of shade-cultivation, hand-picking, and stone-ground processing is disappearing with each passing year. The window to act is closing.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">宇治の茶農家のほとんどは高齢者です。覆下栽培、手摘み、石臼製法の知識は年々失われています。行動する時間は限られています。</p>
+    </div>
+    <div class="issue-card">
+      <div class="issue-card-title" lang-en>Over-Spec Leaf Waste</div>
+      <div class="issue-card-title" lang-ja style="display:none;">規格外茶葉の廃棄</div>
+      <p class="issue-card-body" lang-en>A significant portion of harvested leaves are discarded because they don't meet premium matcha specifications — a waste of both resources and farmer labour that could be transformed into a circular economy.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">収穫した茶葉のかなりの割合が、高級抹茶の規格を満たさないとして廃棄されています。これは資源と農家の労働の無駄であり、循環経済に変えることができます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE'RE DOING -->
+<section class="doing" id="doing">
+  <div class="section-label" lang-en>What We're Doing</div>
+  <div class="section-label" lang-ja style="display:none;">私たちの活動</div>
+  <h2 lang-en>Small actions.<br>Real change.</h2>
+  <h2 lang-ja style="display:none;">小さな行動。<br>本物の変化。</h2>
+  <div class="doing-grid">
+    <div class="doing-card">
+      <div class="doing-number">01</div>
+      <div class="doing-title" lang-en>Farmer Storytelling</div>
+      <div class="doing-title" lang-ja style="display:none;">農家のストーリー</div>
+      <div class="doing-jp">農家の物語</div>
+      <p class="doing-body" lang-en>Interviewing and documenting Uji's farmers — their history, methods, and challenges — to create content that humanises the brand and educates the world.</p>
+      <p class="doing-body" lang-ja style="display:none;">宇治の農家にインタビューし、その歴史・技法・課題を記録することで、ブランドに人間性を与え、世界を教育するコンテンツを制作します。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">02</div>
+      <div class="doing-title" lang-en>School Club</div>
+      <div class="doing-title" lang-ja style="display:none;">学校クラブ</div>
+      <div class="doing-jp">学校での活動</div>
+      <p class="doing-body" lang-en>Building a school club to engage fellow students in research, community outreach, and local event planning — making advocacy part of school life in Uji.</p>
+      <p class="doing-body" lang-ja style="display:none;">学校クラブを設立し、同級生が調査・地域活動・地域イベント企画に参加できるようにします。宇治の学校生活に提唱活動を組み込みます。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">03</div>
+      <div class="doing-title" lang-en>Social Media Awareness</div>
+      <div class="doing-title" lang-ja style="display:none;">SNSでの啓発</div>
+      <div class="doing-jp">ソーシャルメディア</div>
+      <p class="doing-body" lang-en>Creating bilingual content in partnership with farmers and aligned influencers to spread awareness about authentic Uji matcha and the issues facing its producers.</p>
+      <p class="doing-body" lang-ja style="display:none;">農家やインフルエンサーと協力してバイリンガルコンテンツを制作し、本物の宇治抹茶と生産者が直面する問題への意識を広めます。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">04</div>
+      <div class="doing-title" lang-en>Circular Economy Research</div>
+      <div class="doing-title" lang-ja style="display:none;">循環型経済の研究</div>
+      <div class="doing-jp">循環経済</div>
+      <p class="doing-body" lang-en>Exploring how over-spec leaves — currently discarded — can be transformed into new products, reducing waste and creating supplemental income for farmers.</p>
+      <p class="doing-body" lang-ja style="display:none;">現在廃棄されている規格外茶葉を新製品に変え、廃棄物を減らし農家の補助収入を生み出す方法を探っています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FARMERS -->
+<section class="farmers" id="farmers" style="padding: 7rem 5rem;">
+  <div class="section-label">Meet the Farmers / 農家の方々</div>
+  <h2 lang-en>The hands behind<br>every bowl.</h2>
+  <h2 lang-ja style="display:none;">すべての一椀の<br>裏にある手。</h2>
+  <div class="farmer-grid">
+    <div class="farmer-card">
+      <div class="farmer-avatar">田</div>
+      <div class="farmer-name">Farmer Name</div>
+      <div class="farmer-name-jp">農家の名前</div>
+      <div class="farmer-gen">4th Generation</div>
+      <p class="farmer-quote">"Placeholder — a quote from this farmer about their work, their tea, and why it matters to them."</p>
+    </div>
+    <div class="farmer-card">
+      <div class="farmer-avatar">山</div>
+      <div class="farmer-name">Farmer Name</div>
+      <div class="farmer-name-jp">農家の名前</div>
+      <div class="farmer-gen">3rd Generation</div>
+      <p class="farmer-quote">"Placeholder — a quote from this farmer about their work, their tea, and why it matters to them."</p>
+    </div>
+    <div class="farmer-add">
+      <div class="farmer-add-icon">+</div>
+      <span lang-en>Farmers being added as interviews are completed</span>
+      <span lang-ja style="display:none;">インタビュー完了次第、農家を追加予定</span>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED -->
+<section class="involve" id="involve">
+  <div class="involve-left">
+    <div class="section-label" lang-en>Get Involved</div>
+    <div class="section-label" lang-ja style="display:none;">参加する</div>
+    <h2 lang-en>This project needs<br>more than one voice.</h2>
+    <h2 lang-ja style="display:none;">このプロジェクトには<br>複数の声が必要です。</h2>
+    <p lang-en>Whether you're a student, a researcher, a tea lover, or someone who simply believes in honest food — there's a role for you.</p>
+    <p lang-ja style="display:none;">学生、研究者、お茶愛好家、あるいは誠実な食を信じる方—あなたの役割があります。</p>
+    <form class="involve-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="Name / お名前" required>
+        <input class="form-input" type="email" placeholder="Email / メール" required>
+      </div>
+      <select class="form-select">
+        <option value="" disabled selected>How would you like to help? / どのようにお手伝いできますか？</option>
+        <option>Join the School Club</option>
+        <option>Social Media Collaboration</option>
+        <option>I'm a Researcher / Professor</option>
+        <option>I'm a Farmer / Industry Insider</option>
+        <option>I'm an Influencer / Media</option>
+        <option>General Support</option>
+      </select>
+      <input class="form-input" type="text" placeholder="Message (optional) / メッセージ（任意）">
+      <button type="submit" class="btn-primary" style="align-self: flex-start; cursor: pointer;">
+        <span lang-en>Send Message</span>
+        <span lang-ja style="display:none;">送信する</span>
+      </button>
+    </form>
+  </div>
+  <div class="involve-right">
+    <div class="section-label" lang-en>Contact</div>
+    <div class="section-label" lang-ja style="display:none;">連絡先</div>
+    <div class="contact-item">
+      <div class="contact-label">Location</div>
+      <div class="contact-value">Uji, Kyoto, Japan / 宇治市、京都府</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">School</div>
+      <div class="contact-value">Add your school name here</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">Email</div>
+      <div class="contact-value">your@email.com</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">Instagram</div>
+      <div class="contact-value">@ujimatcha_project</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">Language</div>
+      <div class="contact-value">日本語 / English</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">宇治抹茶 — Uji Matcha Project</div>
+  <div>A high school social impact initiative · Uji, Kyoto · 2025</div>
+  <div>本物を守る</div>
+</footer>
+
+<script>
+  function toggleLang() {
+    document.body.classList.toggle('ja');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert('Thank you! We will be in touch. / ありがとうございます！ご連絡いたします。');
+    e.target.reset();
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.issue-card, .doing-card, .farmer-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
