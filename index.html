@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>本物の宇治抹茶 / Authentic Uji Matcha</title>
+<title>宇治テロワール / Uji Terroir · Authentic Uji Matcha, Farm by Farm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
@@ -630,11 +631,186 @@
     letter-spacing: 0.05em;
   }
 
+  /* ── FARM DETAIL (terroir cards) ── */
+  .farm-index {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.6rem;
+  }
+
+  .farm-pending {
+    font-style: italic;
+    color: rgba(255,255,255,0.42);
+  }
+
+  .farm-profile {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 0.5px solid rgba(255,255,255,0.12);
+  }
+
+  .farm-profile-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .farm-profile-body {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  .farm-cta { display: flex; margin-top: 1.5rem; }
+
+  .farm-link {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(212, 184, 122, 0.4);
+    padding-bottom: 0.15rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .farm-link:hover { color: var(--ivory); border-color: var(--ivory); }
+
+  /* ── SHARED SECTION NOTE ── */
+  .section-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.9;
+    max-width: 62ch;
+    margin-bottom: 3rem;
+  }
+
+  .farmers .section-note { color: rgba(255,255,255,0.5); }
+
+  .section-note-after {
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    font-size: 0.82rem;
+  }
+
+  /* ── TASTE / OFFERS ── */
+  .taste { background: var(--parchment); }
+
+  .taste h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--forest);
+    margin-bottom: 1.5rem;
+    max-width: 26ch;
+    line-height: 1.2;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 0.5px solid var(--border);
+    background: rgba(255,255,255,0.5);
+  }
+
+  .offer-card {
+    padding: 2.5rem 2rem;
+    border-right: 0.5px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .offer-card:last-child { border-right: none; }
+  .offer-card:hover { background: rgba(255,255,255,0.85); }
+
+  .offer-meta {
+    margin-top: 1.5rem;
+    padding-top: 1.1rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--sage);
+    line-height: 1.7;
+  }
+
+  .offer-cta { display: flex; margin-top: 1.5rem; }
+
+  /* ── RESEARCH (secondary) ── */
+  .research { background: var(--warm-white); }
+
+  .research-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3rem;
+    align-items: start;
+    border: 0.5px solid var(--border);
+    background: rgba(255,255,255,0.6);
+    padding: 3rem 3.5rem;
+  }
+
+  .research-inner h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--forest);
+  }
+
+  .research-inner p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .research-inner p:last-child { margin-bottom: 0; }
+
+  /* ── SUPPORT CHANNEL ── */
+  .support-card {
+    border: 0.5px solid var(--border);
+    background: rgba(255,255,255,0.65);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .support-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--forest);
+    margin-bottom: 0.75rem;
+  }
+
+  .support-card p {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .support-cta { display: flex; }
+
+  .contact-note {
+    font-size: 0.68rem;
+    font-style: italic;
+    color: rgba(92, 88, 72, 0.65);
+    letter-spacing: 0.02em;
+  }
+
   /* ── LANG TOGGLE ── */
   [lang-en], [lang-ja] { transition: opacity 0.3s; }
   body.ja [lang-en] { display: none; }
-  body.ja [lang-ja] { display: block; }
+  /* !important is required: every [lang-ja] element carries an inline
+     style="display:none;" so the page renders in English before any JS runs,
+     and an inline declaration outranks a plain rule from this stylesheet. */
+  body.ja [lang-ja] { display: block !important; }
   body:not(.ja) [lang-ja] { display: none; }
+
+  /* keeps the bordered chip hugging its text once [lang-ja] is forced to block */
+  .farm-tag { display: flex; }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
@@ -726,6 +902,10 @@
     .doing-grid { grid-template-columns: 1fr 1fr; }
     .doing-card { border-bottom: 0.5px solid var(--border); }
     .farmer-grid { grid-template-columns: 1fr; }
+    .offer-grid { grid-template-columns: 1fr; }
+    .offer-card { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .offer-card:last-child { border-bottom: none; }
+    .research-inner { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
     .involve { grid-template-columns: 1fr; }
     .involve-left { padding: 4rem 2rem; border-right: none; border-bottom: 0.5px solid var(--border); }
     .involve-right { padding: 4rem 2rem; }
@@ -739,7 +919,7 @@
 <!-- ── 3D INTRO ──
      A perspective-projected cloud of matcha powder motes swirls out of the dark,
      gathers into the word "matcha", then scatters as the wordmark resolves.
-     Built on a plain canvas — no library, no external scene file.
+     Built on a plain canvas: no library, no external scene file.
 
      To drive this from a published Spline scene instead, publish the scene in
      Spline (Export → Code / Web) and swap the canvas for:
@@ -775,21 +955,30 @@
   /* ── timeline, in seconds ── */
   // Phases must not overlap: the powder has to finish spelling the word
   // (gather + its per-mote stagger) before the wordmark resolves over it.
+  // powderOut is a SEPARATE hard fade across every mote, because the lingering ones
+  // deliberately survive `scatter`, and must still be gone before the headline.
   var T = {
-    gather: 0.60, gatherDur: 1.50,   // powder pulls into the letterforms
-    word:   2.85, wordDur:   1.00,   // …holds, then the wordmark resolves
-    scatter:3.70, scatterDur:1.40,   // …then the powder lets go
-    slogan: 4.20, sloganDur: 1.00,
-    out:    5.70, outDur:    0.70
+    gather:    0.55, gatherDur:    1.75,  // powder drifts in and settles
+    word:      3.10, wordDur:      1.00,  // the wordmark resolves out of it
+    scatter:   3.90, scatterDur:   1.30,  // the powder lets go; a few linger
+    powderOut: 4.60, powderOutDur: 0.70,  // every last mote clears
+    wordOut:   4.90, wordOutDur:   0.70,  // "matcha" recedes
+    head:      5.60, headDur:      1.00,  // the site's own headline
+    out:       7.70, outDur:       0.80
   };
   var END = T.out + T.outDur;
 
   var FOV = 900;
   var WORD = 'matcha';
-  var LINE_TOP = 'the quiet ritual of';
-  var LINE_BOT = '宇治、京都  ·  uji, kyoto';
+  // The intro closes on the site's real message, not a decorative slogan.
+  // Runs mirror the hero, which italicises "a Place."
+  var HEAD = [
+    [{ t: 'Matcha Travelled the World.' }],
+    [{ t: 'Uji Is Still ' }, { t: 'a Place.', i: true }]
+  ];
 
   var W = 0, H = 0, dpr = 1, wordPx = 0, wordFont = '', motes = [], pts = [];
+  var family = '"Cormorant Garamond", Georgia, serif', headPx = 0;
   var camX = 0, camY = 0, tCamX = 0, tCamY = 0;
   var raf = 0, t0 = 0, finished = false;
 
@@ -798,6 +987,8 @@
   function p(t, start, dur) { return clamp01((t - start) / dur); }
   function easeInOut(x) { return 0.5 - Math.cos(Math.PI * x) / 2; }
   function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+  // long-tailed decelerate: grains coast to a stop instead of snapping
+  function easeOutQuart(x) { return 1 - Math.pow(1 - x, 4); }
 
   var seed = 20240;
   function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
@@ -816,7 +1007,7 @@
     var w = Math.ceil(g.measureText(text).width + px);
     var h = Math.ceil(px * 2);
     c.width = w; c.height = h;
-    // canvas.width truncates to an integer — read the backing size back, or a
+    // canvas.width truncates to an integer, so read the backing size back, or a
     // fractional stride makes every row index land off-buffer and read undefined
     w = c.width; h = c.height;
     g.font = f;                                  // resizing the canvas clears state
@@ -837,8 +1028,102 @@
     return out;
   }
 
+  /* ── powder grain ──────────────────────────────────────────────────────────
+     Milled matcha is fine, soft-edged and slightly clumpy, so a grain is a
+     pre-rendered radial sprite rather than a hard arc() fill, much softer,
+     and cheaper than stroking 1200 paths a frame. Two profiles per colour: a
+     tight CORE (the grain) and a diffuse GLOW (the bloom around it).
+     Deep emerald sits close to the forest background in luminance, so the mix
+     is weighted toward the light end and everything composites additively. */
+  var PALETTE = [
+    { hex: '#a9cd82', w: 12 },   // fleck, catches the light
+    { hex: '#8cbb63', w: 34 },   // highlight
+    { hex: '#5f9440', w: 38 },   // core matcha
+    { hex: '#47762f', w: 16 }    // shade
+  ];
+  var sprites = null;
+
+  // weighted bag, so most grains land in the light-to-mid range
+  var PICK = [];
+  (function () {
+    for (var i = 0; i < PALETTE.length; i++) {
+      for (var k = 0; k < PALETTE[i].w; k++) { PICK.push(i); }
+    }
+  })();
+
+  function makeSprite(hex, glow) {
+    var S = 64;
+    var c = document.createElement('canvas');
+    c.width = S; c.height = S;
+    var g = c.getContext('2d');
+    var rgb = parseInt(hex.slice(1, 3), 16) + ',' +
+              parseInt(hex.slice(3, 5), 16) + ',' +
+              parseInt(hex.slice(5, 7), 16);
+    var grd = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    if (glow) {
+      grd.addColorStop(0, 'rgba(' + rgb + ',0.55)');
+      grd.addColorStop(0.35, 'rgba(' + rgb + ',0.22)');
+      grd.addColorStop(1, 'rgba(' + rgb + ',0)');
+    } else {
+      grd.addColorStop(0, 'rgba(' + rgb + ',1)');
+      grd.addColorStop(0.35, 'rgba(' + rgb + ',0.5)');
+      grd.addColorStop(0.72, 'rgba(' + rgb + ',0.12)');
+      grd.addColorStop(1, 'rgba(' + rgb + ',0)');
+    }
+    g.fillStyle = grd;
+    g.fillRect(0, 0, S, S);
+    return c;
+  }
+
+  function buildSprites() {
+    sprites = { core: [], glow: [] };
+    for (var i = 0; i < PALETTE.length; i++) {
+      sprites.core.push(makeSprite(PALETTE[i].hex, false));
+      sprites.glow.push(makeSprite(PALETTE[i].hex, true));
+    }
+  }
+
+  /* ── headline: mixed roman/italic runs, centred and fitted to the frame ── */
+  function runFont(px, italic) {
+    return (italic ? 'italic ' : '') + '300 ' + px + 'px ' + family;
+  }
+
+  function lineWidth(runs, px) {
+    var w = 0;
+    if ('letterSpacing' in ctx) { ctx.letterSpacing = '0em'; }
+    for (var i = 0; i < runs.length; i++) {
+      ctx.font = runFont(px, runs[i].i);
+      w += ctx.measureText(runs[i].t).width;
+    }
+    return w;
+  }
+
+  // Shrink until the longest line fits. Both headline lines are long, and a
+  // fixed multiplier of wordPx overflows the frame on narrow screens.
+  function fitHeadline() {
+    var px = Math.max(15, Math.round(wordPx * 0.34));
+    var max = W * 0.88;
+    while (px > 12) {
+      var widest = 0;
+      for (var i = 0; i < HEAD.length; i++) {
+        widest = Math.max(widest, lineWidth(HEAD[i], px));
+      }
+      if (widest <= max) { break; }
+      px -= 1;
+    }
+    return px;
+  }
+
+  function drawRuns(runs, originX, y) {
+    var x = originX - lineWidth(runs, headPx) / 2;
+    for (var i = 0; i < runs.length; i++) {
+      ctx.font = runFont(headPx, runs[i].i);
+      ctx.fillText(runs[i].t, x, y);
+      x += ctx.measureText(runs[i].t).width;
+    }
+  }
+
   /* ── build / rebuild the mote cloud for the current viewport ── */
-  var TINTS = ['#f5efe0', '#e8e2cf', '#cddcbe', '#b8ceac'];
 
   function layout() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -848,21 +1133,26 @@
     cv.height = Math.round(H * dpr);
     wordPx = Math.round(Math.max(46, Math.min(W * 0.185, 190)));
 
-    // The sampler and the renderer MUST use the same face, or the powder would
-    // spell the word in one font while the wordmark resolves in another. Pick
-    // one string here and let both sides share it.
-    wordFont = fontFor(wordPx, 600);
-    if (!(document.fonts && document.fonts.check(wordFont))) {
-      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+    // The sampler and every text pass MUST share one family, or the powder
+    // would spell the word in one face while the wordmark resolves in another.
+    // Pick it once here.
+    family = '"Cormorant Garamond", Georgia, serif';
+    if (!(document.fonts && document.fonts.check(fontFor(wordPx, 600)))) {
+      family = 'Georgia, "Times New Roman", serif';
     }
+    wordFont = '600 ' + wordPx + 'px ' + family;
     pts = sampleWord(WORD, wordPx, wordFont);
 
     // A face that reports ready but rasterises blank yields almost no points;
     // fall back to a face that is always present rather than ship 70 motes.
     if (pts.length / 2 < 300) {
-      wordFont = '600 ' + wordPx + 'px Georgia, "Times New Roman", serif';
+      family = 'Georgia, "Times New Roman", serif';
+      wordFont = '600 ' + wordPx + 'px ' + family;
       pts = sampleWord(WORD, wordPx, wordFont);
     }
+
+    headPx = fitHeadline();
+    buildSprites();
 
     var n = pts.length / 2;
     var count = W < 700 ? 620 : 1200;
@@ -874,6 +1164,11 @@
       var a = rnd() * Math.PI * 2;
       var r = (W * 0.28) + rnd() * (W * 0.55);
       var b = rnd() * Math.PI * 2;
+      // Fine dust mostly, a few visible clumps, like sifted powder. Soft
+      // sprites spread their energy across the disc, so these run larger than
+      // the hard arc() radii they replaced or the grains read as sub-pixel dirt.
+      var grain = 0.9 + Math.pow(rnd(), 2.2) * 4.2;
+      var ci = PICK[(rnd() * PICK.length) | 0];
 
       motes[i] = {
         // target: a point inside a letterform
@@ -889,13 +1184,18 @@
         oy: -(H * 0.12) - rnd() * H * 0.35,
         oz: (rnd() - 0.5) * 420,
         dIn: rnd() * 0.7,
-        dGa: rnd() * 0.55,
+        dGa: rnd() * 0.70,
         dSc: rnd() * 0.60,
-        r: 0.7 + rnd() * 1.9,
+        r: grain,
+        ci: ci,
+        // bloom only on the bigger, lighter grains, which keeps the extra pass cheap
+        glows: (grain > 1.5 || ci < 2) && rnd() < 0.55,
+        // a perpendicular bow, so grains drift in on a curve not a straight vacuum
+        bow: 20 + rnd() * 50,
+        bowA: rnd() * Math.PI * 2,
         ph: rnd() * Math.PI * 2,
         sp: 0.25 + rnd() * 0.5,
-        lingers: (i % 7 === 0),
-        c: TINTS[(rnd() * TINTS.length) | 0]
+        lingers: (i % 7 === 0)
       };
     }
   }
@@ -906,89 +1206,129 @@
     if (t >= END) { finish(); return; }
 
     var out = 1 - p(t, T.out, T.outDur);
+    var powderLive = 1 - p(t, T.powderOut, T.powderOutDur);
 
     camX += (tCamX - camX) * 0.06;
     camY += (tCamY - camY) * 0.06;
     var cx = W / 2, cy = H / 2;
+    var wx = cx - camX, wy = cy - camY;
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    for (var i = 0; i < motes.length; i++) {
-      var m = motes[i];
-      var fade = p(t, m.dIn, 0.9);
-      if (fade <= 0) continue;
+    // Grains composite additively: deep emerald is close to the background in
+    // luminance, and accumulating light is what stops it reading as mud.
+    ctx.globalCompositeOperation = 'lighter';
 
-      var gp = easeInOut(p(t, T.gather + m.dGa, T.gatherDur));
-      var sp = easeOutCubic(p(t, T.scatter + m.dSc, T.scatterDur));
-      var sw = 1 - gp;
-
-      // drifting swirl, plus a slow yaw of the whole cloud — reads as depth
-      var ang = t * m.sp + m.ph;
-      var sx = m.sx + Math.sin(ang) * 30 * sw;
-      var sy = m.sy + Math.cos(ang * 0.8) * 24 * sw - t * 10 * sw;
-      var sz = m.sz + Math.sin(ang * 0.6) * 26 * sw;
-      var yaw = Math.sin(t * 0.26) * 0.34 * sw;
-      var cs = Math.cos(yaw), sn = Math.sin(yaw);
-      var rx = sx * cs - sz * sn;
-      var rz = sx * sn + sz * cs;
-
-      // settle-jitter while held in the letterform, then blow outward
-      var jit = 0.9 * gp * (1 - sp);
-      var x = rx * sw + m.tx * gp + m.ox * sp + Math.sin(t * 1.7 + m.ph) * jit;
-      var y = sy * sw + m.ty * gp + m.oy * sp + Math.cos(t * 1.9 + m.ph) * jit;
-      var z = rz * sw + m.tz * gp + m.oz * sp;
-
-      if (m.lingers) {
-        x += Math.sin(t * 0.33 + m.ph) * 36 * sp;
-        y += Math.cos(t * 0.27 + m.ph * 1.4) * 28 * sp;
-      }
-
-      var pr = FOV / (FOV + z);
-      if (pr <= 0.05) continue;
-
-      var alpha = fade * out * (1 - sp * (m.lingers ? 0.55 : 0.95));
-      if (alpha <= 0.004) continue;
-
-      var rad = m.r * pr * (1 - sp * 0.35);
-      if (rad < 0.15) continue;
-
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = m.c;
-      ctx.beginPath();
-      ctx.arc(cx + (x - camX) * pr, cy + (y - camY) * pr, rad, 0, 6.2832);
-      ctx.fill();
+    // a soft green lift behind the word, which sells the luminous powder and lifts
+    // the emerald off the forest ground
+    var lift = p(t, T.gather, 1.6) * powderLive * out;
+    if (lift > 0.002) {
+      var lr = wordPx * 3.4;
+      var lg = ctx.createRadialGradient(wx, wy, 0, wx, wy, lr);
+      lg.addColorStop(0, 'rgba(74,120,52,' + (0.16 * lift) + ')');
+      lg.addColorStop(0.55, 'rgba(58,96,44,' + (0.06 * lift) + ')');
+      lg.addColorStop(1, 'rgba(40,70,34,0)');
+      ctx.fillStyle = lg;
+      ctx.fillRect(wx - lr, wy - lr, lr * 2, lr * 2);
     }
 
-    // the wordmark resolves in the exact spot the motes gathered
-    var wx = cx - camX, wy = cy - camY;
-    var wa = p(t, T.word, T.wordDur) * out;
-    if (wa > 0) {
+    if (powderLive > 0.002) {
+      for (var i = 0; i < motes.length; i++) {
+        var m = motes[i];
+        var fade = p(t, m.dIn, 0.9);
+        if (fade <= 0) continue;
+
+        var gp = easeOutQuart(p(t, T.gather + m.dGa, T.gatherDur));
+        var sp = easeOutCubic(p(t, T.scatter + m.dSc, T.scatterDur));
+        var sw = 1 - gp;
+
+        // drifting swirl, plus a slow yaw of the whole cloud, which reads as depth
+        var ang = t * m.sp + m.ph;
+        var sx = m.sx + Math.sin(ang) * 30 * sw;
+        var sy = m.sy + Math.cos(ang * 0.8) * 24 * sw - t * 10 * sw;
+        var sz = m.sz + Math.sin(ang * 0.6) * 26 * sw;
+        var yaw = Math.sin(t * 0.26) * 0.34 * sw;
+        var cs = Math.cos(yaw), sn = Math.sin(yaw);
+        var rx = sx * cs - sz * sn;
+        var rz = sx * sn + sz * cs;
+
+        // slow breath once settled, so the assembled word shimmers, not buzzes
+        var jit = 1.2 * gp * (1 - sp);
+        var x = rx * sw + m.tx * gp + m.ox * sp + Math.sin(t * 0.6 + m.ph) * jit;
+        var y = sy * sw + m.ty * gp + m.oy * sp + Math.cos(t * 0.7 + m.ph) * jit;
+        var z = rz * sw + m.tz * gp + m.oz * sp;
+
+        // curved approach, peaks mid-flight, zero at both ends
+        var bow = Math.sin(gp * Math.PI) * m.bow * (1 - sp);
+        x += Math.cos(m.bowA) * bow;
+        y += Math.sin(m.bowA) * bow;
+
+        if (m.lingers) {
+          x += Math.sin(t * 0.33 + m.ph) * 36 * sp;
+          y += Math.cos(t * 0.27 + m.ph * 1.4) * 28 * sp;
+        }
+
+        var pr = FOV / (FOV + z);
+        if (pr <= 0.05) continue;
+
+        var alpha = fade * out * powderLive *
+                    (1 - sp * (m.lingers ? 0.40 : 0.95)) *
+                    (0.55 + 0.45 * clamp01(pr));   // nearer grains read brighter
+        if (alpha <= 0.004) continue;
+
+        var rad = m.r * pr * (1 - sp * 0.35);
+        if (rad < 0.12) continue;
+
+        var px = cx + (x - camX) * pr, py = cy + (y - camY) * pr;
+
+        if (m.glows) {
+          var gr = rad * 2.6;
+          ctx.globalAlpha = alpha * 0.18;
+          ctx.drawImage(sprites.glow[m.ci], px - gr, py - gr, gr * 2, gr * 2);
+        }
+        ctx.globalAlpha = alpha * 0.82;
+        ctx.drawImage(sprites.core[m.ci], px - rad, py - rad, rad * 2, rad * 2);
+      }
+    }
+
+    ctx.globalCompositeOperation = 'source-over';
+
+    // the wordmark resolves where the powder gathered, then recedes
+    var wa = p(t, T.word, T.wordDur) * (1 - p(t, T.wordOut, T.wordOutDur)) * out;
+    if (wa > 0.002) {
+      var ws = 1.06 - 0.06 * easeInOut(p(t, T.word, T.wordDur))
+                    - 0.06 * easeInOut(p(t, T.wordOut, T.wordOutDur));
+      ctx.save();
+      ctx.translate(wx, wy);
+      ctx.scale(ws, ws);
       ctx.globalAlpha = wa;
       ctx.fillStyle = '#f5efe0';
       ctx.font = wordFont;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0.04em';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(WORD, wx, wy);
+      ctx.fillText(WORD, 0, 0);
+      ctx.restore();
     }
 
-    var sa = p(t, T.slogan, T.sloganDur) * out;
-    if (sa > 0) {
-      ctx.globalAlpha = sa;
-      ctx.textAlign = 'center';
+    // …and the intro closes on the site's own headline, over clean green
+    var ha = p(t, T.head, T.headDur) * out;
+    if (ha > 0.002) {
+      var hs = 1.04 - 0.04 * easeInOut(p(t, T.head, T.headDur));
+      ctx.save();
+      ctx.translate(wx, wy);
+      ctx.scale(hs, hs);
+      ctx.globalAlpha = ha;
+      ctx.fillStyle = '#f5efe0';
+      ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-
-      ctx.fillStyle = '#bfd3b4';
-      ctx.font = fontFor(Math.max(15, Math.round(wordPx * 0.20)), 400, 'italic');
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.14em';
-      ctx.fillText(LINE_TOP, wx, wy - wordPx * 0.64);
-
-      ctx.fillStyle = '#9dba95';
-      ctx.font = Math.max(11, Math.round(wordPx * 0.14)) +
-                 'px "Cormorant Garamond", "Noto Serif JP", Georgia, serif';
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.26em';
-      ctx.fillText(LINE_BOT, wx, wy + wordPx * 0.62);
+      var lh = headPx * 1.28;
+      var y0 = -((HEAD.length - 1) * lh) / 2;
+      for (var li = 0; li < HEAD.length; li++) {
+        drawRuns(HEAD[li], 0, y0 + li * lh);
+      }
+      ctx.restore();
     }
 
     ctx.globalAlpha = 1;
@@ -1033,6 +1373,10 @@
   function start() {
     layout();
     t0 = performance.now();
+    // Opened in a background tab: rAF is suspended, so seed the pause here too.
+    // Without this the clock runs while nothing renders, and the visitor's
+    // first sight of the page is an intro that is already over.
+    if (document.hidden) { hiddenAt = t0; }
     raf = requestAnimationFrame(draw);
   }
 
@@ -1040,7 +1384,7 @@
   // green screen while Google Fonts loads is worse than starting on a fallback:
   // layout() samples Georgia until Cormorant is available. If the display face
   // lands before the powder starts gathering, re-sample so the motes spell the
-  // real face — re-seeding is deterministic, so the swirl doesn't jump.
+  // real face, and re-seeding is deterministic, so the swirl doesn't jump.
   start();
 
   if (document.fonts && document.fonts.load) {
@@ -1051,8 +1395,9 @@
       if (document.fonts.check(fontFor(wordPx, 600))) layout();
     };
     Promise.all([
-      document.fonts.load(fontFor(129, 600)),
-      document.fonts.load(fontFor(40, 400, 'italic'))
+      document.fonts.load(fontFor(129, 600)),          // the wordmark
+      document.fonts.load(fontFor(40, 300)),           // the headline
+      document.fonts.load(fontFor(40, 300, 'italic'))  // …and its italic run
     ]).then(upgrade, upgrade);
   }
 })();
@@ -1060,196 +1405,343 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">宇治抹茶 Uji Matcha</a>
+  <a href="#" class="nav-logo">宇治 Uji Terroir</a>
   <ul class="nav-links">
-    <li><a href="#problem">The Issue</a></li>
-    <li><a href="#doing">Our Work</a></li>
-    <li><a href="#farmers">Farmers</a></li>
-    <li><a href="#involve">Get Involved</a></li>
+    <li>
+      <a href="#why" lang-en>Why It Matters</a>
+      <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
+    </li>
+    <li>
+      <a href="#approach" lang-en>Our Approach</a>
+      <a href="#approach" lang-ja style="display:none;">やり方</a>
+    </li>
+    <li>
+      <a href="#farms" lang-en>The Farms</a>
+      <a href="#farms" lang-ja style="display:none;">農家と畑</a>
+    </li>
+    <li>
+      <a href="#taste" lang-en>Taste</a>
+      <a href="#taste" lang-ja style="display:none;">味わう</a>
+    </li>
+    <li>
+      <a href="#support" lang-en>Take Part</a>
+      <a href="#support" lang-ja style="display:none;">参加する</a>
+    </li>
   </ul>
   <div class="nav-lang" onclick="toggleLang()">日本語 / EN</div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO / WHY -->
 <section class="hero" style="padding:0;">
   <div class="hero-left">
-    <div class="hero-eyebrow fade-up">Uji, Kyoto — 宇治、京都</div>
+    <div class="hero-eyebrow fade-up">Uji, Kyoto · 宇治、京都</div>
     <h1 class="hero-title fade-up delay-1">
-      <span lang-en>The World Thinks Matcha Is <em>Everywhere.</em><br>Real Uji Matcha Is Disappearing.</span>
-      <span lang-ja style="display:none;">世界は抹茶を<br>知っていると<br><em>思っている。</em></span>
+      <span lang-en>Matcha Travelled the World.<br>Uji Is Still <em>a Place.</em></span>
+      <span lang-ja style="display:none;">抹茶は世界へ<br>広がった。<br>宇治は、いまも<em>土地の名前。</em></span>
     </h1>
-    <p class="hero-jp fade-up delay-2">本物の宇治抹茶を守る</p>
+    <p class="hero-jp fade-up delay-2">宇治の風土を、畑ごとに。</p>
     <p class="hero-body fade-up delay-3" lang-en>
-      Behind every bowl of authentic Uji matcha is an aging farmer, centuries of knowledge, and a name being quietly stolen by the global market. We are students from Uji working to change that.
+      Matcha has moved out of the tea room and into cafés, kitchens, and daily routines everywhere. Uji is not a flavour category. It is a place, a set of methods, and a small number of farms that still work them. We keep that character visible, farm by farm, while there is still time.
     </p>
     <p class="hero-body fade-up delay-3" lang-ja style="display:none;">
-      本物の宇治抹茶の一椀の裏には、年老いた農家、何世紀もの知識、そして世界市場に静かに奪われつつある名前があります。私たちは宇治の高校生として、それを変えるために活動しています。
+      抹茶は茶室を出て、世界中のカフェへ、台所へ、日々の習慣の中へと広がりました。けれど宇治は、味の分類ではありません。ひとつの土地であり、受け継がれてきた手法であり、いまもそれを続ける数少ない農家のことです。その個性を、畑ごとに見えるかたちで残していきます。
     </p>
     <div class="hero-cta fade-up delay-4">
-      <a href="#involve" class="btn-primary" lang-en>Get Involved</a>
-      <a href="#involve" class="btn-primary" lang-ja style="display:none;">参加する</a>
-      <a href="#problem" class="btn-ghost" lang-en>Learn the Issue</a>
-      <a href="#problem" class="btn-ghost" lang-ja style="display:none;">問題を知る</a>
+      <a href="#farms" class="btn-primary" lang-en>Meet the Farms</a>
+      <a href="#farms" class="btn-primary" lang-ja style="display:none;">農家を訪ねる</a>
+      <a href="#taste" class="btn-ghost" lang-en>Taste the Difference</a>
+      <a href="#taste" class="btn-ghost" lang-ja style="display:none;">味の違いを知る</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-bg-pattern"></div>
-    <div class="hero-kanji">抹</div>
+    <div class="hero-kanji">畑</div>
     <div class="hero-stat-grid">
       <div class="hero-stat">
         <div class="hero-stat-number">800+</div>
-        <div class="hero-stat-label">Years of Uji Tea History</div>
+        <div class="hero-stat-label" lang-en>Years of Tea Growing in Uji</div>
+        <div class="hero-stat-label" lang-ja style="display:none;">宇治で茶が育てられてきた年数</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-number">↓62%</div>
-        <div class="hero-stat-label">Farmers in 20 Years</div>
+        <div class="hero-stat-number">Few</div>
+        <div class="hero-stat-label" lang-en>Farms Still Working This Way</div>
+        <div class="hero-stat-label" lang-ja style="display:none;">いまも伝統の手法を続ける農家</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-number">¥0</div>
-        <div class="hero-stat-label">Legal Protection Abroad</div>
+        <div class="hero-stat-number">1 : 1</div>
+        <div class="hero-stat-label" lang-en>One Farm, One Taste Profile</div>
+        <div class="hero-stat-label" lang-ja style="display:none;">ひとつの農家に、ひとつの味</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-number">~30%</div>
-        <div class="hero-stat-label">Leaves Discarded as Over-Spec</div>
+        <div class="hero-stat-number">0</div>
+        <div class="hero-stat-label" lang-en>Blending Across Farms</div>
+        <div class="hero-stat-label" lang-ja style="display:none;">農家をまたいだブレンドはしない</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem" id="problem">
+<!-- WHY / WHAT -->
+<section class="problem" id="why">
   <div class="problem-left">
-    <div class="section-label" lang-en>The Issue</div>
-    <div class="section-label" lang-ja style="display:none;">問題</div>
-    <h2 lang-en>A name without<br>protection is a name<br>without meaning.</h2>
-    <h2 lang-ja style="display:none;">守られない名前は、<br>意味を失う。</h2>
+    <div class="section-label" lang-en>Why It Matters</div>
+    <div class="section-label" lang-ja style="display:none;">なぜ、いま</div>
+    <h2 lang-en>Matcha is everywhere now.<br>The place it came from<br>should not disappear.</h2>
+    <h2 lang-ja style="display:none;">抹茶は世界に広がった。<br>その味が生まれた土地は、<br>失われてはならない。</h2>
     <p lang-en>
-      Walk into any café in the world and order "matcha." What arrives is almost certainly not from Uji — or even from Japan. The word matcha has been borrowed, diluted, and mass-produced globally, with no legal framework to stop it.
+      Matcha consumption is rising quickly around the world. It has moved from traditional tea rooms into cafés, kitchens, and daily routines, and that is a good thing.
     </p>
     <p lang-ja style="display:none;">
-      世界中のカフェで「抹茶」を注文してください。届くのはほぼ確実に宇治産ではなく、日本産ですらないでしょう。「抹茶」という言葉は世界中で借用・希薄化・大量生産されており、それを止める法的枠組みは存在しません。
+      抹茶の消費は、いま世界中で急速に増えています。茶室を出て、カフェへ、台所へ、日々の習慣の中へ。それ自体は、よろこばしいことです。
     </p>
     <p lang-en>
-      Meanwhile, the farmers in Uji — the people who have cultivated this art for generations — watch their income shrink and their knowledge go unrecognised.
+      But as the category grows, the Uji name, the name that helped define high-quality matcha for centuries, is being used more loosely and protected less. The farmers who still work the traditional way are ageing, and the distinctive character of this place, the one we grew up with, is quietly slipping away.
     </p>
     <p lang-ja style="display:none;">
-      一方、何世代にもわたってこの技術を培ってきた宇治の農家は、収入が減り、知識が認められないまま見守っています。
+      けれど市場が広がる一方で、何世紀にもわたって上質な抹茶の基準をつくってきた「宇治」という名前は、ゆるやかに使われ、守られなくなってきています。昔ながらの手法を続ける農家は高齢化し、私たちが育ったこの土地ならではの個性は、静かに失われつつあります。
+    </p>
+    <p lang-en>
+      We believe that as matcha becomes more popular, the origin and the craftsmanship that made it special should not disappear, and that we still have time to protect both.
+    </p>
+    <p lang-ja style="display:none;">
+      抹茶が広まっていくほど、それを生んだ土地と手仕事こそ残されるべきだと考えています。そして、その両方を守る時間は、まだ残されています。
     </p>
   </div>
   <div class="problem-right">
+    <div class="section-label" lang-en>What We Are Trying to Change</div>
+    <div class="section-label" lang-ja style="display:none;">変えたいこと</div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>Brand Misrepresentation</div>
-      <div class="issue-card-title" lang-ja style="display:none;">ブランドの誤表示</div>
-      <p class="issue-card-body" lang-en>Products worldwide are labeled and sold as "matcha" without meeting any standard for origin, quality, or production method. There is no international GI protection for the Uji name.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">世界中の製品が原産地・品質・製造方法の基準を満たさないまま「抹茶」として販売されています。宇治の名称に対する国際的なGI保護は存在しません。</p>
+      <div class="issue-card-title" lang-en>The Uji Name, Used Loosely</div>
+      <div class="issue-card-title" lang-ja style="display:none;">ゆるやかに使われる「宇治」の名</div>
+      <p class="issue-card-body" lang-en>The name is increasingly applied at a distance from the work that earned it. Each time it is used loosely, it carries a little less meaning, and the farms that still stand behind it become harder to find.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">「宇治」の名は、その名を支えてきた仕事から離れて使われることが増えています。使われ方がゆるくなるほど名前の意味は薄れ、いまも名に見合う仕事を続ける農家は見つけにくくなります。</p>
     </div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>An Aging, Successor-Less Industry</div>
-      <div class="issue-card-title" lang-ja style="display:none;">高齢化と後継者不足</div>
-      <p class="issue-card-body" lang-en>Most Uji tea farmers are elderly. The knowledge of shade-cultivation, hand-picking, and stone-ground processing is disappearing with each passing year. The window to act is closing.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">宇治の茶農家のほとんどは高齢者です。覆下栽培、手摘み、石臼製法の知識は年々失われています。行動する時間は限られています。</p>
+      <div class="issue-card-title" lang-en>Knowledge Held in Ageing Hands</div>
+      <div class="issue-card-title" lang-ja style="display:none;">高齢の手に残る知識</div>
+      <p class="issue-card-body" lang-en>Shade cultivation, picking, and the judgement of when a leaf is ready are carried by farmers who have practised them for decades. Much of that knowledge has never been written down, and fewer people are there to receive it.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">覆下栽培、摘み方、茶葉の見極め。その多くは、何十年も続けてきた農家の身体に残る知識です。書き残されておらず、受け継ぐ人も少なくなっています。</p>
     </div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>Over-Spec Leaf Waste</div>
-      <div class="issue-card-title" lang-ja style="display:none;">規格外茶葉の廃棄</div>
-      <p class="issue-card-body" lang-en>A significant portion of harvested leaves are discarded because they don't meet premium matcha specifications — a waste of both resources and farmer labour that could be transformed into a circular economy.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">収穫した茶葉のかなりの割合が、高級抹茶の規格を満たさないとして廃棄されています。これは資源と農家の労働の無駄であり、循環経済に変えることができます。</p>
+      <div class="issue-card-title" lang-en>Farm-by-Farm Character</div>
+      <div class="issue-card-title" lang-ja style="display:none;">畑ごとの個性</div>
+      <p class="issue-card-body" lang-en>Fields a short walk apart do not give the same cup. When tea is blended and sold by region alone, that difference, the most interesting thing about this place, never reaches anyone's bowl.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">歩いて数分の畑でも、同じ味にはなりません。産地だけを名乗って混ぜてしまうと、この土地のいちばん面白い違いが、誰の一椀にも届かなくなります。</p>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE'RE DOING -->
-<section class="doing" id="doing">
-  <div class="section-label" lang-en>What We're Doing</div>
-  <div class="section-label" lang-ja style="display:none;">私たちの活動</div>
-  <h2 lang-en>Small actions.<br>Real change.</h2>
-  <h2 lang-ja style="display:none;">小さな行動。<br>本物の変化。</h2>
+<!-- HOW -->
+<section class="doing" id="approach">
+  <div class="section-label" lang-en>Our Approach</div>
+  <div class="section-label" lang-ja style="display:none;">私たちのやり方</div>
+  <h2 lang-en>Farm by farm,<br>not region by region.</h2>
+  <h2 lang-ja style="display:none;">産地ごとではなく、<br>畑ごとに。</h2>
   <div class="doing-grid">
     <div class="doing-card">
       <div class="doing-number">01</div>
-      <div class="doing-title" lang-en>Farmer Storytelling</div>
-      <div class="doing-title" lang-ja style="display:none;">農家のストーリー</div>
-      <div class="doing-jp">農家の物語</div>
-      <p class="doing-body" lang-en>Interviewing and documenting Uji's farmers — their history, methods, and challenges — to create content that humanises the brand and educates the world.</p>
-      <p class="doing-body" lang-ja style="display:none;">宇治の農家にインタビューし、その歴史・技法・課題を記録することで、ブランドに人間性を与え、世界を教育するコンテンツを制作します。</p>
+      <div class="doing-title" lang-en>Farm by Farm</div>
+      <div class="doing-title" lang-ja style="display:none;">畑ごとに</div>
+      <div class="doing-jp">畑ごと</div>
+      <p class="doing-body" lang-en>We work one farm at a time, treating each piece of land, each farmer's knowledge, and each slight difference in taste as something valuable and worth protecting.</p>
+      <p class="doing-body" lang-ja style="display:none;">ひとつの農家、ひとつの畑ずつ向き合います。その土地も、農家の知識も、わずかな味の違いも、守る価値のあるものとして扱います。</p>
     </div>
     <div class="doing-card">
       <div class="doing-number">02</div>
-      <div class="doing-title" lang-en>School Club</div>
-      <div class="doing-title" lang-ja style="display:none;">学校クラブ</div>
-      <div class="doing-jp">学校での活動</div>
-      <p class="doing-body" lang-en>Building a school club to engage fellow students in research, community outreach, and local event planning — making advocacy part of school life in Uji.</p>
-      <p class="doing-body" lang-ja style="display:none;">学校クラブを設立し、同級生が調査・地域活動・地域イベント企画に参加できるようにします。宇治の学校生活に提唱活動を組み込みます。</p>
+      <div class="doing-title" lang-en>Made Visible</div>
+      <div class="doing-title" lang-ja style="display:none;">見えるようにする</div>
+      <div class="doing-jp">見える化</div>
+      <p class="doing-body" lang-en>The human and place-based character of Uji usually stays hidden behind a blend. We record it and publish it: who grew the tea, on which land, by which methods, and how it tastes.</p>
+      <p class="doing-body" lang-ja style="display:none;">宇治の人と土地の個性は、ふつうブレンドの奥に隠れたままです。誰が、どの土地で、どんな手法で育て、どんな味になるのか。私たちはそれを記録し、公開します。</p>
     </div>
     <div class="doing-card">
       <div class="doing-number">03</div>
-      <div class="doing-title" lang-en>Social Media Awareness</div>
-      <div class="doing-title" lang-ja style="display:none;">SNSでの啓発</div>
-      <div class="doing-jp">ソーシャルメディア</div>
-      <p class="doing-body" lang-en>Creating bilingual content in partnership with farmers and aligned influencers to spread awareness about authentic Uji matcha and the issues facing its producers.</p>
-      <p class="doing-body" lang-ja style="display:none;">農家やインフルエンサーと協力してバイリンガルコンテンツを制作し、本物の宇治抹茶と生産者が直面する問題への意識を広めます。</p>
+      <div class="doing-title" lang-en>Direct Connections</div>
+      <div class="doing-title" lang-ja style="display:none;">直接つながる</div>
+      <div class="doing-jp">直接つなぐ</div>
+      <p class="doing-body" lang-en>We create direct connections between the farmers who still work this way and the people who care about origin and craftsmanship, with as little as possible in between.</p>
+      <p class="doing-body" lang-ja style="display:none;">昔ながらの手法を続ける農家と、産地と手仕事を大切にする人。その間にできるだけ何も挟まずに、直接つなぎます。</p>
     </div>
     <div class="doing-card">
       <div class="doing-number">04</div>
-      <div class="doing-title" lang-en>Circular Economy Research</div>
-      <div class="doing-title" lang-ja style="display:none;">循環型経済の研究</div>
-      <div class="doing-jp">循環経済</div>
-      <p class="doing-body" lang-en>Exploring how over-spec leaves — currently discarded — can be transformed into new products, reducing waste and creating supplemental income for farmers.</p>
-      <p class="doing-body" lang-ja style="display:none;">現在廃棄されている規格外茶葉を新製品に変え、廃棄物を減らし農家の補助収入を生み出す方法を探っています。</p>
+      <div class="doing-title" lang-en>Scarcity as Strength</div>
+      <div class="doing-title" lang-ja style="display:none;">希少であること</div>
+      <div class="doing-jp">希少性</div>
+      <p class="doing-body" lang-en>Farm-specific Uji matcha is naturally limited. We treat that as a strength rather than a limitation: small lots, named farms, and seasons that end when the harvest does.</p>
+      <p class="doing-body" lang-ja style="display:none;">畑を特定できる宇治抹茶は、もともと量が限られています。それを制約ではなく強みと考えます。小さなロット、名前のある農家、収穫とともに終わる季節。</p>
     </div>
   </div>
 </section>
 
-<!-- FARMERS -->
-<section class="farmers" id="farmers" style="padding: 7rem 5rem;">
-  <div class="section-label">Meet the Farmers / 農家の方々</div>
-  <h2 lang-en>The hands behind<br>every bowl.</h2>
-  <h2 lang-ja style="display:none;">すべての一椀の<br>裏にある手。</h2>
+<!-- THE FARMS -->
+<section class="farmers" id="farms" style="padding: 7rem 5rem;">
+  <div class="section-label">The Farms / 農家と畑</div>
+  <h2 lang-en>Each farm has its own<br>story and its own taste.</h2>
+  <h2 lang-ja style="display:none;">農家ごとに、<br>物語と味がある。</h2>
+  <p class="section-note" lang-en>
+    Farm profiles are being recorded one farm at a time: the land, the methods, the family behind them, and the taste that comes out of that particular plot. The cards below show the structure a finished profile takes. Names and tasting notes appear only once they have been confirmed with the farmer.
+  </p>
+  <p class="section-note" lang-ja style="display:none;">
+    農家ごとのプロフィールは、いま一軒ずつ取材して記録しています。その土地、その手法、受け継いできた人、そしてその畑から生まれる味。以下のカードは、完成したプロフィールの掲載のかたちを示すものです。名前と味の記述は、農家ご本人に確認できたものだけを掲載します。
+  </p>
   <div class="farmer-grid">
     <div class="farmer-card">
-      <div class="farmer-avatar">田</div>
-      <div class="farmer-name">Farmer Name</div>
-      <div class="farmer-name-jp">農家の名前</div>
-      <div class="farmer-gen">4th Generation</div>
-      <p class="farmer-quote">"Placeholder — a quote from this farmer about their work, their tea, and why it matters to them."</p>
+      <div class="farmer-avatar">一</div>
+      <div class="farm-index">Farm 01 · Uji, Kyoto</div>
+      <div class="farmer-name farm-pending" lang-en>Farm name to be added</div>
+      <div class="farmer-name farm-pending" lang-ja style="display:none;">農家名は今後掲載</div>
+      <div class="farmer-name-jp" lang-en>Placeholder card: not a real farm yet</div>
+      <div class="farmer-name-jp" lang-ja style="display:none;">掲載準備中のサンプルです</div>
+      <div class="farm-tag">
+        <div class="farmer-gen" lang-en>Placeholder</div>
+        <div class="farmer-gen" lang-ja style="display:none;">掲載準備中</div>
+      </div>
+      <div class="farm-profile">
+        <div class="farm-profile-label" lang-en>Taste Profile</div>
+        <div class="farm-profile-label" lang-ja style="display:none;">味の輪郭</div>
+        <p class="farm-profile-body" lang-en>To be recorded with the farmer: shading, harvest, and how this plot differs from the fields beside it. Nothing is written here until it has been tasted and confirmed.</p>
+        <p class="farm-profile-body" lang-ja style="display:none;">覆いのかけ方、収穫の時期、隣の畑との違い。農家とともに確かめてから記します。実際に味わって確認できるまで、ここには何も書きません。</p>
+      </div>
+      <div class="farm-cta">
+        <a href="#support" class="farm-link" lang-en>Follow this farm's story</a>
+        <a href="#support" class="farm-link" lang-ja style="display:none;">この農家の記録を追う</a>
+      </div>
     </div>
     <div class="farmer-card">
-      <div class="farmer-avatar">山</div>
-      <div class="farmer-name">Farmer Name</div>
-      <div class="farmer-name-jp">農家の名前</div>
-      <div class="farmer-gen">3rd Generation</div>
-      <p class="farmer-quote">"Placeholder — a quote from this farmer about their work, their tea, and why it matters to them."</p>
+      <div class="farmer-avatar">二</div>
+      <div class="farm-index">Farm 02 · Uji, Kyoto</div>
+      <div class="farmer-name farm-pending" lang-en>Farm name to be added</div>
+      <div class="farmer-name farm-pending" lang-ja style="display:none;">農家名は今後掲載</div>
+      <div class="farmer-name-jp" lang-en>Placeholder card: not a real farm yet</div>
+      <div class="farmer-name-jp" lang-ja style="display:none;">掲載準備中のサンプルです</div>
+      <div class="farm-tag">
+        <div class="farmer-gen" lang-en>Placeholder</div>
+        <div class="farmer-gen" lang-ja style="display:none;">掲載準備中</div>
+      </div>
+      <div class="farm-profile">
+        <div class="farm-profile-label" lang-en>Taste Profile</div>
+        <div class="farm-profile-label" lang-ja style="display:none;">味の輪郭</div>
+        <p class="farm-profile-body" lang-en>To be recorded with the farmer: shading, harvest, and how this plot differs from the fields beside it. Nothing is written here until it has been tasted and confirmed.</p>
+        <p class="farm-profile-body" lang-ja style="display:none;">覆いのかけ方、収穫の時期、隣の畑との違い。農家とともに確かめてから記します。実際に味わって確認できるまで、ここには何も書きません。</p>
+      </div>
+      <div class="farm-cta">
+        <a href="#support" class="farm-link" lang-en>Follow this farm's story</a>
+        <a href="#support" class="farm-link" lang-ja style="display:none;">この農家の記録を追う</a>
+      </div>
     </div>
     <div class="farmer-add">
       <div class="farmer-add-icon">+</div>
-      <span lang-en>Farmers being added as interviews are completed</span>
-      <span lang-ja style="display:none;">インタビュー完了次第、農家を追加予定</span>
+      <span lang-en>Farms added as their stories are recorded</span>
+      <span lang-ja style="display:none;">記録が整い次第、農家を追加します</span>
     </div>
   </div>
 </section>
 
-<!-- GET INVOLVED -->
-<section class="involve" id="involve">
+<!-- TASTE -->
+<section class="taste" id="taste">
+  <div class="section-label" lang-en>Taste the Difference</div>
+  <div class="section-label" lang-ja style="display:none;">味の違いを知る</div>
+  <h2 lang-en>Matcha you can trace<br>back to one field.</h2>
+  <h2 lang-ja style="display:none;">ひとつの畑まで<br>たどれる抹茶。</h2>
+  <p class="section-note" lang-en>
+    Everything below is tied to a named farm and a specific harvest, with that farm's story alongside it. Nothing is blended across farms. Quantities follow the harvest rather than demand, so lots are small. When a lot is finished, that particular cup is finished with it.
+  </p>
+  <p class="section-note" lang-ja style="display:none;">
+    以下はいずれも、名前のある農家と、特定の収穫に結びついています。その農家の物語を添えてお届けし、農家をまたいで混ぜることはしません。量は需要ではなく収穫に従うため、ロットは小さく、なくなればその味も終わりです。
+  </p>
+  <div class="offer-grid">
+    <div class="offer-card">
+      <div class="doing-number">01</div>
+      <div class="doing-title" lang-en>Single-Farm Matcha</div>
+      <div class="doing-title" lang-ja style="display:none;">単一農家の抹茶</div>
+      <div class="doing-jp">単一農家</div>
+      <p class="doing-body" lang-en>One farm, one harvest, named on the tin, with the story of that plot beside it, so you know whose work and whose land you are drinking.</p>
+      <p class="doing-body" lang-ja style="display:none;">ひとつの農家、ひとつの収穫。缶にその名を記し、畑の物語を添えます。誰の仕事と、どの土地を飲んでいるのかがわかるように。</p>
+      <div class="offer-meta" lang-en>Availability follows each farm's harvest.</div>
+      <div class="offer-meta" lang-ja style="display:none;">取り扱いは、各農家の収穫に従います。</div>
+      <div class="offer-cta">
+        <a href="#support" class="btn-ghost" lang-en>Ask about availability</a>
+        <a href="#support" class="btn-ghost" lang-ja style="display:none;">取り扱いを問い合わせる</a>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="doing-number">02</div>
+      <div class="doing-title" lang-en>Tasting Bundle</div>
+      <div class="doing-title" lang-ja style="display:none;">飲み比べセット</div>
+      <div class="doing-jp">飲み比べ</div>
+      <p class="doing-body" lang-en>Small portions from several Uji farms, side by side, each with its own notes. The difference between neighbouring fields is easiest to believe when it is in front of you.</p>
+      <p class="doing-body" lang-ja style="display:none;">宇治の複数の農家の抹茶を少量ずつ、それぞれの記録とともに。隣り合う畑の違いは、並べて味わうといちばんよくわかります。</p>
+      <div class="offer-meta" lang-en>The line-up changes with the season.</div>
+      <div class="offer-meta" lang-ja style="display:none;">セットの構成は季節ごとに変わります。</div>
+      <div class="offer-cta">
+        <a href="#support" class="btn-ghost" lang-en>Ask about a bundle</a>
+        <a href="#support" class="btn-ghost" lang-ja style="display:none;">セットを問い合わせる</a>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="doing-number">03</div>
+      <div class="doing-title" lang-en>Limited Seasonal Lots</div>
+      <div class="doing-title" lang-ja style="display:none;">季節の限定ロット</div>
+      <div class="doing-jp">季節限定</div>
+      <p class="doing-body" lang-en>When a plot gives something unusual in a given year, we keep it separate instead of blending it away. These lots are small by nature, not by marketing.</p>
+      <p class="doing-body" lang-ja style="display:none;">その年、その畑にしか出ない味は、混ぜずにそのまま残します。少量なのは演出ではなく、もともとの量がそうだからです。</p>
+      <div class="offer-meta" lang-en>Announced when a harvest allows it.</div>
+      <div class="offer-meta" lang-ja style="display:none;">収穫の状況に応じてお知らせします。</div>
+      <div class="offer-cta">
+        <a href="#support" class="btn-ghost" lang-en>Hear when a lot opens</a>
+        <a href="#support" class="btn-ghost" lang-ja style="display:none;">入荷の知らせを受け取る</a>
+      </div>
+    </div>
+  </div>
+  <p class="section-note section-note-after" lang-en>
+    Prices and direct ordering are not published yet. They are added farm by farm, as each farm's terms are agreed with the farmer. Until then, enquiries are handled through the form below.
+  </p>
+  <p class="section-note section-note-after" lang-ja style="display:none;">
+    価格と直接のご注文は、まだ公開していません。各農家との条件が整った順に、一軒ずつ掲載していきます。それまでは、下のフォームからのお問い合わせで承ります。
+  </p>
+</section>
+
+<!-- RESEARCH (secondary) -->
+<section class="research" id="research">
+  <div class="research-inner">
+    <div>
+      <div class="section-label" lang-en>Research · Secondary Work</div>
+      <div class="section-label" lang-ja style="display:none;">研究・補助的な取り組み</div>
+      <h3 lang-en>What becomes of the leaves that fall outside the grade.</h3>
+      <h3 lang-ja style="display:none;">規格から外れた茶葉の、その先。</h3>
+    </div>
+    <div>
+      <p lang-en>Part of every harvest is set aside as over-spec: leaves that do not meet the specification for premium matcha, even though the growing, shading, and picking behind them were the same. We are studying what those leaves can properly become, so that a farmer's year is not measured only by its highest grade.</p>
+      <p lang-ja style="display:none;">収穫のうち一定量は、規格外として選り分けられます。育て方も、覆いのかけ方も、摘み方も同じでありながら、高級抹茶の規格には合わなかった茶葉です。その茶葉を何に活かせるのか、私たちは調べています。農家の一年が、最上級の等級だけで測られないように。</p>
+      <p lang-en>This is a secondary strand of the work and it is still early. We will publish what we actually find, farm by farm, rather than what we hope to find.</p>
+      <p lang-ja style="display:none;">これは補助的な取り組みで、まだ始まったばかりです。期待ではなく、実際にわかったことを、農家ごとに公開していきます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACTION -->
+<section class="involve" id="support">
   <div class="involve-left">
-    <div class="section-label" lang-en>Get Involved</div>
+    <div class="section-label" lang-en>Take Part</div>
     <div class="section-label" lang-ja style="display:none;">参加する</div>
-    <h2 lang-en>This project needs<br>more than one voice.</h2>
-    <h2 lang-ja style="display:none;">このプロジェクトには<br>複数の声が必要です。</h2>
-    <p lang-en>Whether you're a student, a researcher, a tea lover, or someone who simply believes in honest food — there's a role for you.</p>
-    <p lang-ja style="display:none;">学生、研究者、お茶愛好家、あるいは誠実な食を信じる方—あなたの役割があります。</p>
-    <form class="involve-form" onsubmit="handleSubmit(event)">
+    <h2 lang-en>Discover the farms.<br>Taste the difference.<br>Help protect the craft.</h2>
+    <h2 lang-ja style="display:none;">農家を知り、<br>味の違いを確かめ、<br>この手仕事を守る。</h2>
+    <p lang-en>Tell us what brings you here: curiosity about origin, an interest in one particular farm, or a wish to support this work while there is still time. We will point you to the right part of it.</p>
+    <p lang-ja style="display:none;">産地への興味でも、ある一軒の農家のことでも、まだ間に合ううちにこの仕事を支えたいという気持ちでも。ご連絡いただければ、ふさわしい入り口をご案内します。</p>
+    <form class="involve-form" id="support-form" onsubmit="handleSubmit(event)">
       <div class="form-row">
-        <input class="form-input" type="text" placeholder="Name / お名前" required>
+        <input class="form-input" id="field-name" type="text" placeholder="Name / お名前" required>
         <input class="form-input" type="email" placeholder="Email / メール" required>
       </div>
-      <select class="form-select">
-        <option value="" disabled selected>How would you like to help? / どのようにお手伝いできますか？</option>
-        <option>Join the School Club</option>
-        <option>Social Media Collaboration</option>
-        <option>I'm a Researcher / Professor</option>
-        <option>I'm a Farmer / Industry Insider</option>
-        <option>I'm an Influencer / Media</option>
-        <option>General Support</option>
+      <select class="form-select" id="help-select">
+        <option value="" disabled selected>What brings you here? / ご用件をお選びください</option>
+        <option value="matcha">Matcha or tasting bundle enquiry / 抹茶・飲み比べセットについて</option>
+        <option value="support">Support the work / 活動を支える</option>
+        <option value="stories">Help record farm stories / 農家の記録に協力する</option>
+        <option value="farmer">I grow or make tea in Uji / 宇治で茶づくりをしている</option>
+        <option value="research">Over-spec leaf research / 規格外茶葉の研究</option>
+        <option value="press">Press or media / 取材・メディア</option>
+        <option value="other">Something else / その他</option>
       </select>
       <input class="form-input" type="text" placeholder="Message (optional) / メッセージ（任意）">
       <button type="submit" class="btn-primary" style="align-self: flex-start; cursor: pointer;">
@@ -1259,23 +1751,33 @@
     </form>
   </div>
   <div class="involve-right">
+    <div class="support-card">
+      <h3 lang-en>Support the Work</h3>
+      <h3 lang-ja style="display:none;">活動を支える</h3>
+      <p lang-en>Recording a farm's story, translating it, and putting small farm-specific lots into people's hands costs something before it returns anything. Contributions go straight into that: interviews, tasting notes, and the packing and shipping of small lots. The contribution channel is being set up now. Leave your name and we will tell you first when it opens.</p>
+      <p lang-ja style="display:none;">農家の物語を記録し、翻訳し、畑ごとの小さなロットを届けるまでには、収益より先に費用がかかります。いただいた支援は、取材、テイスティングノートの作成、小ロットの梱包と発送に、そのまま使われます。支援の受け口は現在準備中です。お名前をお預けいただければ、開設時にまずご連絡します。</p>
+      <div class="support-cta">
+        <button type="button" class="btn-primary" onclick="chooseHelp('support')" lang-en>Tell us how you'd like to help</button>
+        <button type="button" class="btn-primary" onclick="chooseHelp('support')" lang-ja style="display:none;">支援について知らせる</button>
+      </div>
+    </div>
     <div class="section-label" lang-en>Contact</div>
     <div class="section-label" lang-ja style="display:none;">連絡先</div>
     <div class="contact-item">
       <div class="contact-label">Location</div>
-      <div class="contact-value">Uji, Kyoto, Japan / 宇治市、京都府</div>
+      <div class="contact-value">Uji, Kyoto, Japan / 京都府宇治市</div>
     </div>
     <div class="contact-item">
-      <div class="contact-label">School</div>
-      <div class="contact-value">Add your school name here</div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-label">Email</div>
+      <div class="contact-label">Enquiries</div>
       <div class="contact-value">your@email.com</div>
+      <div class="contact-note" lang-en>Placeholder: add the project address here.</div>
+      <div class="contact-note" lang-ja style="display:none;">仮の表示です。実際のアドレスに差し替えてください。</div>
     </div>
     <div class="contact-item">
       <div class="contact-label">Instagram</div>
       <div class="contact-value">@ujimatcha_project</div>
+      <div class="contact-note" lang-en>Placeholder: confirm or replace this handle.</div>
+      <div class="contact-note" lang-ja style="display:none;">仮の表示です。実際のアカウントをご確認ください。</div>
     </div>
     <div class="contact-item">
       <div class="contact-label">Language</div>
@@ -1286,9 +1788,10 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">宇治抹茶 — Uji Matcha Project</div>
-  <div>A high school social impact initiative · Uji, Kyoto · 2025</div>
-  <div>本物を守る</div>
+  <div class="footer-logo">宇治 · Uji Terroir</div>
+  <div lang-en>Farm-by-farm Uji matcha · Uji, Kyoto</div>
+  <div lang-ja style="display:none;">畑ごとの宇治抹茶 · 京都府宇治市</div>
+  <div>畑ごとに、宇治を守る</div>
 </footer>
 
 <script>
@@ -1298,8 +1801,19 @@
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert('Thank you! We will be in touch. / ありがとうございます！ご連絡いたします。');
+    alert('Thank you. We will be in touch. / ありがとうございます。折り返しご連絡いたします。');
     e.target.reset();
+  }
+
+  // Sends someone from the support card straight into the form,
+  // with their reason for writing already chosen.
+  function chooseHelp(value) {
+    var select = document.getElementById('help-select');
+    if (select) { select.value = value; }
+    var form = document.getElementById('support-form');
+    if (form && form.scrollIntoView) {
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   const observer = new IntersectionObserver((entries) => {
@@ -1311,7 +1825,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.issue-card, .doing-card, .farmer-card').forEach(el => {
+  document.querySelectorAll('.issue-card, .doing-card, .offer-card, .farmer-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
