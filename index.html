@@ -1,10 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="description" content="Uji Terroir records Uji matcha farm by farm: the land, the methods, and the taste of single fields in Uji, Kyoto, while the farmers who still work them are here to tell it.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Uji Terroir / 宇治テロワール">
+<meta property="og:locale" content="en">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:title" content="Uji Terroir · Authentic Uji Matcha, Farm by Farm">
+<meta property="og:description" content="Matcha travelled the world. Uji is still a place. We keep its character visible farm by farm, while there is still time.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Uji Terroir · Authentic Uji Matcha, Farm by Farm">
+<meta name="twitter:description" content="Matcha travelled the world. Uji is still a place. We keep its character visible farm by farm, while there is still time.">
+<!-- Add once the project has a public address and a photograph to share:
+     <link rel="canonical" href="https://example.com/">
+     <meta property="og:url" content="https://example.com/">
+     <meta property="og:image" content="https://example.com/share.jpg">
+     <meta property="og:image:alt" content="...">
+     <meta name="twitter:image" content="https://example.com/share.jpg">
+     og:image must be an absolute http(s) URL; a data: URI or local path will
+     not render in any share preview. -->
 <title>宇治テロワール / Uji Terroir · Authentic Uji Matcha, Farm by Farm</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'%3E%3Ccircle cx='60' cy='46' r='33' fill='none' stroke='%231a3a2a' stroke-width='6'/%3E%3Cpath d='M61 51C65 42 72 36 80 34c1 9-6 17-17 20z' fill='%238aac6e'/%3E%3Cpath d='M59 54c-5-8-12-13-20-15-1 9 6 16 18 18z' fill='%235a7c5e'/%3E%3Cpath d='M8 80c16-18 30-20 42-10 10 8 16 10 28 10z' fill='%235a7c5e'/%3E%3Cpath d='M14 80c20-10 36-4 52-1 14 3 30-1 44 1z' fill='%232d5a3d'/%3E%3Cpath d='M8 80c26-2 78-2 104 0-26 13-78 13-104 0z' fill='%231a3a2a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
@@ -24,9 +43,69 @@
     --gold: #b8985a;
     --gold-light: #d4b87a;
     --border: rgba(90, 80, 60, 0.15);
+
+    /* ── MOTION ──
+       A critically damped spring (damping 1.0), sampled as a linear() easing
+       so CSS transitions carry the same curve the JS spring uses. Apple's
+       model is damping ratio + response, not duration: response is how fast
+       the value reaches its target, and the settle time falls out of it.
+       --t-crit-* are those settle times, not arbitrary durations.
+       Overshoot is reserved for motion a gesture threw — see the drawer. */
+    --ease-spring: linear(0.0, 0.0669, 0.2055, 0.3588, 0.5003, 0.6202, 0.7166, 0.7915, 0.8484, 0.8908, 0.9219, 0.9445, 0.9608, 0.9725, 0.9807, 0.9866, 0.9907, 0.9935, 0.9955, 0.9969, 0.9979, 0.9985, 0.999);
+    --t-crit-400: 0.588s;  /* response 0.4 */
+    --t-crit-300: 0.441s;  /* response 0.3 */
+    --t-press: 100ms;      /* press feedback: as close to instant as reads */
   }
 
   html { scroll-behavior: smooth; }
+
+  /* the nav is fixed, so an anchored heading would otherwise land under it */
+  section[id] { scroll-margin-top: 90px; }
+
+  /* one visible focus ring for every interactive element on the page */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 1px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001s !important;
+      animation-delay: 0s !important;
+      transition-duration: 0.001s !important;
+    }
+    .fade-up { opacity: 1; }
+
+    /* reduced motion is not no feedback: the drawer cross-fades in place
+       instead of travelling, and the script leaves its transform alone */
+    .nav-drawer {
+      transform: none !important;
+      opacity: 0;
+      transition: opacity 180ms ease !important;
+    }
+    body.nav-open .nav-drawer { opacity: 1; }
+    /* the scrim's opacity is script-driven during a drag; with reduced
+       motion there is no drag, so CSS carries it */
+    .nav-scrim { transition: opacity 180ms ease !important; }
+    body.nav-open .nav-scrim { opacity: 1; }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    nav { background: var(--ivory); backdrop-filter: none; }
+    nav.scrolled { background: var(--ivory); }
+  }
+
+  @media (prefers-contrast: more) {
+    nav { background: var(--ivory); backdrop-filter: none; border-bottom-color: var(--forest); }
+    .nav-drawer { border-bottom-color: var(--forest); }
+    .status-state { border-color: var(--moss); color: var(--moss); }
+    .btn-ghost { border-bottom-width: 1px; }
+  }
 
   body {
     font-family: 'Noto Sans JP', sans-serif;
@@ -35,7 +114,21 @@
     font-weight: 300;
     line-height: 1.8;
     overflow-x: hidden;
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
   }
+
+  /* ── TRACKING ──
+     Letter-spacing is size-specific, never one value for the page. Display
+     type is set tight because letters read further apart as they grow; body
+     copy stays at 0; the small uppercase eyebrows keep their wide tracking,
+     which is what makes them legible at 0.65-0.7rem. */
+  h1, h2 { letter-spacing: -0.018em; }
+  .research-inner h3, .support-card h3 { letter-spacing: -0.012em; }
+
+  /* CJK display text wants the opposite of a Latin display face: the glyphs
+     are already dense on their em square, so negative tracking crowds them */
+  h1 [lang-ja], h2[lang-ja], h3[lang-ja] { letter-spacing: 0.02em; }
 
   /* ── NAV ── */
   nav {
@@ -46,9 +139,88 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 3rem;
-    background: rgba(247, 243, 235, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 0.5px solid var(--border);
+    /* over the photograph: no bar, no hairline, no blur — the words stand
+       on the image. The image's own top shading carries the contrast. */
+    background: transparent;
+    border-bottom: 0.5px solid transparent;
+    transition: border-color 0.35s ease, background 0.35s ease,
+                backdrop-filter 0.35s ease, color 0.35s ease;
+  }
+
+  /* over the image, every mark in the nav is light and unboxed. The shadow
+     is what replaces the bar: it holds the text against a sky that changes
+     brightness across the width. */
+  nav:not(.scrolled) .nav-logo,
+  nav:not(.scrolled) .nav-links a,
+  nav:not(.scrolled) .nav-lang {
+    color: var(--ivory);
+    text-shadow: 0 1px 12px rgba(16, 36, 24, 0.55), 0 1px 2px rgba(16, 36, 24, 0.35);
+  }
+
+  nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
+
+  nav:not(.scrolled) .brand-mark {
+    --mk-1: rgba(255, 255, 255, 0.55);
+    --mk-2: rgba(255, 255, 255, 0.7);
+    --mk-3: rgba(255, 255, 255, 0.85);
+    --mk-4: var(--ivory);
+  }
+
+  nav:not(.scrolled) .nav-lang {
+    color: var(--ivory);
+    border-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  nav:not(.scrolled) .nav-lang:hover {
+    background: transparent;
+    color: var(--gold-light);
+  }
+
+  nav:not(.scrolled) .nav-toggle { border-color: transparent; }
+
+  nav:not(.scrolled) .nav-toggle-bar,
+  nav:not(.scrolled) .nav-toggle-bar::before,
+  nav:not(.scrolled) .nav-toggle-bar::after {
+    background: var(--ivory);
+  }
+
+  nav:not(.scrolled) .nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: transparent;
+  }
+
+  /* past the photograph there is text underneath, so the chrome comes back */
+  nav.scrolled {
+    border-bottom-color: var(--border);
+    background: rgba(247, 243, 235, 0.9);
+    backdrop-filter: blur(18px) saturate(180%);
+  }
+
+  /* the open drawer is an opaque ivory surface: light-on-light would vanish */
+  body.nav-open nav {
+    background: rgba(247, 243, 235, 0.9);
+    backdrop-filter: blur(18px) saturate(180%);
+  }
+
+  body.nav-open nav .nav-logo { color: var(--forest); }
+  body.nav-open nav .nav-lang { color: var(--gold); }
+
+  body.nav-open nav .nav-toggle-bar,
+  body.nav-open nav .nav-toggle-bar::before,
+  body.nav-open nav .nav-toggle-bar::after {
+    background: var(--forest);
+  }
+
+  body.nav-open nav .nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: transparent;
+  }
+
+  body.nav-open nav .brand-mark {
+    --mk-1: var(--tea);
+    --mk-2: var(--sage);
+    --mk-3: var(--moss);
+    --mk-4: var(--forest);
   }
 
   .nav-logo {
@@ -58,13 +230,43 @@
     letter-spacing: 0.08em;
     color: var(--forest);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  /* ── BRAND MARK ──
+     Inline so the page stays one self-contained file and the mark scales
+     cleanly. Tones are custom properties, so the same markup recolours for
+     the dark footer instead of needing a second asset. */
+  .brand-mark {
+    flex: 0 0 auto;
+    width: 1.8rem;
+    height: 1.8rem;
+    --mk-1: var(--tea);
+    --mk-2: var(--sage);
+    --mk-3: var(--moss);
+    --mk-4: var(--forest);
+  }
+
+  .footer-logo .brand-mark {
+    width: 1.5rem;
+    height: 1.5rem;
+    --mk-1: rgba(255, 255, 255, 0.24);
+    --mk-2: rgba(255, 255, 255, 0.34);
+    --mk-3: rgba(255, 255, 255, 0.44);
+    --mk-4: rgba(255, 255, 255, 0.58);
   }
 
   .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
     list-style: none;
+    flex: 0 1 auto;
+    min-width: 0;
   }
+
+  .nav-logo { flex: 0 0 auto; }
 
   .nav-links a {
     font-size: 0.78rem;
@@ -78,43 +280,204 @@
   .nav-links a:hover { color: var(--forest); }
 
   .nav-lang {
+    font-family: 'Noto Sans JP', sans-serif;
     font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.4;
     letter-spacing: 0.1em;
     color: var(--gold);
+    background: transparent;
     cursor: pointer;
     border: 0.5px solid var(--gold);
     padding: 0.3rem 0.8rem;
-    transition: all 0.3s;
+    white-space: nowrap;
+    transition: background 0.3s, color 0.3s, transform var(--t-press) ease-out;
   }
 
-  .nav-lang:hover {
+  .nav-lang:active { transform: scale(0.96); }
+
+  .nav-lang:hover,
+  .nav-lang:focus-visible {
     background: var(--gold);
     color: white;
   }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 80px;
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
   }
 
-  .hero-left {
+  /* ── NAV: MOBILE ──
+     The horizontal links are hidden below 900px, so the toggle and the drawer
+     below own navigation at that width. Both are display:none above it, which
+     keeps one set of links authoritative per breakpoint. */
+  .nav-toggle {
+    display: none;
+    position: relative;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    background: transparent;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: transform var(--t-press) ease-out;
+  }
+
+  .nav-toggle:active { transform: scale(0.94); }
+
+  .nav-toggle-bar,
+  .nav-toggle-bar::before,
+  .nav-toggle-bar::after {
+    position: absolute;
+    left: 50%;
+    width: 1.1rem;
+    height: 0.5px;
+    background: var(--forest);
+    transform: translateX(-50%);
+    transition: transform 0.3s ease, background 0.2s ease;
+    transition: transform var(--t-crit-300) var(--ease-spring), background 0.2s ease;
+  }
+
+  .nav-toggle-bar { top: 50%; }
+  .nav-toggle-bar::before { content: ''; top: -0.38rem; }
+  .nav-toggle-bar::after { content: ''; top: 0.38rem; }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar { background: transparent; }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+    transform: translateX(-50%) translateY(0.38rem) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+    transform: translateX(-50%) translateY(-0.38rem) rotate(-45deg);
+  }
+
+  /* The drawer's transform is owned by the JS spring, so it can be grabbed
+     and reversed mid-flight. No CSS transition on transform: a transition
+     cannot be interrupted without a jump, which is the whole point here.
+     The surface is opaque on purpose — the nav above it is translucent, and
+     stacking two light translucent layers destroys legibility. */
+  .nav-drawer {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 99;
+    padding: 4.75rem 1.5rem 1.5rem;
+    background: var(--ivory);
+    border-bottom: 0.5px solid var(--border);
+    transform: translateY(-101%);
+    touch-action: pan-x;
+    will-change: transform;
+  }
+
+  /* closed: out of the layout's reach as well as out of sight.
+     [inert] is set by script; visibility keeps it off the tab order in
+     browsers that do not support it. */
+  .nav-drawer[inert] { visibility: hidden; }
+
+  /* a modal surface dims what it covers; the scrim tracks the drag 1:1 */
+  .nav-scrim {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    background: rgba(26, 58, 42, 0.32);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  body.nav-open .nav-scrim { pointer-events: auto; }
+  body.nav-open { overflow: hidden; }
+
+  .nav-drawer-grab {
+    width: 2.25rem;
+    height: 0.25rem;
+    border-radius: 2px;
+    background: var(--border);
+    margin: 0 auto 1.25rem;
+  }
+
+  .nav-drawer ul { list-style: none; }
+
+  .nav-drawer li { border-top: 0.5px solid var(--border); }
+  .nav-drawer li:last-child { border-bottom: 0.5px solid var(--border); }
+
+  .nav-drawer a {
+    display: block;
+    padding: 1.1rem 0.1rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest);
+    text-decoration: none;
+  }
+
+  .nav-drawer a:active { color: var(--gold); }
+
+  /* ── HERO ──
+     The land first, then the claim about it. The photograph runs the full
+     width as a band and the words sit underneath, so the reader sees the
+     place before being told anything about it. */
+  .hero {
+    /* no forced 100vh: the band plus the words is the height it is, and
+       padding the section out to the viewport only buys empty ground */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 6rem 4rem 6rem 5rem;
-    position: relative;
+    /* the band is full-bleed: the gutters belong to the text and the figures
+       below it, not to the section */
+    padding: 0;
   }
 
-  .hero-left::after {
+  .hero-media {
+    position: relative;
+    margin: 0;
+    height: clamp(380px, 74vh, 860px);
+    overflow: hidden;
+    background: var(--forest);
+  }
+
+  .hero-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* favour the terraces over the sky as the band gets shorter */
+    object-position: center 45%;
+  }
+
+  /* Only the top is shaded, and only enough to hold the nav's contrast
+     against the sky. The foot of the photograph is a clean edge: the image
+     stops and the words begin. */
+  .hero-media::after {
     content: '';
     position: absolute;
-    right: 0; top: 10%; bottom: 10%;
-    width: 0.5px;
-    background: var(--border);
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom,
+        rgba(26, 58, 42, 0.52) 0%,
+        rgba(26, 58, 42, 0.18) 15%,
+        rgba(26, 58, 42, 0) 32%);
   }
+
+  .hero-text {
+    padding: 3.5rem 5rem 3rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    column-gap: 4.5rem;
+    align-items: start;
+  }
+
+  /* the eyebrow sits above both columns */
+  .hero-eyebrow { grid-column: 1 / -1; }
+
+  .hero-title { grid-column: 1; grid-row: 2; }
+  .hero-jp { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+
+  /* the paragraph and the ways in are one block, so the buttons sit under
+     the text they belong to rather than floating at the foot of a tall row */
+  .hero-aside { grid-column: 2; grid-row: 2 / span 2; }
 
   .hero-eyebrow {
     font-size: 0.72rem;
@@ -137,12 +500,12 @@
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-size: clamp(2.6rem, 4.6vw, 5rem);
     font-weight: 300;
     line-height: 1.15;
     color: var(--forest);
     margin-bottom: 1rem;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
   }
 
   .hero-title em {
@@ -160,11 +523,14 @@
   }
 
   .hero-body {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--muted);
-    max-width: 38ch;
-    margin-bottom: 3rem;
-    line-height: 1.9;
+    /* the grid column sets the measure here, so the paragraph reaches the
+       page gutter instead of stopping short. The cap only engages on very
+       wide displays, where the column itself would run past a readable line. */
+    max-width: 72ch;
+    margin-bottom: 2.25rem;
+    line-height: 1.95;
   }
 
   .hero-cta {
@@ -189,6 +555,11 @@
 
   .btn-primary:hover { background: var(--moss); }
 
+  /* :active fires on pointer-down, so the surface answers the press itself
+     rather than the click that follows it */
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary { transition: background 0.3s, transform var(--t-press) ease-out; }
+
   .btn-ghost {
     color: var(--forest);
     font-size: 0.78rem;
@@ -201,70 +572,42 @@
   }
 
   .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+  .btn-ghost:active { color: var(--gold); border-color: var(--gold); }
 
-  .hero-right {
-    background: var(--forest);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding: 4rem 3rem;
-  }
-
-  .hero-bg-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.06;
-    background-image: repeating-linear-gradient(
-      45deg,
-      #fff 0, #fff 1px,
-      transparent 0, transparent 50%
-    );
-    background-size: 20px 20px;
-  }
-
+  /* The four figures used to sit on a dark panel beside the text. With the
+     photograph carrying the imagery they read as a quiet hairline band on
+     the page ground instead. */
   .hero-stat-grid {
-    position: relative;
-    z-index: 2;
+    margin-top: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 0.5px solid var(--border);
   }
 
   .hero-stat {
-    border-top: 0.5px solid rgba(255,255,255,0.2);
-    padding-top: 1.25rem;
+    padding: 1.5rem 2rem 2rem 5rem;
+    border-right: 0.5px solid var(--border);
   }
+
+  .hero-stat + .hero-stat { padding-left: 2rem; }
+  .hero-stat:last-child { border-right: none; }
 
   .hero-stat-number {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
+    font-size: clamp(2rem, 3vw, 2.8rem);
     font-weight: 300;
-    color: var(--ivory);
+    color: var(--forest);
     line-height: 1;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
   }
 
   .hero-stat-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .hero-kanji {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Noto Serif JP', serif;
-    font-size: 14rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.03);
-    pointer-events: none;
-    user-select: none;
-    letter-spacing: -0.1em;
+    color: var(--muted);
+    line-height: 1.6;
   }
 
   /* ── SECTION BASE ── */
@@ -341,6 +684,77 @@
     line-height: 1.8;
   }
 
+  /* ── QUIET FIGURES ──
+     Evidence, not a dashboard: two mirrored comparisons on one hairline band.
+     The number being left behind sits back in weight and opacity, so the
+     direction of each pair reads without a chart. */
+  .figure-band {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 0.5px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 4rem;
+  }
+
+  .figure-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .figure-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+  }
+
+  .figure-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.1rem, 3.2vw, 3rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--forest);
+  }
+
+  .figure-num.was { color: var(--muted); opacity: 0.45; }
+  .figure-num.now { color: var(--moss); }
+
+  .figure-to {
+    color: var(--gold);
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .figure-note {
+    margin-top: 0.85rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .figure-caption {
+    grid-column: 1 / -1;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .figure-source {
+    grid-column: 1 / -1;
+    margin-top: -1.5rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
   /* ── WHAT WE'RE DOING ── */
   .doing {
     background: var(--warm-white);
@@ -381,14 +795,12 @@
   }
 
   .doing-title {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--forest);
     margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
   }
 
   .doing-jp {
@@ -480,13 +892,6 @@
     margin-bottom: 1rem;
   }
 
-  .farmer-quote {
-    font-size: 0.87rem;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.8;
-    font-style: italic;
-  }
-
   .farmer-add {
     background: transparent;
     border: 0.5px dashed rgba(255,255,255,0.15);
@@ -513,6 +918,97 @@
     font-size: 2rem;
     color: rgba(255,255,255,0.1);
     line-height: 1;
+  }
+
+  /* ── PETITION ──
+     The most concrete thing a reader can do here, and the only one that costs
+     them nothing: it sits above the enquiry form for that reason. Spans both
+     columns of the involve grid. */
+  .petition {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, auto);
+    gap: 4rem;
+    align-items: center;
+    justify-items: center;
+    padding: 5rem 5rem 4rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .petition > div { justify-self: stretch; }
+
+  .petition h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--forest);
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+
+  .petition-lead {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.9;
+    max-width: 78ch;
+    margin-bottom: 1.75rem;
+  }
+
+  .petition-cta { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
+
+  /* The QR is useless to anyone reading on the device that displays it, and
+     invisible to a screen reader, so the link is the primary control and the
+     QR is the convenience. */
+  .petition-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 0.5px solid var(--border);
+  }
+
+  .petition-qr img { width: 230px; height: 230px; display: block; }
+
+  .petition-qr figcaption {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .petition-detail { margin-top: 2rem; max-width: 70ch; }
+
+  .petition-detail summary {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    padding: 0.5rem 0;
+    list-style: none;
+  }
+
+  .petition-detail summary::-webkit-details-marker { display: none; }
+  .petition-detail summary::before { content: '+ '; }
+  .petition-detail[open] summary::before { content: '– '; }
+  .petition-detail summary:hover { color: var(--forest); }
+
+  .petition-detail p {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 1rem;
+  }
+
+  .petition-note {
+    margin-top: 1.25rem;
+    font-size: 0.68rem;
+    font-style: italic;
+    color: rgba(92, 88, 72, 0.7);
   }
 
   /* ── GET INVOLVED ── */
@@ -581,6 +1077,42 @@
 
   .form-select:focus { border-color: var(--sage); }
 
+  textarea.form-input {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+
+  /* labels exist for screen readers; the visible cue is the placeholder */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* honeypot: never shown, never focusable, only bots fill it */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .form-status {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--muted);
+    min-height: 1.4em;
+  }
+
+  .form-status.is-ok { color: var(--moss); }
+  .form-status.is-error { color: #8a3b2a; }
+  .form-status a { color: inherit; }
+
   .involve-right {
     padding: 7rem 4rem;
     background: var(--parchment);
@@ -612,6 +1144,19 @@
     color: var(--forest);
   }
 
+  /* handle rows: mark first, then the address, on one baseline */
+  /* The mark replaces the word, so it sits in the label slot and is drawn
+     at label scale rather than text scale. Brand colour, because a logo that
+     has been recoloured to match a palette stops being recognisable at a
+     glance — which is the only reason to use a logo instead of a word. */
+  .brand-icon {
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .contact-label:has(.brand-icon) { margin-bottom: 0.15rem; }
+
   /* ── FOOTER ── */
   footer {
     background: var(--ink);
@@ -629,6 +1174,9 @@
     font-size: 1rem;
     color: rgba(255,255,255,0.5);
     letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
   }
 
   /* ── FARM DETAIL (terroir cards) ── */
@@ -679,6 +1227,7 @@
   }
 
   .farm-link:hover { color: var(--ivory); border-color: var(--ivory); }
+  .farm-link:active { color: var(--ivory); border-color: var(--ivory); }
 
   /* ── SHARED SECTION NOTE ── */
   .section-note {
@@ -768,6 +1317,69 @@
 
   .research-inner p:last-child { margin-bottom: 0; }
 
+  /* ── STATUS ──
+     One place that says what exists and what does not, so the rest of the
+     page can describe the work without hedging in every paragraph. */
+  .status { background: var(--parchment); }
+
+  .status h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--forest);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    max-width: 26ch;
+  }
+
+  .status-list { border-top: 0.5px solid var(--border); }
+
+  /* each row is its own grid, so the state column is fixed rather than auto:
+     an auto track would be measured per row and the columns would not line up */
+  .status-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 10rem minmax(0, 2fr);
+    gap: 2rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .status-what {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--forest);
+  }
+
+  .status-state {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 0.5px solid rgba(90, 124, 94, 0.45);
+    padding: 0.2rem 0.7rem;
+    white-space: nowrap;
+  }
+
+  /* the one line on this list that is not yet open at all */
+  .status-state.pending {
+    color: var(--muted);
+    border-color: var(--border);
+  }
+
+  .status-note {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  /* [lang-ja] is forced to display:block, which would stretch the chip across
+     its whole column; the wrapper takes the grid cell and the chip hugs its text */
+  .status-state { display: inline-block; }
+  /* outranks the body.ja [lang-ja] { display: block !important } above */
+  body.ja .status-state[lang-ja] { display: inline-block !important; }
+
   /* ── SUPPORT CHANNEL ── */
   .support-card {
     border: 0.5px solid var(--border);
@@ -812,6 +1424,10 @@
   /* keeps the bordered chip hugging its text once [lang-ja] is forced to block */
   .farm-tag { display: flex; }
 
+  /* inside a <summary> and a <figcaption> the language spans must stay inline */
+  body.ja .petition-detail summary [lang-ja],
+  body.ja .petition-qr figcaption [lang-ja] { display: inline !important; }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -828,584 +1444,105 @@
   .delay-3 { animation-delay: 0.4s; }
   .delay-4 { animation-delay: 0.55s; }
 
-  /* ── 3D INTRO ── */
-  #intro {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: var(--forest);
-    overflow: hidden;
-    opacity: 1;
-    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #intro.done { opacity: 0; pointer-events: none; }
-
-  #intro-canvas {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  #intro-vignette {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 55% at 50% 46%, transparent 0%, rgba(9, 24, 16, 0.55) 100%);
-  }
-
-  #intro-skip {
-    position: absolute;
-    right: 2.5rem;
-    bottom: 2.25rem;
-    background: transparent;
-    border: none;
-    border-bottom: 0.5px solid rgba(212, 184, 122, 0.45);
-    color: rgba(212, 184, 122, 0.75);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 300;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.15rem;
-    cursor: pointer;
-    opacity: 0;
-    animation: fadeUp 0.9s ease 1.4s forwards;
-    transition: color 0.3s, border-color 0.3s;
-  }
-
-  #intro-skip:hover {
-    color: var(--gold-light);
-    border-color: var(--gold-light);
-  }
-
-  /* hold the hero's entrance until the intro clears */
-  body.intro-active { overflow: hidden; }
-  body.intro-active .fade-up { animation-play-state: paused; }
-
-  @media (max-width: 900px) {
-    #intro-skip { right: 1.5rem; bottom: 1.5rem; }
-  }
-
   /* ── RESPONSIVE ── */
+  /* six nav items and a language control do not fit a 1000px row at the
+     desktop type size; the row tightens before the drawer takes over */
+  @media (min-width: 901px) and (max-width: 1180px) {
+    nav { padding: 1.25rem 2rem; gap: 1.5rem; }
+    .nav-links { gap: 1.15rem; }
+    .nav-links a { font-size: 0.7rem; letter-spacing: 0.07em; }
+  }
+
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { min-height: 50vh; }
-    .hero-left { padding: 4rem 2rem; }
+    .nav-toggle { display: block; }
+    .nav-drawer { display: block; }
+    .nav-scrim { display: block; }
+    .hero-media { height: clamp(300px, 52vh, 520px); }
+    .hero-text {
+      padding: 2.5rem 2rem 2rem;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 0;
+    }
+    .hero-title, .hero-jp, .hero-aside { grid-column: 1; }
+    .hero-title { grid-row: auto; }
+    .hero-jp { grid-row: auto; margin-bottom: 2.5rem; }
+    .hero-aside { grid-row: auto; }
+    .hero-stat-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stat { padding: 1.5rem 1.5rem 2rem 2rem; }
+    .hero-stat + .hero-stat { padding-left: 1.5rem; }
+    .hero-stat:nth-child(2n) { border-right: none; }
+    .hero-stat:nth-child(2n+1) { border-right: 0.5px solid var(--border); padding-left: 2rem; }
+    .hero-stat:nth-child(-n+2) { border-bottom: 0.5px solid var(--border); }
     section { padding: 5rem 2rem; }
     .problem { grid-template-columns: 1fr; gap: 3rem; }
+    .figure-band { grid-template-columns: 1fr; gap: 2.5rem; }
+    .figure-source { margin-top: -1rem; }
     .doing-grid { grid-template-columns: 1fr 1fr; }
+    /* at two columns the hairlines have to follow the new grid, not the old one */
     .doing-card { border-bottom: 0.5px solid var(--border); }
+    .doing-card:nth-child(2n) { border-right: none; }
+    .doing-card:nth-child(2n+1) { border-right: 0.5px solid var(--border); }
+    .doing-card:nth-last-child(-n+2) { border-bottom: none; }
     .farmer-grid { grid-template-columns: 1fr; }
     .offer-grid { grid-template-columns: 1fr; }
     .offer-card { border-right: none; border-bottom: 0.5px solid var(--border); }
     .offer-card:last-child { border-bottom: none; }
     .research-inner { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
     .involve { grid-template-columns: 1fr; }
+    .petition { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding: 4rem 2rem 3rem; }
+    .petition-qr { justify-self: center; }
     .involve-left { padding: 4rem 2rem; border-right: none; border-bottom: 0.5px solid var(--border); }
     .involve-right { padding: 4rem 2rem; }
     footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
     .farmers { padding: 5rem 2rem; }
+    .status-row { grid-template-columns: 1fr; gap: 0.6rem; }
+  }
+
+  @media (max-width: 560px) {
+    section { padding: 4rem 1.25rem; }
+    .hero-media { height: clamp(260px, 46vh, 400px); }
+    .hero-text { padding: 2rem 1.25rem 1.5rem; }
+    .hero-stat { padding: 1.25rem 1rem 1.5rem 1.25rem; }
+    .hero-stat + .hero-stat { padding-left: 1rem; }
+    .hero-stat:nth-child(2n+1) { padding-left: 1.25rem; }
+    .hero-stat-number { font-size: 1.9rem; }
+    .hero-cta { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .doing-grid { grid-template-columns: 1fr; }
+    .doing-card { border-right: none; }
+    .doing-card:nth-child(2n+1) { border-right: none; }
+    .doing-card:nth-last-child(-n+2) { border-bottom: 0.5px solid var(--border); }
+    .doing-card:last-child { border-bottom: none; }
+    .figure-band { gap: 2rem; }
+    .form-row { flex-direction: column; }
+    .research-inner { padding: 1.75rem 1.5rem; }
+    .petition { padding: 3.5rem 1.25rem 2.5rem; }
+    .petition-qr img { width: 200px; height: 200px; }
+    .involve-left, .involve-right { padding: 4rem 1.25rem; }
+    .farmers { padding: 4rem 1.25rem; }
+    .farmer-card { padding: 2rem 1.5rem; }
+    footer { padding: 2rem 1.25rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- ── 3D INTRO ──
-     A perspective-projected cloud of matcha powder motes swirls out of the dark,
-     gathers into the word "matcha", then scatters as the wordmark resolves.
-     Built on a plain canvas: no library, no external scene file.
-
-     To drive this from a published Spline scene instead, publish the scene in
-     Spline (Export → Code / Web) and swap the canvas for:
-       <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-       <spline-viewer url="https://prod.spline.design/YOUR_SCENE/scene.splinecode"></spline-viewer>
-     The skip / fade-out / session logic below works either way. -->
-<script>
-(function () {
-  var SEEN_KEY = 'ujiIntroSeen';
-
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  var seen = false;
-  try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch (e) {}
-  if (reduceMotion || seen) return;
-  try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
-
-  var body = document.body;
-  body.classList.add('intro-active');
-
-  var root = document.createElement('div');
-  root.id = 'intro';
-  root.innerHTML =
-    '<canvas id="intro-canvas"></canvas>' +
-    '<div id="intro-vignette"></div>' +
-    '<button id="intro-skip" type="button">Skip intro</button>';
-  body.appendChild(root);
-
-  var cv = root.querySelector('#intro-canvas');
-  var ctx = cv.getContext('2d');
-
-  /* ── timeline, in seconds ── */
-  // Phases must not overlap: the powder has to finish spelling the word
-  // (gather + its per-mote stagger) before the wordmark resolves over it.
-  // powderOut is a SEPARATE hard fade across every mote, because the lingering ones
-  // deliberately survive `scatter`, and must still be gone before the headline.
-  var T = {
-    gather:    0.55, gatherDur:    1.75,  // powder drifts in and settles
-    word:      3.10, wordDur:      1.00,  // the wordmark resolves out of it
-    scatter:   3.90, scatterDur:   1.30,  // the powder lets go; a few linger
-    powderOut: 4.60, powderOutDur: 0.70,  // every last mote clears
-    wordOut:   4.90, wordOutDur:   0.70,  // "matcha" recedes
-    head:      5.60, headDur:      1.00,  // the site's own headline
-    out:       7.70, outDur:       0.80
-  };
-  var END = T.out + T.outDur;
-
-  var FOV = 900;
-  var WORD = 'matcha';
-  // The intro closes on the site's real message, not a decorative slogan.
-  // Runs mirror the hero, which italicises "a Place."
-  var HEAD = [
-    [{ t: 'Matcha Travelled the World.' }],
-    [{ t: 'Uji Is Still ' }, { t: 'a Place.', i: true }]
-  ];
-
-  var W = 0, H = 0, dpr = 1, wordPx = 0, wordFont = '', motes = [], pts = [];
-  var family = '"Cormorant Garamond", Georgia, serif', headPx = 0;
-  var camX = 0, camY = 0, tCamX = 0, tCamY = 0;
-  var raf = 0, t0 = 0, finished = false;
-
-  /* ── easing ── */
-  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-  function p(t, start, dur) { return clamp01((t - start) / dur); }
-  function easeInOut(x) { return 0.5 - Math.cos(Math.PI * x) / 2; }
-  function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
-  // long-tailed decelerate: grains coast to a stop instead of snapping
-  function easeOutQuart(x) { return 1 - Math.pow(1 - x, 4); }
-
-  var seed = 20240;
-  function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
-
-  /* ── sample the letterforms into a point cloud ── */
-  function fontFor(px, weight, style) {
-    return (style ? style + ' ' : '') + weight + ' ' + px +
-           'px "Cormorant Garamond", Georgia, serif';
-  }
-
-  function sampleWord(text, px, f) {
-    var c = document.createElement('canvas');
-    var g = c.getContext('2d', { willReadFrequently: true });
-    g.font = f;
-    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
-    var w = Math.ceil(g.measureText(text).width + px);
-    var h = Math.ceil(px * 2);
-    c.width = w; c.height = h;
-    // canvas.width truncates to an integer, so read the backing size back, or a
-    // fractional stride makes every row index land off-buffer and read undefined
-    w = c.width; h = c.height;
-    g.font = f;                                  // resizing the canvas clears state
-    if ('letterSpacing' in g) g.letterSpacing = '0.04em';
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-    g.fillStyle = '#fff';
-    g.fillText(text, w / 2, h / 2);
-
-    var d = g.getImageData(0, 0, w, h).data;
-    var out = [];
-    var step = Math.max(2, Math.round(px / 60));
-    for (var y = 0; y < h; y += step) {
-      for (var x = 0; x < w; x += step) {
-        if (d[(y * w + x) * 4 + 3] > 130) { out.push(x - w / 2, y - h / 2); }
-      }
-    }
-    return out;
-  }
-
-  /* ── powder grain ──────────────────────────────────────────────────────────
-     Milled matcha is fine, soft-edged and slightly clumpy, so a grain is a
-     pre-rendered radial sprite rather than a hard arc() fill, much softer,
-     and cheaper than stroking 1200 paths a frame. Two profiles per colour: a
-     tight CORE (the grain) and a diffuse GLOW (the bloom around it).
-     Deep emerald sits close to the forest background in luminance, so the mix
-     is weighted toward the light end and everything composites additively. */
-  var PALETTE = [
-    { hex: '#a9cd82', w: 12 },   // fleck, catches the light
-    { hex: '#8cbb63', w: 34 },   // highlight
-    { hex: '#5f9440', w: 38 },   // core matcha
-    { hex: '#47762f', w: 16 }    // shade
-  ];
-  var sprites = null;
-
-  // weighted bag, so most grains land in the light-to-mid range
-  var PICK = [];
-  (function () {
-    for (var i = 0; i < PALETTE.length; i++) {
-      for (var k = 0; k < PALETTE[i].w; k++) { PICK.push(i); }
-    }
-  })();
-
-  function makeSprite(hex, glow) {
-    var S = 64;
-    var c = document.createElement('canvas');
-    c.width = S; c.height = S;
-    var g = c.getContext('2d');
-    var rgb = parseInt(hex.slice(1, 3), 16) + ',' +
-              parseInt(hex.slice(3, 5), 16) + ',' +
-              parseInt(hex.slice(5, 7), 16);
-    var grd = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
-    if (glow) {
-      grd.addColorStop(0, 'rgba(' + rgb + ',0.55)');
-      grd.addColorStop(0.35, 'rgba(' + rgb + ',0.22)');
-      grd.addColorStop(1, 'rgba(' + rgb + ',0)');
-    } else {
-      grd.addColorStop(0, 'rgba(' + rgb + ',1)');
-      grd.addColorStop(0.35, 'rgba(' + rgb + ',0.5)');
-      grd.addColorStop(0.72, 'rgba(' + rgb + ',0.12)');
-      grd.addColorStop(1, 'rgba(' + rgb + ',0)');
-    }
-    g.fillStyle = grd;
-    g.fillRect(0, 0, S, S);
-    return c;
-  }
-
-  function buildSprites() {
-    sprites = { core: [], glow: [] };
-    for (var i = 0; i < PALETTE.length; i++) {
-      sprites.core.push(makeSprite(PALETTE[i].hex, false));
-      sprites.glow.push(makeSprite(PALETTE[i].hex, true));
-    }
-  }
-
-  /* ── headline: mixed roman/italic runs, centred and fitted to the frame ── */
-  function runFont(px, italic) {
-    return (italic ? 'italic ' : '') + '300 ' + px + 'px ' + family;
-  }
-
-  function lineWidth(runs, px) {
-    var w = 0;
-    if ('letterSpacing' in ctx) { ctx.letterSpacing = '0em'; }
-    for (var i = 0; i < runs.length; i++) {
-      ctx.font = runFont(px, runs[i].i);
-      w += ctx.measureText(runs[i].t).width;
-    }
-    return w;
-  }
-
-  // Shrink until the longest line fits. Both headline lines are long, and a
-  // fixed multiplier of wordPx overflows the frame on narrow screens.
-  function fitHeadline() {
-    var px = Math.max(15, Math.round(wordPx * 0.34));
-    var max = W * 0.88;
-    while (px > 12) {
-      var widest = 0;
-      for (var i = 0; i < HEAD.length; i++) {
-        widest = Math.max(widest, lineWidth(HEAD[i], px));
-      }
-      if (widest <= max) { break; }
-      px -= 1;
-    }
-    return px;
-  }
-
-  function drawRuns(runs, originX, y) {
-    var x = originX - lineWidth(runs, headPx) / 2;
-    for (var i = 0; i < runs.length; i++) {
-      ctx.font = runFont(headPx, runs[i].i);
-      ctx.fillText(runs[i].t, x, y);
-      x += ctx.measureText(runs[i].t).width;
-    }
-  }
-
-  /* ── build / rebuild the mote cloud for the current viewport ── */
-
-  function layout() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = root.clientWidth;
-    H = root.clientHeight;
-    cv.width = Math.round(W * dpr);
-    cv.height = Math.round(H * dpr);
-    wordPx = Math.round(Math.max(46, Math.min(W * 0.185, 190)));
-
-    // The sampler and every text pass MUST share one family, or the powder
-    // would spell the word in one face while the wordmark resolves in another.
-    // Pick it once here.
-    family = '"Cormorant Garamond", Georgia, serif';
-    if (!(document.fonts && document.fonts.check(fontFor(wordPx, 600)))) {
-      family = 'Georgia, "Times New Roman", serif';
-    }
-    wordFont = '600 ' + wordPx + 'px ' + family;
-    pts = sampleWord(WORD, wordPx, wordFont);
-
-    // A face that reports ready but rasterises blank yields almost no points;
-    // fall back to a face that is always present rather than ship 70 motes.
-    if (pts.length / 2 < 300) {
-      family = 'Georgia, "Times New Roman", serif';
-      wordFont = '600 ' + wordPx + 'px ' + family;
-      pts = sampleWord(WORD, wordPx, wordFont);
-    }
-
-    headPx = fitHeadline();
-    buildSprites();
-
-    var n = pts.length / 2;
-    var count = W < 700 ? 620 : 1200;
-    seed = 20240;
-    motes = new Array(count);
-
-    for (var i = 0; i < count; i++) {
-      var j = n ? Math.floor(rnd() * n) * 2 : 0;
-      var a = rnd() * Math.PI * 2;
-      var r = (W * 0.28) + rnd() * (W * 0.55);
-      var b = rnd() * Math.PI * 2;
-      // Fine dust mostly, a few visible clumps, like sifted powder. Soft
-      // sprites spread their energy across the disc, so these run larger than
-      // the hard arc() radii they replaced or the grains read as sub-pixel dirt.
-      var grain = 0.9 + Math.pow(rnd(), 2.2) * 4.2;
-      var ci = PICK[(rnd() * PICK.length) | 0];
-
-      motes[i] = {
-        // target: a point inside a letterform
-        tx: n ? pts[j] + (rnd() - 0.5) * 2.5 : 0,
-        ty: n ? pts[j + 1] + (rnd() - 0.5) * 2.5 : 0,
-        tz: (rnd() - 0.5) * 14,
-        // origin: a loose shell around the camera axis
-        sx: Math.cos(a) * r,
-        sy: (rnd() - 0.5) * H * 0.9,
-        sz: -260 + rnd() * 780,
-        // exit: drifting up and out
-        ox: Math.cos(b) * (W * 0.18 + rnd() * W * 0.4),
-        oy: -(H * 0.12) - rnd() * H * 0.35,
-        oz: (rnd() - 0.5) * 420,
-        dIn: rnd() * 0.7,
-        dGa: rnd() * 0.70,
-        dSc: rnd() * 0.60,
-        r: grain,
-        ci: ci,
-        // bloom only on the bigger, lighter grains, which keeps the extra pass cheap
-        glows: (grain > 1.5 || ci < 2) && rnd() < 0.55,
-        // a perpendicular bow, so grains drift in on a curve not a straight vacuum
-        bow: 20 + rnd() * 50,
-        bowA: rnd() * Math.PI * 2,
-        ph: rnd() * Math.PI * 2,
-        sp: 0.25 + rnd() * 0.5,
-        lingers: (i % 7 === 0)
-      };
-    }
-  }
-
-  /* ── frame ── */
-  function draw(now) {
-    var t = (now - t0) / 1000;
-    if (t >= END) { finish(); return; }
-
-    var out = 1 - p(t, T.out, T.outDur);
-    var powderLive = 1 - p(t, T.powderOut, T.powderOutDur);
-
-    camX += (tCamX - camX) * 0.06;
-    camY += (tCamY - camY) * 0.06;
-    var cx = W / 2, cy = H / 2;
-    var wx = cx - camX, wy = cy - camY;
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-
-    // Grains composite additively: deep emerald is close to the background in
-    // luminance, and accumulating light is what stops it reading as mud.
-    ctx.globalCompositeOperation = 'lighter';
-
-    // a soft green lift behind the word, which sells the luminous powder and lifts
-    // the emerald off the forest ground
-    var lift = p(t, T.gather, 1.6) * powderLive * out;
-    if (lift > 0.002) {
-      var lr = wordPx * 3.4;
-      var lg = ctx.createRadialGradient(wx, wy, 0, wx, wy, lr);
-      lg.addColorStop(0, 'rgba(74,120,52,' + (0.16 * lift) + ')');
-      lg.addColorStop(0.55, 'rgba(58,96,44,' + (0.06 * lift) + ')');
-      lg.addColorStop(1, 'rgba(40,70,34,0)');
-      ctx.fillStyle = lg;
-      ctx.fillRect(wx - lr, wy - lr, lr * 2, lr * 2);
-    }
-
-    if (powderLive > 0.002) {
-      for (var i = 0; i < motes.length; i++) {
-        var m = motes[i];
-        var fade = p(t, m.dIn, 0.9);
-        if (fade <= 0) continue;
-
-        var gp = easeOutQuart(p(t, T.gather + m.dGa, T.gatherDur));
-        var sp = easeOutCubic(p(t, T.scatter + m.dSc, T.scatterDur));
-        var sw = 1 - gp;
-
-        // drifting swirl, plus a slow yaw of the whole cloud, which reads as depth
-        var ang = t * m.sp + m.ph;
-        var sx = m.sx + Math.sin(ang) * 30 * sw;
-        var sy = m.sy + Math.cos(ang * 0.8) * 24 * sw - t * 10 * sw;
-        var sz = m.sz + Math.sin(ang * 0.6) * 26 * sw;
-        var yaw = Math.sin(t * 0.26) * 0.34 * sw;
-        var cs = Math.cos(yaw), sn = Math.sin(yaw);
-        var rx = sx * cs - sz * sn;
-        var rz = sx * sn + sz * cs;
-
-        // slow breath once settled, so the assembled word shimmers, not buzzes
-        var jit = 1.2 * gp * (1 - sp);
-        var x = rx * sw + m.tx * gp + m.ox * sp + Math.sin(t * 0.6 + m.ph) * jit;
-        var y = sy * sw + m.ty * gp + m.oy * sp + Math.cos(t * 0.7 + m.ph) * jit;
-        var z = rz * sw + m.tz * gp + m.oz * sp;
-
-        // curved approach, peaks mid-flight, zero at both ends
-        var bow = Math.sin(gp * Math.PI) * m.bow * (1 - sp);
-        x += Math.cos(m.bowA) * bow;
-        y += Math.sin(m.bowA) * bow;
-
-        if (m.lingers) {
-          x += Math.sin(t * 0.33 + m.ph) * 36 * sp;
-          y += Math.cos(t * 0.27 + m.ph * 1.4) * 28 * sp;
-        }
-
-        var pr = FOV / (FOV + z);
-        if (pr <= 0.05) continue;
-
-        var alpha = fade * out * powderLive *
-                    (1 - sp * (m.lingers ? 0.40 : 0.95)) *
-                    (0.55 + 0.45 * clamp01(pr));   // nearer grains read brighter
-        if (alpha <= 0.004) continue;
-
-        var rad = m.r * pr * (1 - sp * 0.35);
-        if (rad < 0.12) continue;
-
-        var px = cx + (x - camX) * pr, py = cy + (y - camY) * pr;
-
-        if (m.glows) {
-          var gr = rad * 2.6;
-          ctx.globalAlpha = alpha * 0.18;
-          ctx.drawImage(sprites.glow[m.ci], px - gr, py - gr, gr * 2, gr * 2);
-        }
-        ctx.globalAlpha = alpha * 0.82;
-        ctx.drawImage(sprites.core[m.ci], px - rad, py - rad, rad * 2, rad * 2);
-      }
-    }
-
-    ctx.globalCompositeOperation = 'source-over';
-
-    // the wordmark resolves where the powder gathered, then recedes
-    var wa = p(t, T.word, T.wordDur) * (1 - p(t, T.wordOut, T.wordOutDur)) * out;
-    if (wa > 0.002) {
-      var ws = 1.06 - 0.06 * easeInOut(p(t, T.word, T.wordDur))
-                    - 0.06 * easeInOut(p(t, T.wordOut, T.wordOutDur));
-      ctx.save();
-      ctx.translate(wx, wy);
-      ctx.scale(ws, ws);
-      ctx.globalAlpha = wa;
-      ctx.fillStyle = '#f5efe0';
-      ctx.font = wordFont;
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '0.04em';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(WORD, 0, 0);
-      ctx.restore();
-    }
-
-    // …and the intro closes on the site's own headline, over clean green
-    var ha = p(t, T.head, T.headDur) * out;
-    if (ha > 0.002) {
-      var hs = 1.04 - 0.04 * easeInOut(p(t, T.head, T.headDur));
-      ctx.save();
-      ctx.translate(wx, wy);
-      ctx.scale(hs, hs);
-      ctx.globalAlpha = ha;
-      ctx.fillStyle = '#f5efe0';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      var lh = headPx * 1.28;
-      var y0 = -((HEAD.length - 1) * lh) / 2;
-      for (var li = 0; li < HEAD.length; li++) {
-        drawRuns(HEAD[li], 0, y0 + li * lh);
-      }
-      ctx.restore();
-    }
-
-    ctx.globalAlpha = 1;
-    raf = requestAnimationFrame(draw);
-  }
-
-  /* ── teardown ── */
-  function finish() {
-    if (finished) return;
-    finished = true;
-    cancelAnimationFrame(raf);
-    root.classList.add('done');
-    body.classList.remove('intro-active');   // hero entrance resumes here
-    window.removeEventListener('resize', onResize);
-    setTimeout(function () {
-      if (root.parentNode) root.parentNode.removeChild(root);
-    }, 1200);
-  }
-
-  function onResize() { if (!finished) layout(); }
-
-  // A page opened in a background tab throttles rAF to ~1fps, so the intro
-  // would burn its whole timeline unseen. Hold the clock while hidden.
-  var hiddenAt = 0;
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { hiddenAt = performance.now(); }
-    else if (hiddenAt) { t0 += performance.now() - hiddenAt; hiddenAt = 0; }
-  });
-
-  root.addEventListener('pointermove', function (e) {
-    tCamX = (e.clientX / W - 0.5) * 110;
-    tCamY = (e.clientY / H - 0.5) * 70;
-  });
-  root.addEventListener('pointerdown', finish);
-  root.addEventListener('wheel', finish, { passive: true });
-  root.addEventListener('touchmove', finish, { passive: true });
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') finish();
-  });
-  window.addEventListener('resize', onResize);
-
-  function start() {
-    layout();
-    t0 = performance.now();
-    // Opened in a background tab: rAF is suspended, so seed the pause here too.
-    // Without this the clock runs while nothing renders, and the visitor's
-    // first sight of the page is an intro that is already over.
-    if (document.hidden) { hiddenAt = t0; }
-    raf = requestAnimationFrame(draw);
-  }
-
-  // Start at once. The opening swirl needs no webfont, and holding a blank
-  // green screen while Google Fonts loads is worse than starting on a fallback:
-  // layout() samples Georgia until Cormorant is available. If the display face
-  // lands before the powder starts gathering, re-sample so the motes spell the
-  // real face, and re-seeding is deterministic, so the swirl doesn't jump.
-  start();
-
-  if (document.fonts && document.fonts.load) {
-    var upgrade = function () {
-      if (finished) return;
-      if (wordFont.indexOf('Cormorant') !== -1) return;
-      if ((performance.now() - t0) / 1000 >= T.gather) return;
-      if (document.fonts.check(fontFor(wordPx, 600))) layout();
-    };
-    Promise.all([
-      document.fonts.load(fontFor(129, 600)),          // the wordmark
-      document.fonts.load(fontFor(40, 300)),           // the headline
-      document.fonts.load(fontFor(40, 300, 'italic'))  // …and its italic run
-    ]).then(upgrade, upgrade);
-  }
-})();
-</script>
-
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">宇治 Uji Terroir</a>
+  <a href="#" class="nav-logo">
+    <svg class="brand-mark" viewBox="0 0 120 100" role="img" aria-label="Uji Terroir">
+      <circle cx="60" cy="46" r="33" fill="none" stroke="var(--mk-4)" stroke-width="5"/>
+      <path d="M60 68 L60 48" stroke="var(--mk-3)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M59 54 C54 46 47 41 39 39 C38 48 45 55 57 57 Z" fill="var(--mk-2)"/>
+      <path d="M61 51 C65 42 72 36 80 34 C81 43 74 51 63 54 Z" fill="var(--mk-1)"/>
+      <path d="M22 80 C36 58 54 56 66 66 C77 75 88 80 102 80 Z" fill="var(--mk-1)" opacity="0.9"/>
+      <path d="M8 80 C24 62 38 60 50 70 C60 78 66 80 78 80 Z" fill="var(--mk-2)"/>
+      <path d="M14 80 C34 70 50 76 66 79 C80 82 96 78 110 80 Z" fill="var(--mk-3)"/>
+      <path d="M4 79 C34 76 86 76 116 79 C86 93 34 93 4 79 Z" fill="var(--mk-4)"/>
+    </svg>
+    <span>宇治 Uji Terroir</span>
+  </a>
   <ul class="nav-links">
     <li>
       <a href="#why" lang-en>Why It Matters</a>
@@ -1424,22 +1561,73 @@
       <a href="#taste" lang-ja style="display:none;">味わう</a>
     </li>
     <li>
+      <a href="#status" lang-en>Where This Stands</a>
+      <a href="#status" lang-ja style="display:none;">いまの進み方</a>
+    </li>
+    <li>
       <a href="#support" lang-en>Take Part</a>
       <a href="#support" lang-ja style="display:none;">参加する</a>
     </li>
   </ul>
-  <div class="nav-lang" onclick="toggleLang()">日本語 / EN</div>
+  <div class="nav-right">
+    <button type="button" class="nav-lang" onclick="toggleLang()" aria-label="Switch language / 言語を切り替える">日本語 / EN</button>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu / メニュー">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
 </nav>
 
+<!-- MOBILE NAV DRAWER (below 900px, where .nav-links is hidden) -->
+<div class="nav-scrim" id="nav-scrim"></div>
+<div class="nav-drawer" id="nav-drawer" inert>
+  <div class="nav-drawer-grab" aria-hidden="true"></div>
+  <ul>
+    <li>
+      <a href="#why" lang-en>Why It Matters</a>
+      <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
+    </li>
+    <li>
+      <a href="#approach" lang-en>Our Approach</a>
+      <a href="#approach" lang-ja style="display:none;">やり方</a>
+    </li>
+    <li>
+      <a href="#farms" lang-en>The Farms</a>
+      <a href="#farms" lang-ja style="display:none;">農家と畑</a>
+    </li>
+    <li>
+      <a href="#taste" lang-en>Taste</a>
+      <a href="#taste" lang-ja style="display:none;">味わう</a>
+    </li>
+    <li>
+      <a href="#status" lang-en>Where This Stands</a>
+      <a href="#status" lang-ja style="display:none;">いまの進み方</a>
+    </li>
+    <li>
+      <a href="#support" lang-en>Take Part</a>
+      <a href="#support" lang-ja style="display:none;">参加する</a>
+    </li>
+  </ul>
+</div>
+
 <!-- HERO / WHY -->
-<section class="hero" style="padding:0;">
-  <div class="hero-left">
+<section class="hero">
+  <figure class="hero-media">
+    <img class="hero-photo" id="hero-photo"
+         src="uji-farms.jpg"
+         alt="Terraced tea fields on the hills at Uji, each plot planted and clipped along its own lines."
+         data-alt-en="Terraced tea fields on the hills at Uji, each plot planted and clipped along its own lines."
+         data-alt-ja="宇治の丘に広がる段々の茶畑。畑ごとに、畝の向きも仕立ても異なる。"
+         width="1920" height="1280"
+         fetchpriority="high" decoding="async">
+  </figure>
+  <div class="hero-text">
     <div class="hero-eyebrow fade-up">Uji, Kyoto · 宇治、京都</div>
     <h1 class="hero-title fade-up delay-1">
-      <span lang-en>Matcha Travelled the World.<br>Uji Is Still <em>a Place.</em></span>
-      <span lang-ja style="display:none;">抹茶は世界へ<br>広がった。<br>宇治は、いまも<em>土地の名前。</em></span>
+      <span lang-en>Matcha has never been more popular.<br>Uji has never had<br><em>fewer farmers.</em></span>
+      <span lang-ja style="display:none;">抹茶は、かつてなく<br>人気がある。<br>宇治の農家は、<br><em>かつてなく少ない。</em></span>
     </h1>
     <p class="hero-jp fade-up delay-2">宇治の風土を、畑ごとに。</p>
+    <div class="hero-aside">
     <p class="hero-body fade-up delay-3" lang-en>
       Matcha has moved out of the tea room and into cafés, kitchens, and daily routines everywhere. Uji is not a flavour category. It is a place, a set of methods, and a small number of farms that still work them. We keep that character visible, farm by farm, while there is still time.
     </p>
@@ -1452,11 +1640,9 @@
       <a href="#taste" class="btn-ghost" lang-en>Taste the Difference</a>
       <a href="#taste" class="btn-ghost" lang-ja style="display:none;">味の違いを知る</a>
     </div>
+    </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-kanji">畑</div>
-    <div class="hero-stat-grid">
+  <div class="hero-stat-grid">
       <div class="hero-stat">
         <div class="hero-stat-number">800+</div>
         <div class="hero-stat-label" lang-en>Years of Tea Growing in Uji</div>
@@ -1477,7 +1663,6 @@
         <div class="hero-stat-label" lang-en>Blending Across Farms</div>
         <div class="hero-stat-label" lang-ja style="display:none;">農家をまたいだブレンドはしない</div>
       </div>
-    </div>
   </div>
 </section>
 
@@ -1527,6 +1712,46 @@
       <div class="issue-card-title" lang-ja style="display:none;">畑ごとの個性</div>
       <p class="issue-card-body" lang-en>Fields a short walk apart do not give the same cup. When tea is blended and sold by region alone, that difference, the most interesting thing about this place, never reaches anyone's bowl.</p>
       <p class="issue-card-body" lang-ja style="display:none;">歩いて数分の畑でも、同じ味にはなりません。産地だけを名乗って混ぜてしまうと、この土地のいちばん面白い違いが、誰の一椀にも届かなくなります。</p>
+    </div>
+  </div>
+
+  <div class="figure-band">
+    <div class="figure-col">
+      <div class="figure-eyebrow" lang-en>The World</div>
+      <div class="figure-eyebrow" lang-ja style="display:none;">世界</div>
+      <div class="figure-line">
+        <span class="figure-num was">$479M</span>
+        <span class="figure-to" aria-hidden="true">→</span>
+        <span class="figure-num">$763M</span>
+      </div>
+      <div class="figure-note" lang-en>Global matcha market, 2024 to 2030</div>
+      <div class="figure-note" lang-ja style="display:none;">世界の抹茶市場（2024年 → 2030年）</div>
+    </div>
+
+    <div class="figure-col">
+      <div class="figure-eyebrow" lang-en>Uji</div>
+      <div class="figure-eyebrow" lang-ja style="display:none;">宇治</div>
+      <div class="figure-line">
+        <span class="figure-num">100+</span>
+        <span class="figure-to" aria-hidden="true">→</span>
+        <span class="figure-num now">≈40</span>
+      </div>
+      <div class="figure-note" lang-en>Cooperative tea farms in Uji City (last two decades)</div>
+      <div class="figure-note" lang-ja style="display:none;">宇治市の茶業組合に加盟する農家数（この二十年）</div>
+    </div>
+
+    <p class="figure-caption" lang-en>
+      Demand has never been higher. The number of hands able to meet it the traditional way has never been lower.
+    </p>
+    <p class="figure-caption" lang-ja style="display:none;">
+      需要は、かつてないほど高まっています。その需要に昔ながらのやり方で応えられる手は、かつてないほど少なくなっています。
+    </p>
+
+    <div class="figure-source" lang-en>
+      Sources: Grand View Research (market size) · Local cooperative reporting / Yomiuri (Uji farm numbers)
+    </div>
+    <div class="figure-source" lang-ja style="display:none;">
+      出典：Grand View Research（市場規模）／ 地元組合資料・読売新聞（宇治の農家数）
     </div>
   </div>
 </section>
@@ -1719,8 +1944,142 @@
   </div>
 </section>
 
+<!-- STATUS -->
+<section class="status" id="status">
+  <div class="section-label" lang-en>Where This Stands</div>
+  <div class="section-label" lang-ja style="display:none;">いまの進み方</div>
+  <h2 lang-en>What is recorded,<br>and what is not yet.</h2>
+  <h2 lang-ja style="display:none;">記録できたこと、<br>まだできていないこと。</h2>
+  <p class="section-note" lang-en>
+    This work is early. We would rather set out its state in one place than let the rest of the page imply more than that. Every line below moves farm by farm, and this section is updated as each one does.
+  </p>
+  <p class="section-note" lang-ja style="display:none;">
+    まだ始まったばかりの取り組みです。ページの各所で実際より進んでいるように見せるより、現状をひとつの場所に記します。以下はいずれも農家ごとに進み、進むたびにこの欄を書き換えます。
+  </p>
+
+  <div class="status-list">
+    <div class="status-row">
+      <div class="status-what-cell">
+        <div class="status-what" lang-en>Farm profiles</div>
+        <div class="status-what" lang-ja style="display:none;">農家のプロフィール</div>
+      </div>
+      <div class="status-state-cell">
+        <div class="status-state" lang-en>Being recorded</div>
+        <div class="status-state" lang-ja style="display:none;">取材中</div>
+      </div>
+      <div>
+        <p class="status-note" lang-en>Interviews and tasting go one farm at a time. A profile is published only after the farmer has confirmed it, which is why the cards above still read as placeholders.</p>
+        <p class="status-note" lang-ja style="display:none;">取材と試飲は、一軒ずつ進めています。農家ご本人に確認できたものだけを掲載するため、上のカードはまだ掲載準備中の表示のままです。</p>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <div class="status-what-cell">
+        <div class="status-what" lang-en>Matcha and tasting bundles</div>
+        <div class="status-what" lang-ja style="display:none;">抹茶と飲み比べセット</div>
+      </div>
+      <div class="status-state-cell">
+        <div class="status-state" lang-en>Enquiry only</div>
+        <div class="status-state" lang-ja style="display:none;">お問い合わせのみ</div>
+      </div>
+      <div>
+        <p class="status-note" lang-en>Prices and direct ordering are not published. Terms are agreed farm by farm, and a farm appears here once its own terms are settled.</p>
+        <p class="status-note" lang-ja style="display:none;">価格と直接のご注文は、まだ公開していません。条件は農家ごとに取り決め、整った農家から順に掲載します。</p>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <div class="status-what-cell">
+        <div class="status-what" lang-en>Support channel</div>
+        <div class="status-what" lang-ja style="display:none;">支援の受け口</div>
+      </div>
+      <div class="status-state-cell">
+        <div class="status-state pending" lang-en>Being set up</div>
+        <div class="status-state pending" lang-ja style="display:none;">準備中</div>
+      </div>
+      <div>
+        <p class="status-note" lang-en>Money cannot be contributed yet. For now the whole of it is leaving a name in the form below, and you will hear first when it opens.</p>
+        <p class="status-note" lang-ja style="display:none;">金銭でのご支援は、まだお受けできません。いまは下のフォームにお名前をお預けいただくだけです。開設の際は、まずご連絡します。</p>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <div class="status-what-cell">
+        <div class="status-what" lang-en>Over-spec leaf research</div>
+        <div class="status-what" lang-ja style="display:none;">規格外茶葉の研究</div>
+      </div>
+      <div class="status-state-cell">
+        <div class="status-state" lang-en>Early</div>
+        <div class="status-state" lang-ja style="display:none;">着手したばかり</div>
+      </div>
+      <div>
+        <p class="status-note" lang-en>A secondary strand, still at the stage of reading and asking. We will publish what we find rather than what we hope to find.</p>
+        <p class="status-note" lang-ja style="display:none;">補助的な取り組みで、まだ調べて尋ねている段階です。期待ではなく、わかったことを公開します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ACTION -->
 <section class="involve" id="support">
+
+  <!-- PETITION
+       QR decoded from petition-qrcode.png: https://c.org/MfppBDLyJG, which
+       resolves to the change.org petition below. The visible link uses the
+       canonical change.org URL rather than the short link, because the short
+       link carries recruiter/share tracking parameters. To keep share
+       attribution on link clicks as well as QR scans, swap the href for
+       https://c.org/MfppBDLyJG -->
+  <div class="petition">
+    <div>
+      <div class="section-label" lang-en>Petition</div>
+      <div class="section-label" lang-ja style="display:none;">署名</div>
+      <h3 lang-en>Make regional traceability the law.</h3>
+      <h3 lang-ja style="display:none;">産地のトレーサビリティを、<br>法律に。</h3>
+
+      <p class="petition-lead" lang-en>
+        Because there are no clear regional traceability rules, matcha labelled as Uji matcha need not have come from Uji. This petition asks the Japanese government to mandate clear regional traceability labelling on all matcha products, so that consumers can tell authentic Uji matcha apart and the work of local farmers is protected.
+      </p>
+      <p class="petition-lead" lang-ja style="display:none;">
+        産地のトレーサビリティに関する明確な規則がないため、「宇治抹茶」と表示されていても、実際に宇治で生まれたものとは限りません。この署名は、すべての抹茶製品に明確な産地トレーサビリティ表示を義務づけるよう、日本政府に求めるものです。消費者が本来の宇治抹茶を見分けられるように、そして地元の農家の仕事が守られるように。
+      </p>
+
+      <div class="petition-cta">
+        <a class="btn-primary" href="https://www.change.org/p/mandate-regional-traceability-for-matcha-products-in-japan" target="_blank" rel="noopener noreferrer" lang-en>Sign the petition</a>
+        <a class="btn-primary" href="https://www.change.org/p/mandate-regional-traceability-for-matcha-products-in-japan" target="_blank" rel="noopener noreferrer" lang-ja style="display:none;">署名する</a>
+        <span class="petition-note" lang-en>Hosted on Change.org · opens in a new tab</span>
+        <span class="petition-note" lang-ja style="display:none;">Change.org のページが別タブで開きます</span>
+      </div>
+
+      <details class="petition-detail">
+        <!-- one <summary> only: a second would not be a toggle, just stray text -->
+        <summary><span lang-en>Read the full statement</span><span lang-ja style="display:none;">署名の趣旨を読む</span></summary>
+
+        <p lang-en>Living in Uji City, I&rsquo;ve felt a deep connection to Uji matcha &mdash; a symbol of our region&rsquo;s cultural heritage and a testament to generations of dedication and refinement. Uji matcha is an emblem of our community&rsquo;s identity and history. Yet, as matcha has transcended borders and gained popularity worldwide, the distinctiveness of Uji matcha is slowly fading into obscurity due to the lack of proper regional labeling.</p>
+        <p lang-ja style="display:none;">宇治市に暮らすなかで、私は宇治抹茶に深いつながりを感じてきました。宇治抹茶は、この地域の文化遺産の象徴であり、幾世代にもわたる献身と研鑽の証です。それは私たちの共同体の由来と歴史を示すものでもあります。けれど抹茶が国境を越えて世界へ広まる一方で、適切な産地表示の仕組みがないために、宇治抹茶ならではの個性は少しずつ見えにくくなっています。</p>
+
+        <p lang-en>Uji is world-renowned for producing matcha of unparalleled quality, a reputation built over centuries. However, many consumers today, both locally and internationally, remain unaware of where their matcha truly originates. Because of the lack of clear regional traceability rules, many customers consume matcha that is labelled as Uji matcha but doesn&rsquo;t actually originate here. This lack of transparency not only undermines the value of Uji matcha but also poses a threat to our cultural legacy, risking its gradual disappearance from the annals of treasured Japanese traditions.</p>
+        <p lang-ja style="display:none;">宇治は、何世紀もかけて築かれた評価のもと、比類なき品質の抹茶の産地として世界に知られています。しかし国内外を問わず、多くの消費者は自分の飲む抹茶がどこで生まれたものかを知りません。産地のトレーサビリティに関する明確な規則がないため、「宇治抹茶」と表示されていながら、実際にはこの土地で生まれていない抹茶が数多く流通しています。この不透明さは宇治抹茶の価値を損なうだけでなく、私たちの文化的な遺産そのものを脅かし、日本の大切な伝統の記録から静かに消えてしまう危険をはらんでいます。</p>
+
+        <p lang-en>Regional labeling would not only empower consumers with the knowledge of where their matcha leaves were grown and produced but also help preserve Uji&rsquo;s rich heritage. By mandating such labels, we ensure that the centuries-old artistry of Uji matcha cultivation is recognized and that consumers can make informed choices, distinguishing authentic Uji matcha from others.</p>
+        <p lang-ja style="display:none;">産地表示は、茶葉がどこで育てられ、どこで仕上げられたのかを消費者に伝えるだけでなく、宇治の豊かな遺産を守る力にもなります。表示を義務づけることで、何世紀にもわたる宇治抹茶の手仕事が正しく認められ、消費者は本来の宇治抹茶を見分け、納得して選ぶことができるようになります。</p>
+
+        <p lang-en>The Japanese government has the power to enact policies that would protect the reputations of historically significant regions like Uji. As stewards of our cultural heritage, let&rsquo;s urge the relevant authorities to mandate clear regional traceability labelling for all matcha products to support the tireless work of local farmers. Your signature is a step towards ensuring that future generations can continue to appreciate and marvel at the rich traditions encapsulated in every cup of Uji matcha.</p>
+        <p lang-ja style="display:none;">日本政府には、宇治のように歴史的に重要な産地の名を守る政策を定める力があります。文化を受け継ぐ者として、すべての抹茶製品に明確な産地トレーサビリティ表示を義務づけるよう、関係機関に求めましょう。それは、地元の農家の絶え間ない仕事を支えることにつながります。あなたの署名は、次の世代もまた、一椀ごとに宿る豊かな伝統に触れ、驚くことができる未来への一歩です。</p>
+
+        <p lang-en>Please sign this petition to preserve the distinguished identity of Uji matcha, celebrate the legacy of Uji City, and push for transparency in matcha labeling. Together, we can prevent the dilution of our cultural heritage and ensure that Uji matcha gains its rightful place on the global stage.</p>
+        <p lang-ja style="display:none;">宇治抹茶という確かな個性を守り、宇治市の歩みを讃え、抹茶の表示に透明性をもたらすために、どうかこの署名にご協力ください。ともに取り組むことで、文化の希薄化を防ぎ、宇治抹茶が世界の舞台でふさわしい位置を得られるようにしていけます。</p>
+      </details>
+    </div>
+
+    <figure class="petition-qr">
+      <img src="petition-qrcode.png" width="512" height="512" loading="lazy" decoding="async"
+           alt="QR code linking to the Change.org petition to mandate regional traceability labelling for matcha products in Japan.">
+      <!-- one <figcaption> only, for the same reason -->
+      <figcaption><span lang-en>Scan to sign</span><span lang-ja style="display:none;">スキャンして署名</span></figcaption>
+    </figure>
+  </div>
+
   <div class="involve-left">
     <div class="section-label" lang-en>Take Part</div>
     <div class="section-label" lang-ja style="display:none;">参加する</div>
@@ -1728,12 +2087,40 @@
     <h2 lang-ja style="display:none;">農家を知り、<br>味の違いを確かめ、<br>この手仕事を守る。</h2>
     <p lang-en>Tell us what brings you here: curiosity about origin, an interest in one particular farm, or a wish to support this work while there is still time. We will point you to the right part of it.</p>
     <p lang-ja style="display:none;">産地への興味でも、ある一軒の農家のことでも、まだ間に合ううちにこの仕事を支えたいという気持ちでも。ご連絡いただければ、ふさわしい入り口をご案内します。</p>
-    <form class="involve-form" id="support-form" onsubmit="handleSubmit(event)">
+    <!-- ────────────────────────────────────────────────────────────────
+         This is a static page with no backend, so the form posts to
+         Web3Forms, which forwards every submission to ujiterroirjp@gmail.com.
+
+         The access_key below is public by design: it only authorises
+         delivery to that one verified address, so it is safe in page source.
+         To change the destination address, generate a new key at
+         web3forms.com — the address is not set here.
+
+         It is a real <form action method="POST">, so it still works if
+         JavaScript fails; the script only upgrades it to submit in place.
+
+         To use Formspree instead, change the action to
+         https://formspree.io/f/YOUR_FORM_ID and delete the access_key input.
+         ──────────────────────────────────────────────────────────────── -->
+    <form class="involve-form" id="support-form"
+          action="https://api.web3forms.com/submit" method="POST"
+          onsubmit="handleSubmit(event)">
+
+      <input type="hidden" name="access_key" value="3a1f027c-fd5a-48ce-9f90-b5df1c257296">
+      <input type="hidden" name="subject" value="Uji Terroir — new enquiry from the website">
+      <input type="hidden" name="from_name" value="Uji Terroir website">
+
+      <!-- honeypot, not a real field -->
+      <input type="checkbox" class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
       <div class="form-row">
-        <input class="form-input" id="field-name" type="text" placeholder="Name / お名前" required>
-        <input class="form-input" type="email" placeholder="Email / メール" required>
+        <label class="sr-only" for="field-name">Name / お名前</label>
+        <input class="form-input" id="field-name" name="name" type="text" placeholder="Name / お名前" autocomplete="name" required>
+        <label class="sr-only" for="field-email">Email / メール</label>
+        <input class="form-input" id="field-email" name="email" type="email" placeholder="Email / メール" autocomplete="email" required>
       </div>
-      <select class="form-select" id="help-select">
+      <label class="sr-only" for="help-select">What brings you here? / ご用件</label>
+      <select class="form-select" id="help-select" name="reason" required>
         <option value="" disabled selected>What brings you here? / ご用件をお選びください</option>
         <option value="matcha">Matcha or tasting bundle enquiry / 抹茶・飲み比べセットについて</option>
         <option value="support">Support the work / 活動を支える</option>
@@ -1743,11 +2130,15 @@
         <option value="press">Press or media / 取材・メディア</option>
         <option value="other">Something else / その他</option>
       </select>
-      <input class="form-input" type="text" placeholder="Message (optional) / メッセージ（任意）">
+      <label class="sr-only" for="field-message">Message / メッセージ</label>
+      <textarea class="form-input" id="field-message" name="message" rows="4" placeholder="Message (optional) / メッセージ（任意）"></textarea>
       <button type="submit" class="btn-primary" style="align-self: flex-start; cursor: pointer;">
         <span lang-en>Send Message</span>
         <span lang-ja style="display:none;">送信する</span>
       </button>
+      <p class="form-status" id="form-status" role="status" aria-live="polite">
+        <span lang-en></span><span lang-ja style="display:none;"></span>
+      </p>
     </form>
   </div>
   <div class="involve-right">
@@ -1769,15 +2160,37 @@
     </div>
     <div class="contact-item">
       <div class="contact-label">Enquiries</div>
-      <div class="contact-value">your@email.com</div>
-      <div class="contact-note" lang-en>Placeholder: add the project address here.</div>
-      <div class="contact-note" lang-ja style="display:none;">仮の表示です。実際のアドレスに差し替えてください。</div>
+      <div class="contact-value"><a href="mailto:ujiterroirjp@gmail.com">ujiterroirjp@gmail.com</a></div>
     </div>
     <div class="contact-item">
-      <div class="contact-label">Instagram</div>
-      <div class="contact-value">@ujimatcha_project</div>
-      <div class="contact-note" lang-en>Placeholder: confirm or replace this handle.</div>
-      <div class="contact-note" lang-ja style="display:none;">仮の表示です。実際のアカウントをご確認ください。</div>
+      <div class="contact-label">
+        <!-- role + aria-label, not aria-hidden: with the word gone the mark
+             is the only thing naming this row -->
+        <svg class="brand-icon" viewBox="0 0 24 24" role="img" aria-label="Instagram">
+          <defs>
+            <!-- userSpaceOnUse: without it these are treated as fractions of
+                 the bounding box, which collapses the sweep to one colour -->
+            <linearGradient id="ig-grad" gradientUnits="userSpaceOnUse" x1="3" y1="21" x2="21" y2="3">
+              <stop offset="0" stop-color="#FFD521"/>
+              <stop offset="0.28" stop-color="#F50000"/>
+              <stop offset="0.62" stop-color="#B900B4"/>
+              <stop offset="1" stop-color="#4D58D2"/>
+            </linearGradient>
+          </defs>
+          <rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4" fill="none" stroke="url(#ig-grad)" stroke-width="2.1"/>
+          <circle cx="12" cy="12" r="4.4" fill="none" stroke="url(#ig-grad)" stroke-width="2.1"/>
+          <circle cx="17.5" cy="6.5" r="1.35" fill="url(#ig-grad)"/>
+        </svg>
+      </div>
+      <div class="contact-value"><a href="https://instagram.com/uji_terroir" target="_blank" rel="noopener noreferrer">@uji_terroir</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">
+        <svg class="brand-icon" viewBox="0 0 24 24" role="img" aria-label="X">
+          <path fill="#0f1419" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </div>
+      <div class="contact-value"><a href="https://x.com/ujiterroir" target="_blank" rel="noopener noreferrer">@ujiterroir</a></div>
     </div>
     <div class="contact-item">
       <div class="contact-label">Language</div>
@@ -1788,7 +2201,19 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">宇治 · Uji Terroir</div>
+  <div class="footer-logo">
+    <svg class="brand-mark" viewBox="0 0 120 100" role="img" aria-label="Uji Terroir">
+      <circle cx="60" cy="46" r="33" fill="none" stroke="var(--mk-4)" stroke-width="5"/>
+      <path d="M60 68 L60 48" stroke="var(--mk-3)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M59 54 C54 46 47 41 39 39 C38 48 45 55 57 57 Z" fill="var(--mk-2)"/>
+      <path d="M61 51 C65 42 72 36 80 34 C81 43 74 51 63 54 Z" fill="var(--mk-1)"/>
+      <path d="M22 80 C36 58 54 56 66 66 C77 75 88 80 102 80 Z" fill="var(--mk-1)" opacity="0.9"/>
+      <path d="M8 80 C24 62 38 60 50 70 C60 78 66 80 78 80 Z" fill="var(--mk-2)"/>
+      <path d="M14 80 C34 70 50 76 66 79 C80 82 96 78 110 80 Z" fill="var(--mk-3)"/>
+      <path d="M4 79 C34 76 86 76 116 79 C86 93 34 93 4 79 Z" fill="var(--mk-4)"/>
+    </svg>
+    <span>宇治 · Uji Terroir</span>
+  </div>
   <div lang-en>Farm-by-farm Uji matcha · Uji, Kyoto</div>
   <div lang-ja style="display:none;">畑ごとの宇治抹茶 · 京都府宇治市</div>
   <div>畑ごとに、宇治を守る</div>
@@ -1797,12 +2222,366 @@
 <script>
   function toggleLang() {
     document.body.classList.toggle('ja');
+    // the photograph's description is content too, so it switches with the page
+    var photo = document.getElementById('hero-photo');
+    if (photo) {
+      var ja = document.body.classList.contains('ja');
+      photo.alt = photo.getAttribute(ja ? 'data-alt-ja' : 'data-alt-en') || photo.alt;
+    }
+  }
+
+  // ── SPRING ──────────────────────────────────────────────────────────
+  // Apple's two parameters rather than mass/stiffness/damping:
+  //   response — how quickly the value reaches its target, in seconds
+  //   damping  — 1.0 settles without overshoot, below 1.0 bounces
+  // A spring has no duration. It always starts from wherever the value is
+  // right now and carries whatever velocity it already had, which is what
+  // makes it interruptible: re-targeting mid-flight needs no special case.
+  function Spring(opts) {
+    this.value = opts.from || 0;
+    this.target = opts.to || 0;
+    this.velocity = opts.velocity || 0;
+    this.omega = (2 * Math.PI) / (opts.response || 0.35);
+    this.zeta = opts.damping == null ? 1 : opts.damping;
+    this.onFrame = opts.onFrame;
+    this.onRest = opts.onRest;
+    this.raf = 0;
+    this.last = 0;
+  }
+
+  Spring.prototype.step = function (dt) {
+    // semi-implicit Euler, substepped so a long frame cannot go unstable
+    var steps = Math.max(1, Math.ceil(dt / (1 / 240)));
+    var h = dt / steps;
+    var k = this.omega * this.omega;
+    var c = 2 * this.zeta * this.omega;
+    for (var i = 0; i < steps; i++) {
+      var a = -k * (this.value - this.target) - c * this.velocity;
+      this.velocity += a * h;
+      this.value += this.velocity * h;
+    }
+  };
+
+  Spring.prototype.tick = function (now) {
+    var dt = this.last ? Math.min((now - this.last) / 1000, 1 / 30) : 1 / 60;
+    this.last = now;
+    this.step(dt);
+
+    var settled = Math.abs(this.value - this.target) < 0.1 &&
+                  Math.abs(this.velocity) < 0.1;
+    if (settled) {
+      this.value = this.target;
+      this.velocity = 0;
+      this.raf = 0;
+      if (this.onFrame) { this.onFrame(this.value); }
+      if (this.onRest) { this.onRest(this.value); }
+      return;
+    }
+    if (this.onFrame) { this.onFrame(this.value); }
+    this.raf = requestAnimationFrame(this.tick.bind(this));
+  };
+
+  Spring.prototype.animateTo = function (target, velocity) {
+    this.target = target;
+    if (velocity != null) { this.velocity = velocity; }
+    if (!this.raf) {
+      this.last = 0;
+      this.raf = requestAnimationFrame(this.tick.bind(this));
+    }
+  };
+
+  Spring.prototype.stop = function () {
+    if (this.raf) { cancelAnimationFrame(this.raf); this.raf = 0; }
+    this.last = 0;
+  };
+
+  // Where a flick would come to rest if it decelerated like a scroll. Apple's
+  // projection from Designing Fluid Interfaces — exponential decay, not the
+  // textbook v^2/2a — so the target is chosen from where the gesture is going
+  // rather than from where the finger happened to let go.
+  function project(velocity, decelerationRate) {
+    var d = decelerationRate || 0.998;
+    return (velocity / 1000) * d / (1 - d);
+  }
+
+  // Resistance past a boundary, rising with the overshoot: the edge reads as
+  // soft and still responsive instead of frozen.
+  function rubberband(overshoot, dimension, constant) {
+    var c = constant || 0.55;
+    return (overshoot * dimension * c) / (dimension + c * Math.abs(overshoot));
+  }
+
+  // ── MOBILE NAVIGATION ───────────────────────────────────────────────
+  // The horizontal links are display:none below 900px, so the drawer is the
+  // only way through the page at that width. It is draggable because it is a
+  // surface that arrived by moving: anything that moves on screen should be
+  // grabbable, and it should follow the finger 1:1 while held.
+  (function () {
+    var toggle = document.getElementById('nav-toggle');
+    var drawer = document.getElementById('nav-drawer');
+    var scrim = document.getElementById('nav-scrim');
+    if (!toggle || !drawer) { return; }
+
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var height = 0;          // drawer height; closed sits at -height
+    var open = false;
+
+    function measure() { height = drawer.offsetHeight || 1; }
+
+    function render(y) {
+      drawer.style.transform = 'translateY(' + y + 'px)';
+      if (scrim) { scrim.style.opacity = String(Math.max(0, Math.min(1, 1 + y / height))); }
+    }
+
+    var spring = new Spring({
+      response: 0.3,
+      damping: 0.8,          // a drawer is thrown, so a little overshoot is honest
+      onFrame: render,
+      onRest: function (y) {
+        drawer.style.willChange = '';
+        if (y <= -height + 0.5) { finishClose(); }
+      }
+    });
+
+    function finishClose() {
+      drawer.setAttribute('inert', '');
+      if (scrim) { scrim.style.opacity = '0'; }
+    }
+
+    function setOpen(next, velocity) {
+      open = next;
+      document.body.classList.toggle('nav-open', next);
+      toggle.setAttribute('aria-expanded', next ? 'true' : 'false');
+
+      if (next) { drawer.removeAttribute('inert'); }
+
+      if (reduceMotion) {
+        // cross-fade in place: no travel, no spring, no drag
+        if (!next) { finishClose(); }
+        return;
+      }
+
+      measure();
+      drawer.style.willChange = 'transform';
+      spring.animateTo(next ? 0 : -height, velocity);
+    }
+
+    function isOpen() { return open; }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setOpen(!isOpen());
+    });
+
+    drawer.addEventListener('click', function (e) {
+      if (dragged) { e.preventDefault(); return; }
+      if (e.target.closest('a')) { setOpen(false); }
+    });
+
+    if (scrim) {
+      scrim.addEventListener('click', function () { setOpen(false); });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!isOpen()) { return; }
+      if (e.target.closest('nav') || e.target.closest('#nav-drawer')) { return; }
+      setOpen(false);
+    });
+
+    // ── drag to dismiss ──
+    // Tracking starts only after ~10px of travel, so a tap on a link is still
+    // a tap. Position history gives the release velocity; without it the
+    // animation would start from rest and the seam would show.
+    var THRESHOLD = 10;
+    var pointerId = null;
+    var startY = 0;
+    var startValue = 0;
+    var tracking = false;
+    var dragged = false;
+    var history = [];
+
+    function velocityFromHistory() {
+      if (history.length < 2) { return 0; }
+      var last = history[history.length - 1];
+      var first = history[0];
+      for (var i = history.length - 1; i >= 0; i--) {
+        if (last.t - history[i].t > 0.08) { break; }
+        first = history[i];
+      }
+      var dt = last.t - first.t;
+      if (dt <= 0) { return 0; }
+      return (last.y - first.y) / dt;   // px per second
+    }
+
+    drawer.addEventListener('pointerdown', function (e) {
+      if (reduceMotion || pointerId !== null) { return; }
+      if (e.pointerType === 'mouse' && e.button !== 0) { return; }
+      measure();
+      // Whatever is on screen can be grabbed — including a drawer in the
+      // middle of closing. Testing the logical open/closed flag here would
+      // make a closing drawer finish closing before it could be caught,
+      // which is the one thing an interruptible surface must never do.
+      if (spring.value <= -height + 1) { return; }
+      pointerId = e.pointerId;
+      startY = e.clientY;
+      // start from the value on screen right now, not from the logical target
+      spring.stop();
+      startValue = spring.value;
+      tracking = false;
+      dragged = false;
+      history = [{ y: e.clientY, t: e.timeStamp / 1000 }];
+    });
+
+    drawer.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== pointerId) { return; }
+      var dy = e.clientY - startY;
+      history.push({ y: e.clientY, t: e.timeStamp / 1000 });
+      if (history.length > 8) { history.shift(); }
+
+      if (!tracking) {
+        if (Math.abs(dy) < THRESHOLD) { return; }
+        tracking = true;
+        dragged = true;
+        // the surface is live again the moment it is held, even if it was
+        // on its way out when the finger landed
+        open = true;
+        drawer.removeAttribute('inert');
+        document.body.classList.add('nav-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        // capture keeps the moves coming if the finger leaves the surface;
+        // it can throw if the pointer is already gone, which is not fatal
+        try { drawer.setPointerCapture(pointerId); } catch (err) {}
+        drawer.style.willChange = 'transform';
+      }
+
+      var y = startValue + dy;
+      // the drawer cannot open further than open: past that edge it resists
+      if (y > 0) { y = rubberband(y, height); }
+      spring.value = y;
+      spring.velocity = 0;
+      render(y);
+    });
+
+    function endDrag(e) {
+      if (e.pointerId !== pointerId) { return; }
+      pointerId = null;
+      if (!tracking) { return; }
+      tracking = false;
+
+      var v = velocityFromHistory();
+      // decide from where the gesture is heading, not from where it stopped
+      var projected = spring.value + project(v);
+      var shouldClose = projected < -height / 2;
+      // a decisive flick wins over position
+      if (v < -250) { shouldClose = true; }
+      if (v > 250) { shouldClose = false; }
+
+      setOpen(!shouldClose, v);   // release velocity carries into the spring
+      // the click that follows a drag is not a tap on a link
+      setTimeout(function () { dragged = false; }, 0);
+    }
+
+    drawer.addEventListener('pointerup', endDrag);
+    drawer.addEventListener('pointercancel', endDrag);
+
+    // above 900px the drawer does not exist, so widening the window clears it
+    var wide = window.matchMedia('(min-width: 901px)');
+    if (wide.addEventListener) {
+      wide.addEventListener('change', function (e) {
+        if (e.matches && isOpen()) { setOpen(false); }
+      });
+    }
+
+    window.addEventListener('resize', function () {
+      if (reduceMotion) { return; }
+      measure();
+      if (!isOpen()) { spring.value = -height; spring.target = -height; render(-height); }
+    }, { passive: true });
+
+    // closed is the starting state, placed by script so CSS never has to
+    // transition the same property the spring owns
+    if (!reduceMotion) {
+      measure();
+      spring.value = -height;
+      spring.target = -height;
+      render(-height);
+    }
+  })();
+
+  // The nav is a floating translucent layer; its hairline is a scroll edge,
+  // so it appears only once content is actually passing underneath it.
+  (function () {
+    var nav = document.querySelector('nav');
+    if (!nav) { return; }
+    var media = document.querySelector('.hero-media');
+    var ticking = false;
+    function update() {
+      // the nav keeps its bare state for as long as the photograph is behind
+      // it; the bar returns once there is page ground under the chrome
+      var threshold = media
+        ? media.offsetHeight - nav.offsetHeight
+        : 8;
+      nav.classList.toggle('scrolled', window.scrollY > threshold);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  })();
+
+  // Posts the form without leaving the page. If fetch is unavailable the
+  // function bows out and the browser performs the ordinary form POST, so a
+  // submission is never silently lost.
+  function setStatus(en, ja, kind) {
+    var el = document.getElementById('form-status');
+    if (!el) { return; }
+    el.className = 'form-status' + (kind ? ' is-' + kind : '');
+    el.querySelector('[lang-en]').innerHTML = en;
+    el.querySelector('[lang-ja]').innerHTML = ja;
   }
 
   function handleSubmit(e) {
+    var form = e.target;
+    if (!window.fetch || !window.FormData) { return; }   // native POST instead
     e.preventDefault();
-    alert('Thank you. We will be in touch. / ありがとうございます。折り返しご連絡いたします。');
-    e.target.reset();
+
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    setStatus('Sending\u2026', '\u9001\u4fe1\u3057\u3066\u3044\u307e\u3059\u2026', '');
+
+    fetch(form.action, { method: 'POST', body: new FormData(form) })
+      .then(function (r) {
+        return r.json().catch(function () { return { success: r.ok }; });
+      })
+      .then(function (data) {
+        if (data && data.success) {
+          form.reset();
+          setStatus(
+            'Thank you. We will be in touch.',
+            '\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3059\u3002\u6298\u308a\u8fd4\u3057\u3054\u9023\u7d61\u3044\u305f\u3057\u307e\u3059\u3002',
+            'ok');
+        } else {
+          throw new Error('rejected');
+        }
+      })
+      .catch(function () {
+        // never a dead end: hand over an address that always works
+        setStatus(
+          'That did not send. Please email <a href="mailto:ujiterroirjp@gmail.com">ujiterroirjp@gmail.com</a> instead.',
+          '\u9001\u4fe1\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002<a href="mailto:ujiterroirjp@gmail.com">ujiterroirjp@gmail.com</a> \u5b9b\u306b\u30e1\u30fc\u30eb\u3067\u3054\u9023\u7d61\u304f\u3060\u3055\u3044\u3002',
+          'error');
+      })
+      .then(function () { btn.disabled = false; });
   }
 
   // Sends someone from the support card straight into the form,
@@ -1821,14 +2600,21 @@
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.issue-card, .doing-card, .offer-card, .farmer-card').forEach(el => {
+  // The reveal is not gesture-driven, so it is critically damped: no
+  // overshoot on something the reader did not throw. Same spring curve as
+  // the rest of the page, sampled into a linear() easing.
+  var revealEase = getComputedStyle(document.documentElement)
+    .getPropertyValue('--ease-spring').trim() || 'ease';
+
+  document.querySelectorAll('.issue-card, .doing-card, .offer-card, .farmer-card, .status-row').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transition = 'opacity 0.45s ease, transform 0.588s ' + revealEase;
     observer.observe(el);
   });
 </script>
