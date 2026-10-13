@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uji Terroir · Matcha crossed the world</title>
+<meta name="description" content="Matcha crossed the world and became a lifestyle. The boom never reached the people who grow it. Uji Terroir puts the grower's name back on the tea.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'%3E%3Ccircle cx='60' cy='46' r='33' fill='none' stroke='%231a3a2a' stroke-width='6'/%3E%3Cpath d='M61 51C65 42 72 36 80 34c1 9-6 17-17 20z' fill='%238aac6e'/%3E%3Cpath d='M59 54c-5-8-12-13-20-15-1 9 6 16 18 18z' fill='%235a7c5e'/%3E%3Cpath d='M8 80c16-18 30-20 42-10 10 8 16 10 28 10z' fill='%235a7c5e'/%3E%3Cpath d='M14 80c20-10 36-4 52-1 14 3 30-1 44 1z' fill='%232d5a3d'/%3E%3Cpath d='M8 80c26-2 78-2 104 0-26 13-78 13-104 0z' fill='%231a3a2a'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Beat 01 is the only image the first screen needs. Everything else is lazy. -->
+<link rel="preload" as="image" fetchpriority="high"
+      imagesrcset="opening-assets/farm-640.avif 640w, opening-assets/farm-1024.avif 1024w, opening-assets/farm-1536.avif 1536w, opening-assets/farm-1920.avif 1920w"
+      imagesizes="100vw" type="image/avif">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --sage: #5a7c5e;
+    --tea: #8aac6e;
+    --ivory: #f7f3eb;
+    --warm-white: #faf8f4;
+    --cream: #f2f0de;      /* sampled from Uji_terroir.png so beat 06 sits seamlessly */
+    --ink: #1c1c18;
+    --muted: #5c5848;
+    --gold: #b8985a;
+  }
+
+  /* ── THE PAGING MECHANISM ──
+     mandatory snap decides where a scroll may come to rest; scroll-snap-stop:
+     always is the half that makes it a pager — it forbids the scroll from
+     passing a snap point even during a trackpad fling, so one gesture can
+     never cross two beats. Native momentum, the real scrollbar and the
+     browser's own history all stay intact because nothing here intercepts
+     the scroll; it only constrains where it is allowed to land. */
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink);
+    background: var(--warm-white);
+    overflow-x: hidden;
+    font-optical-sizing: auto;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  /* ── THE DECK ──
+     Every beat is sticky at the top of the viewport, so a beat that has been
+     read stays exactly where it is while the next one arrives over it. The
+     outgoing frame never slides away under the incoming one — it holds, and
+     is covered. Each beat is opaque for that reason. Beat 02 is the single
+     deliberate exception; see below. */
+  .deck { position: relative; }
+
+  .beat {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;   /* the "never two beats" guarantee */
+    display: grid;
+    align-content: center;
+    padding: 6rem 5rem;
+  }
+
+  .bleed { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+  .bleed img { width: 100%; height: 100%; object-fit: cover; }
+
+  .bleed::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(12, 28, 18, 0.34) 0%,
+      rgba(12, 28, 18, 0.10) 35%,
+      rgba(12, 28, 18, 0.55) 100%);
+  }
+
+  .line {
+    position: relative;
+    z-index: 2;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4.6vw, 4.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    /* no fixed width: Japanese and Chinese set shorter, and must not be
+       forced into a column sized for English */
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .line.on-photo {
+    color: var(--ivory);
+    text-shadow: 0 2px 28px rgba(10, 24, 16, 0.55);
+  }
+
+  :lang(ja) .line, :lang(zh) .line {
+    font-family: 'Noto Serif JP', 'Cormorant Garamond', serif;
+    letter-spacing: 0.02em;
+    max-width: 16ch;
+  }
+
+  /* ── BEAT 01 ── */
+  .beat-01 { background: var(--forest); }
+
+  /* ── BEAT 02 — THE EXCEPTION ──
+     No background and no image of its own. Beat 01 is still pinned directly
+     underneath, so the photograph does not move, redraw, or reload by a
+     single pixel: the only thing that arrives is the type. This is the one
+     beat in the deck that is not a composed transition, on purpose. */
+  .beat-02 { background: transparent; }
+
+  /* ── BEAT 03 — THE LOUD ONE ── */
+  .beat-03 {
+    background: var(--tea);
+    padding: 0;
+  }
+
+  .collage { position: absolute; inset: 0; z-index: 0; }
+
+  .piece { position: absolute; }
+  .piece img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 18px 50px rgba(18, 36, 22, 0.28);
+  }
+  /* rotation lives on the image so the entrance animation can own the
+     wrapper's transform without fighting it */
+  .piece-a img { transform: rotate(-2.5deg); }
+  .piece-b img { transform: rotate(3deg); }
+  .piece-c img { transform: rotate(-4deg); }
+  .piece-d img { transform: rotate(2deg); }
+  .piece-e img { transform: rotate(-6deg); }
+  .piece-f img { transform: rotate(5.5deg); }
+
+  /* desktop composition — overlapping, varied scale, built around the focal.
+     The focal sits high so its top half clears the type card below it. */
+  .piece-a { left: 29%;  top: 1%;   width: min(40vw, 530px); z-index: 4; }
+  .piece-b { left: 3%;   top: 6%;   width: min(24vw, 340px); z-index: 3; }
+  .piece-c { right: 4%;  top: 9%;   width: min(22vw, 300px); z-index: 2; }
+  .piece-d { left: 13%;  bottom: 4%; width: min(19vw, 270px); z-index: 5; }
+  .piece-e { right: 11%; bottom: 7%; width: min(12vw, 165px); z-index: 6; }
+  .piece-f { left: 47%;  bottom: 1%; width: min(10vw, 140px); z-index: 6; }
+
+  .beat-03 .type {
+    position: relative;
+    z-index: 10;
+    justify-self: center;
+    align-self: center;
+    max-width: min(86vw, 35rem);
+    margin-top: 6vh;
+    padding: 2.25rem 2.75rem;
+    text-align: center;
+    background: rgba(250, 248, 244, 0.9);
+    backdrop-filter: blur(6px);
+    border: 0.5px solid rgba(26, 58, 42, 0.18);
+  }
+
+  .figure {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(2.6rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--forest);
+  }
+
+  .beat-03 .line {
+    max-width: none;
+    margin: 0.75rem auto 0;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    color: var(--moss);
+  }
+
+  /* The figure is a claim about the world and has to carry its receipt. */
+  .source {
+    margin-top: 1.25rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── BEAT 05 — CONTAINED PANEL ──
+     The source is 624x351. Shown at its own size it stays sharp; stretched
+     full-bleed it would not. One beat breaks the rhythm on purpose. */
+  .beat-05 {
+    background: var(--ivory);
+    justify-items: center;
+    text-align: center;
+    gap: 2.5rem;
+  }
+
+  .panel {
+    position: relative;
+    z-index: 2;
+    width: min(624px, 88vw);
+    aspect-ratio: 624 / 351;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(26, 58, 42, 0.18);
+  }
+
+  .panel img { width: 100%; height: 100%; object-fit: cover; }
+
+  .beat-05 .line {
+    color: var(--forest);
+    max-width: 22ch;
+    margin: 0 auto;
+    font-size: clamp(1.6rem, 3.4vw, 3rem);
+  }
+
+  /* ── BEAT 06 — THE MARK ── */
+  .beat-06 {
+    background: var(--cream);
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .mark { width: min(280px, 48vw); height: auto; }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--forest);
+  }
+
+  .beat-06 .line {
+    color: var(--moss);
+    max-width: 24ch;
+    margin: 0 auto;
+    font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+  }
+
+  .enter-site {
+    margin-top: 0.5rem;
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    background: var(--forest);
+    color: var(--ivory);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.1s ease-out;
+  }
+
+  .enter-site:hover { background: var(--moss); }
+  .enter-site:active { transform: scale(0.97); }
+
+  /* the page has no seventh snap stop, so the colophon lives inside beat 06 */
+  .colophon {
+    position: absolute;
+    left: 0; right: 0; bottom: 1.5rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    opacity: 0.8;
+  }
+
+  /* ── PERSISTENT CONTROLS ──
+     Both of these sit above the deck and are visible on every single beat.
+     A pager is harder to leave than a scrolling page, so the way out must
+     never scroll away. */
+  .skip {
+    position: fixed;
+    top: 1.25rem; right: 1.25rem;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    background: rgba(26, 58, 42, 0.92);
+    backdrop-filter: blur(8px);
+    color: var(--ivory);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0.5px solid rgba(247, 243, 235, 0.35);
+    transition: background 0.3s ease, transform 0.1s ease-out;
+  }
+
+  .skip:hover { background: var(--forest); }
+  .skip:active { transform: scale(0.97); }
+  .skip::after { content: '→'; font-size: 0.85rem; line-height: 1; }
+
+  /* ── BEAT INDICATOR ── */
+  .pager {
+    position: fixed;
+    left: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .pager button {
+    display: block;
+    width: 2.6rem;
+    height: 1.6rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* the mark itself — a hairline that fills in when the beat is current */
+  .pager button::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 1.5rem;
+    height: 2px;
+    margin-top: -1px;
+    background: rgba(247, 243, 235, 0.45);
+    box-shadow: 0 1px 6px rgba(10, 24, 16, 0.45);
+    transition: width 0.35s ease, background 0.35s ease;
+  }
+
+  .pager button[aria-current="true"]::before {
+    width: 2.6rem;
+    background: var(--ivory);
+  }
+
+  /* over the pale beats the hairlines need the opposite treatment */
+  body.light-beat .pager button::before {
+    background: rgba(26, 58, 42, 0.3);
+    box-shadow: none;
+  }
+
+  body.light-beat .pager button[aria-current="true"]::before {
+    background: var(--forest);
+  }
+
+  .sr {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .skip:focus-visible { outline-color: var(--ivory); }
+
+  /* ── ENTRANCES ──
+     Resting state is the visible state. Hidden start states exist only inside
+     this @supports block, so a browser without scroll-driven animations — or
+     a reader who asked for less motion — still sees every beat in full. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .rise {
+        animation: rise linear both;
+        animation-timeline: view();
+        animation-range: entry 30% cover 30%;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(1.5rem); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Beat 03's pieces assemble rather than appear. */
+      .piece {
+        animation: pop linear both;
+        animation-timeline: view();
+      }
+
+      @keyframes pop {
+        from { opacity: 0; transform: translateY(2.5rem) scale(0.95); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .piece-a { animation-range: entry 30% cover 18%; }
+      .piece-b { animation-range: entry 36% cover 24%; }
+      .piece-c { animation-range: entry 42% cover 30%; }
+      .piece-d { animation-range: entry 48% cover 36%; }
+      .piece-e { animation-range: entry 54% cover 42%; }
+      .piece-f { animation-range: entry 60% cover 48%; }
+
+      .beat-03 .type { animation-range: entry 55% cover 45%; }
+    }
+  }
+
+  /* ── REDUCED MOTION ──
+     No paging, no snapping, no sticky, no animation: a plain stacked page
+     with all six images and all six lines readable in document order. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-snap-type: none; scroll-behavior: auto; }
+
+    .beat {
+      position: static;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+      scroll-snap-align: none;
+      padding: 4rem 5rem;
+    }
+
+    .beat-01 { padding: 0; }
+    .beat-01 .bleed { position: static; }
+    .beat-01 .bleed img { height: auto; aspect-ratio: 2560 / 1707; }
+    .beat-01 .bleed::after { display: none; }
+
+    .beat-02 { background: var(--warm-white); }
+    .beat-02 .line { color: var(--forest); text-shadow: none; }
+
+    .beat-04 { background: var(--forest); }
+    .beat-04 .bleed { position: static; }
+    .beat-04 .bleed img { height: auto; aspect-ratio: 1000 / 667; }
+    .beat-04 .bleed::after { display: none; }
+    .beat-04 .line { margin-top: 2rem; }
+
+    .beat-03 { padding: 4rem 5rem; }
+    .collage {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .piece { position: static; width: auto; }
+    .piece img { transform: none; box-shadow: none; }
+    .beat-03 .type {
+      background: none; backdrop-filter: none; border: 0;
+      padding: 0; margin-top: 0; text-align: left; max-width: none;
+    }
+
+    .colophon { position: static; margin-top: 2rem; }
+    .pager { display: none; }   /* nothing to page through */
+  }
+
+  /* ── 900 AND UNDER ── */
+  @media (max-width: 900px) {
+    .beat { padding: 5rem 2rem; }
+    .beat-03 .type { padding: 2rem; }
+    .pager { left: 1rem; }
+  }
+
+  /* ── PHONE ──
+     Beat 03 gets its own composition here, not a scaled-down desktop one: the
+     two low-resolution sources stay small, the portraits carry the column, and
+     the pile is built vertically because there is no width to spread into.
+     The indicator moves to the bottom edge, clear of the type. */
+  @media (max-width: 600px) {
+    .beat { padding: 4.5rem 1.25rem; }
+    .skip { top: 0.75rem; right: 0.75rem; padding: 0.5rem 0.85rem; font-size: 0.65rem; }
+    .line { max-width: 14ch; }
+
+    .pager {
+      left: 50%;
+      top: auto;
+      bottom: 1rem;
+      transform: translateX(-50%);
+      flex-direction: row;
+      gap: 0.4rem;
+    }
+
+    .pager button { width: 1.9rem; height: 1.9rem; }
+    .pager button::before { width: 1rem; left: 50%; margin-left: -0.5rem; }
+    .pager button[aria-current="true"]::before { width: 1.6rem; margin-left: -0.8rem; }
+
+    /* Pieces run off all four edges so the pile fills a narrow frame instead
+       of floating in it. */
+    .piece-a { left: -8%;  top: 1%;     width: 84%; z-index: 4; }
+    .piece-b { right: -8%; top: 8%;     width: 52%; z-index: 5; }
+    .piece-f { left: 6%;   top: 24%;    width: 26%; z-index: 6; }
+    .piece-c { right: 2%;  top: 34%;    width: 46%; z-index: 3; }
+    .piece-e { left: -2%;  bottom: 12%; width: 36%; z-index: 6; }
+    .piece-d { right: -4%; bottom: 2%;  width: 48%; z-index: 5; }
+
+    .beat-03 .type {
+      padding: 1.5rem 1.25rem;
+      max-width: 88vw;
+      margin-top: 0;
+      background: rgba(250, 248, 244, 0.94);
+    }
+
+    .beat-05 { gap: 1.75rem; }
+    .colophon { bottom: 4rem; }
+  }
+
+  @media (prefers-contrast: more) {
+    .skip { background: var(--forest); border-color: var(--ivory); }
+    .beat-03 .type { background: var(--warm-white); }
+  }
+</style>
+</head>
+<body>
+
+<!-- First focusable element on the page, on purpose. -->
+<a class="skip" href="uji-matcha.html">Skip to the site</a>
+
+<main class="deck" id="deck">
+
+  <!-- ══ BEAT 01 ══ -->
+  <section class="beat beat-01" id="beat-1" aria-label="Beat 1 of 6: tea fields at Uji">
+    <div class="bleed">
+      <picture>
+        <source type="image/avif" sizes="100vw"
+          srcset="opening-assets/farm-640.avif 640w, opening-assets/farm-1024.avif 1024w, opening-assets/farm-1536.avif 1536w, opening-assets/farm-1920.avif 1920w">
+        <source type="image/webp" sizes="100vw"
+          srcset="opening-assets/farm-640.webp 640w, opening-assets/farm-1024.webp 1024w, opening-assets/farm-1536.webp 1536w, opening-assets/farm-1920.webp 1920w">
+        <img src="opening-assets/farm-1536.jpg"
+             srcset="opening-assets/farm-640.jpg 640w, opening-assets/farm-1024.jpg 1024w, opening-assets/farm-1536.jpg 1536w, opening-assets/farm-1920.jpg 1920w"
+             sizes="100vw"
+             width="2560" height="1707"
+             fetchpriority="high" loading="eager" decoding="async"
+             alt="Terraced tea fields on the hills at Uji, each plot planted and clipped along its own lines.">
+      </picture>
+    </div>
+  </section>
+
+  <!-- ══ BEAT 02 ══
+       No media of its own. Beat 01 is pinned underneath and shows through,
+       so the photograph is literally the same pixels — never re-requested,
+       never re-composited, never moved. Only the type arrives. -->
+  <section class="beat beat-02" id="beat-2" aria-label="Beat 2 of 6">
+    <p class="line on-photo rise">Matcha crossed the world.</p>
+  </section>
+
+  <!-- ══ BEAT 03 ══ -->
+  <section class="beat beat-03" id="beat-3" aria-label="Beat 3 of 6">
+    <div class="collage" aria-hidden="true">
+      <!-- SLOT 1: placeholder, needs clearance — performative.png -->
+      <div class="piece piece-a">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 84vw, min(40vw, 530px)"
+            srcset="opening-assets/c-focal-320.avif 320w, opening-assets/c-focal-520.avif 520w, opening-assets/c-focal-760.avif 760w, opening-assets/c-focal-1040.avif 1040w">
+          <source type="image/webp" sizes="(max-width: 600px) 84vw, min(40vw, 530px)"
+            srcset="opening-assets/c-focal-320.webp 320w, opening-assets/c-focal-520.webp 520w, opening-assets/c-focal-760.webp 760w, opening-assets/c-focal-1040.webp 1040w">
+          <img src="opening-assets/c-focal-520.jpg"
+               srcset="opening-assets/c-focal-320.jpg 320w, opening-assets/c-focal-520.jpg 520w, opening-assets/c-focal-760.jpg 760w, opening-assets/c-focal-1040.jpg 1040w"
+               sizes="(max-width: 600px) 84vw, min(40vw, 530px)"
+               width="1200" height="800" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+
+      <!-- SLOT 2: placeholder, needs clearance — img_9720.avif -->
+      <div class="piece piece-b">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 52vw, min(24vw, 340px)"
+            srcset="opening-assets/c-anchor-320.avif 320w, opening-assets/c-anchor-440.avif 440w, opening-assets/c-anchor-640.avif 640w, opening-assets/c-anchor-880.avif 880w">
+          <source type="image/webp" sizes="(max-width: 600px) 52vw, min(24vw, 340px)"
+            srcset="opening-assets/c-anchor-320.webp 320w, opening-assets/c-anchor-440.webp 440w, opening-assets/c-anchor-640.webp 640w, opening-assets/c-anchor-880.webp 880w">
+          <img src="opening-assets/c-anchor-440.jpg"
+               srcset="opening-assets/c-anchor-320.jpg 320w, opening-assets/c-anchor-440.jpg 440w, opening-assets/c-anchor-640.jpg 640w, opening-assets/c-anchor-880.jpg 880w"
+               sizes="(max-width: 600px) 52vw, min(24vw, 340px)"
+               width="2560" height="3413" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+
+      <!-- SLOT 3: placeholder, needs clearance — WH_Matcha_Lifestyle4.webp -->
+      <div class="piece piece-c">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 46vw, min(22vw, 300px)"
+            srcset="opening-assets/c-square-280.avif 280w, opening-assets/c-square-360.avif 360w, opening-assets/c-square-560.avif 560w, opening-assets/c-square-720.avif 720w">
+          <source type="image/webp" sizes="(max-width: 600px) 46vw, min(22vw, 300px)"
+            srcset="opening-assets/c-square-280.webp 280w, opening-assets/c-square-360.webp 360w, opening-assets/c-square-560.webp 560w, opening-assets/c-square-720.webp 720w">
+          <img src="opening-assets/c-square-360.jpg"
+               srcset="opening-assets/c-square-280.jpg 280w, opening-assets/c-square-360.jpg 360w, opening-assets/c-square-560.jpg 560w, opening-assets/c-square-720.jpg 720w"
+               sizes="(max-width: 600px) 46vw, min(22vw, 300px)"
+               width="2500" height="2500" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+
+      <!-- SLOT 4: placeholder, needs clearance — zzHSPpkFgGLYLryrBC8dPk.jpg -->
+      <div class="piece piece-d">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 48vw, min(19vw, 270px)"
+            srcset="opening-assets/c-portrait-240.avif 240w, opening-assets/c-portrait-340.avif 340w, opening-assets/c-portrait-500.avif 500w, opening-assets/c-portrait-680.avif 680w">
+          <source type="image/webp" sizes="(max-width: 600px) 48vw, min(19vw, 270px)"
+            srcset="opening-assets/c-portrait-240.webp 240w, opening-assets/c-portrait-340.webp 340w, opening-assets/c-portrait-500.webp 500w, opening-assets/c-portrait-680.webp 680w">
+          <img src="opening-assets/c-portrait-340.jpg"
+               srcset="opening-assets/c-portrait-240.jpg 240w, opening-assets/c-portrait-340.jpg 340w, opening-assets/c-portrait-500.jpg 500w, opening-assets/c-portrait-680.jpg 680w"
+               sizes="(max-width: 600px) 48vw, min(19vw, 270px)"
+               width="1440" height="1730" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+
+      <!-- SLOT 5: placeholder, needs clearance — images.jpeg.
+           Source is 387x516: it is small here because it cannot be larger. -->
+      <div class="piece piece-e">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 36vw, min(12vw, 165px)"
+            srcset="opening-assets/c-small-190.avif 190w, opening-assets/c-small-387.avif 387w">
+          <source type="image/webp" sizes="(max-width: 600px) 36vw, min(12vw, 165px)"
+            srcset="opening-assets/c-small-190.webp 190w, opening-assets/c-small-387.webp 387w">
+          <img src="opening-assets/c-small-190.jpg"
+               srcset="opening-assets/c-small-190.jpg 190w, opening-assets/c-small-387.jpg 387w"
+               sizes="(max-width: 600px) 36vw, min(12vw, 165px)"
+               width="387" height="516" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+
+      <!-- SLOT 6: placeholder, needs clearance — f2afff2b605552bb8c0607ba7f628d96.jpg.
+           Source is 236x417, the smallest on the page. -->
+      <div class="piece piece-f">
+        <picture>
+          <source type="image/avif" sizes="(max-width: 600px) 26vw, min(10vw, 140px)"
+            srcset="opening-assets/c-tiny-150.avif 150w, opening-assets/c-tiny-236.avif 236w">
+          <source type="image/webp" sizes="(max-width: 600px) 26vw, min(10vw, 140px)"
+            srcset="opening-assets/c-tiny-150.webp 150w, opening-assets/c-tiny-236.webp 236w">
+          <img src="opening-assets/c-tiny-150.jpg"
+               srcset="opening-assets/c-tiny-150.jpg 150w, opening-assets/c-tiny-236.jpg 236w"
+               sizes="(max-width: 600px) 26vw, min(10vw, 140px)"
+               width="236" height="417" loading="lazy" decoding="async" alt="">
+        </picture>
+      </div>
+    </div>
+
+    <div class="type rise">
+      <p class="figure">$10.8 billion by 2030</p>
+      <p class="line">Matcha became a lifestyle.</p>
+      <p class="source">[SOURCE: firm, year]</p>
+    </div>
+  </section>
+
+  <!-- ══ BEAT 04 ══
+       TEMPORARY IMAGE — this is licensed stock and will be replaced with
+       Shingo's own photograph. Note also that the pickers wear nón lá and
+       carry back-baskets: it reads as Southeast Asia, not Uji, on a page
+       whose whole argument is that place is specific. Replace before launch. -->
+  <section class="beat beat-04" id="beat-4" aria-label="Beat 4 of 6">
+    <div class="bleed">
+      <picture>
+        <source type="image/avif" sizes="100vw"
+          srcset="opening-assets/pickers-640.avif 640w, opening-assets/pickers-1000.avif 1000w">
+        <source type="image/webp" sizes="100vw"
+          srcset="opening-assets/pickers-640.webp 640w, opening-assets/pickers-1000.webp 1000w">
+        <img src="opening-assets/pickers-1000.jpg"
+             srcset="opening-assets/pickers-640.jpg 640w, opening-assets/pickers-1000.jpg 1000w"
+             sizes="100vw"
+             width="1000" height="667" loading="lazy" decoding="async"
+             alt="Two tea pickers working a hillside of tea bushes, large baskets on their backs.">
+      </picture>
+    </div>
+    <p class="line on-photo rise">The boom never reached the people who grow it.</p>
+  </section>
+
+  <!-- ══ BEAT 05 ══
+       Contained rather than full bleed: the source is 624x351 and holds its
+       detail at this size. Stretched edge to edge it would not. -->
+  <section class="beat beat-05" id="beat-5" aria-label="Beat 5 of 6">
+    <div class="panel rise">
+      <picture>
+        <source type="image/avif" sizes="(max-width: 700px) 88vw, 624px"
+          srcset="opening-assets/cups-374.avif 374w, opening-assets/cups-624.avif 624w">
+        <source type="image/webp" sizes="(max-width: 700px) 88vw, 624px"
+          srcset="opening-assets/cups-374.webp 374w, opening-assets/cups-624.webp 624w">
+        <img src="opening-assets/cups-624.jpg"
+             srcset="opening-assets/cups-374.jpg 374w, opening-assets/cups-624.jpg 624w"
+             sizes="(max-width: 700px) 88vw, 624px"
+             width="624" height="351" loading="lazy" decoding="async"
+             alt="A pair of hands holding out two ceramic bowls of whisked matcha.">
+      </picture>
+    </div>
+    <p class="line rise">Anywhere in the world, anyone can print the word &lsquo;Uji&rsquo; on a tin.</p>
+  </section>
+
+  <!-- ══ BEAT 06 ══ -->
+  <section class="beat beat-06" id="beat-6" aria-label="Beat 6 of 6">
+    <picture>
+      <source type="image/webp" sizes="(max-width: 600px) 48vw, 280px"
+        srcset="opening-assets/mark-320.webp 320w, opening-assets/mark-540.webp 540w">
+      <img class="mark rise" src="opening-assets/mark-540.png"
+           srcset="opening-assets/mark-320.png 320w, opening-assets/mark-540.png 540w"
+           sizes="(max-width: 600px) 48vw, 280px"
+           width="540" height="480" loading="lazy" decoding="async"
+           alt="The Uji Terroir mark: a tea seedling rising from hills inside a circle.">
+    </picture>
+    <p class="wordmark rise">Uji Terroir</p>
+    <p class="line rise">We put the grower&rsquo;s name back on the tea.</p>
+    <a class="enter-site" href="uji-matcha.html">Enter the site</a>
+    <p class="colophon">Uji Terroir · Uji, Kyoto · Market figure: [SOURCE: firm, year]</p>
+  </section>
+
+</main>
+
+<!-- Beat indicator. Real buttons, so they are reachable and operable by
+     keyboard with no extra handling. -->
+<nav class="pager" id="pager" aria-label="Sequence">
+  <button type="button" aria-current="true"><span class="sr">Beat 1</span></button>
+  <button type="button"><span class="sr">Beat 2</span></button>
+  <button type="button"><span class="sr">Beat 3</span></button>
+  <button type="button"><span class="sr">Beat 4</span></button>
+  <button type="button"><span class="sr">Beat 5</span></button>
+  <button type="button"><span class="sr">Beat 6</span></button>
+</nav>
+
+<script>
+/* ──────────────────────────────────────────────────────────────────────────
+   The paging itself is CSS. This adds only the three things CSS cannot do,
+   and deliberately does NOT intercept wheel, touch, or the scrollbar:
+
+   1. Arrow keys. Under mandatory snap a native arrow press scrolls ~40px,
+      far short of the next snap point, so the snap drags it back and the key
+      looks dead. Mapping keys to whole beats is the fix.
+   2. The indicator's current-beat state, and jumping on click.
+   3. Flipping the indicator's colour on the pale beats, where a white
+      hairline would be invisible.
+   ────────────────────────────────────────────────────────────────────────── */
+(function () {
+  var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
+  var dots  = Array.prototype.slice.call(document.querySelectorAll('.pager button'));
+  if (!beats.length) { return; }
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var current = 0;
+
+  /* zero-based indexes of the beats with a pale ground */
+  var LIGHT = { 4: true, 5: true };
+
+  /* Every beat is exactly one viewport tall, so the live index can be read
+     straight off the scroll position. That is more reliable than trusting the
+     observer to have fired, and it keeps the keys correct even if the reader
+     got here by dragging the scrollbar. */
+  /* Where beat i starts in the document.
+
+     Neither scrollIntoView nor offsetTop can be used here: both report a
+     stuck sticky element at its PAINTED position, so any beat at or before
+     the current one looks like it is already at the top and every backward
+     move silently does nothing.
+
+     Measuring instead from the beat's own height is immune to that — sticky
+     changes where a box is painted, never how tall it is — and it stays
+     correct on mobile, where 100svh and window.innerHeight differ while the
+     toolbar is showing. The beats are identical in height, so beat i begins
+     at i * that height. */
+  function offsetOf(i) {
+    return Math.round(i * beats[0].getBoundingClientRect().height);
+  }
+
+  function indexFromScroll() {
+    var vh = window.innerHeight || 1;
+    return Math.max(0, Math.min(beats.length - 1, Math.round(window.scrollY / vh)));
+  }
+
+  function go(i) {
+    i = Math.max(0, Math.min(beats.length - 1, i));
+
+    /* A jump of more than one beat is deliberate, so it is instant: a smooth
+       scroll across five beats would both take a second and a half and risk
+       being halted partway by scroll-snap-stop, which exists precisely to
+       stop scrolls crossing snap points. */
+    var far = Math.abs(i - indexFromScroll()) > 1;
+
+    /* NOT scrollIntoView. Every beat is sticky at top: 0, so any beat at or
+       before the current one is pinned and already reports top: 0 — the
+       browser considers it in view and scrolls nowhere. That silently broke
+       every backward move. Scrolling the window to the beat's own flow
+       offset sidesteps sticky entirely and works in both directions.
+
+       'instant', not 'auto': auto defers to the CSS scroll-behavior, which is
+       smooth here, so it would animate exactly when we do not want it to. */
+    window.scrollTo({
+      top: offsetOf(i),
+      behavior: (reduce.matches || far) ? 'instant' : 'smooth'
+    });
+  }
+
+  function setCurrent(i) {
+    if (i === current) { return; }
+    current = i;
+    dots.forEach(function (d, n) {
+      if (n === i) { d.setAttribute('aria-current', 'true'); }
+      else { d.removeAttribute('aria-current'); }
+    });
+    document.body.classList.toggle('light-beat', !!LIGHT[i]);
+  }
+
+  /* The deck is a stack of sticky panels, so the beat in view is the one
+     covering most of the viewport. */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && e.intersectionRatio > 0.55) {
+          setCurrent(beats.indexOf(e.target));
+        }
+      });
+    }, { threshold: [0.56] });
+    beats.forEach(function (b) { io.observe(b); });
+  }
+
+  dots.forEach(function (d, n) {
+    d.addEventListener('click', function () { go(n); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) { return; }
+
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) { return; }
+
+    var k = e.key;
+    var handled = true;
+
+    var at = indexFromScroll();
+
+    if (k === 'ArrowDown' || k === 'PageDown' || k === 'ArrowRight') { go(at + 1); }
+    else if (k === 'ArrowUp' || k === 'PageUp' || k === 'ArrowLeft') { go(at - 1); }
+    else if (k === 'Home') { go(0); }
+    else if (k === 'End') { go(beats.length - 1); }
+    else { handled = false; }
+
+    if (handled) { e.preventDefault(); }
+  });
+})();
+</script>
+
+</body>
+</html>
