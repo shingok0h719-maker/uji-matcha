@@ -23,7 +23,7 @@
      og:image must be an absolute http(s) URL; a data: URI or local path will
      not render in any share preview. -->
 <title>宇治テロワール / Uji Terroir · Authentic Uji Matcha, Farm by Farm</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'%3E%3Ccircle cx='60' cy='46' r='33' fill='none' stroke='%231a3a2a' stroke-width='6'/%3E%3Cpath d='M61 51C65 42 72 36 80 34c1 9-6 17-17 20z' fill='%238aac6e'/%3E%3Cpath d='M59 54c-5-8-12-13-20-15-1 9 6 16 18 18z' fill='%235a7c5e'/%3E%3Cpath d='M8 80c16-18 30-20 42-10 10 8 16 10 28 10z' fill='%235a7c5e'/%3E%3Cpath d='M14 80c20-10 36-4 52-1 14 3 30-1 44 1z' fill='%232d5a3d'/%3E%3Cpath d='M8 80c26-2 78-2 104 0-26 13-78 13-104 0z' fill='%231a3a2a'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect x=%272%27 y=%272%27 width=%2760%27 height=%2760%27 rx=%276%27 fill=%27%231a3a2a%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23f7f3eb%27 font-family=%27Hiragino Mincho ProN,Yu Mincho,serif%27%3E%E5%AE%87%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
@@ -573,42 +573,6 @@
 
   .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
   .btn-ghost:active { color: var(--gold); border-color: var(--gold); }
-
-  /* The four figures used to sit on a dark panel beside the text. With the
-     photograph carrying the imagery they read as a quiet hairline band on
-     the page ground instead. */
-  .hero-stat-grid {
-    margin-top: auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 0.5px solid var(--border);
-  }
-
-  .hero-stat {
-    padding: 1.5rem 2rem 2rem 5rem;
-    border-right: 0.5px solid var(--border);
-  }
-
-  .hero-stat + .hero-stat { padding-left: 2rem; }
-  .hero-stat:last-child { border-right: none; }
-
-  .hero-stat-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    font-weight: 300;
-    color: var(--forest);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .hero-stat-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    line-height: 1.6;
-  }
 
   /* ── SECTION BASE ── */
   section {
@@ -1317,101 +1281,6 @@
 
   .research-inner p:last-child { margin-bottom: 0; }
 
-  /* ── STATUS ──
-     One place that says what exists and what does not, so the rest of the
-     page can describe the work without hedging in every paragraph. */
-  .status { background: var(--parchment); }
-
-  .status h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 300;
-    color: var(--forest);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    max-width: 26ch;
-  }
-
-  .status-list { border-top: 0.5px solid var(--border); }
-
-  /* each row is its own grid, so the state column is fixed rather than auto:
-     an auto track would be measured per row and the columns would not line up */
-  .status-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 10rem minmax(0, 2fr);
-    gap: 2rem;
-    align-items: baseline;
-    padding: 1.6rem 0;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .status-what {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--forest);
-  }
-
-  .status-state {
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--sage);
-    border: 0.5px solid rgba(90, 124, 94, 0.45);
-    padding: 0.2rem 0.7rem;
-    white-space: nowrap;
-  }
-
-  /* the one line on this list that is not yet open at all */
-  .status-state.pending {
-    color: var(--muted);
-    border-color: var(--border);
-  }
-
-  .status-note {
-    font-size: 0.87rem;
-    color: var(--muted);
-    line-height: 1.85;
-  }
-
-  /* [lang-ja] is forced to display:block, which would stretch the chip across
-     its whole column; the wrapper takes the grid cell and the chip hugs its text */
-  .status-state { display: inline-block; }
-  /* outranks the body.ja [lang-ja] { display: block !important } above */
-  body.ja .status-state[lang-ja] { display: inline-block !important; }
-
-  /* ── SUPPORT CHANNEL ── */
-  .support-card {
-    border: 0.5px solid var(--border);
-    background: rgba(255,255,255,0.65);
-    padding: 2rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .support-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--forest);
-    margin-bottom: 0.75rem;
-  }
-
-  .support-card p {
-    font-size: 0.87rem;
-    color: var(--muted);
-    line-height: 1.85;
-    margin-bottom: 1.5rem;
-  }
-
-  .support-cta { display: flex; }
-
-  .contact-note {
-    font-size: 0.68rem;
-    font-style: italic;
-    color: rgba(92, 88, 72, 0.65);
-    letter-spacing: 0.02em;
-  }
-
   /* ── LANG TOGGLE ── */
   [lang-en], [lang-ja] { transition: opacity 0.3s; }
   body.ja [lang-en] { display: none; }
@@ -1469,12 +1338,6 @@
     .hero-title { grid-row: auto; }
     .hero-jp { grid-row: auto; margin-bottom: 2.5rem; }
     .hero-aside { grid-row: auto; }
-    .hero-stat-grid { grid-template-columns: 1fr 1fr; }
-    .hero-stat { padding: 1.5rem 1.5rem 2rem 2rem; }
-    .hero-stat + .hero-stat { padding-left: 1.5rem; }
-    .hero-stat:nth-child(2n) { border-right: none; }
-    .hero-stat:nth-child(2n+1) { border-right: 0.5px solid var(--border); padding-left: 2rem; }
-    .hero-stat:nth-child(-n+2) { border-bottom: 0.5px solid var(--border); }
     section { padding: 5rem 2rem; }
     .problem { grid-template-columns: 1fr; gap: 3rem; }
     .figure-band { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -1497,17 +1360,12 @@
     .involve-right { padding: 4rem 2rem; }
     footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
     .farmers { padding: 5rem 2rem; }
-    .status-row { grid-template-columns: 1fr; gap: 0.6rem; }
   }
 
   @media (max-width: 560px) {
     section { padding: 4rem 1.25rem; }
     .hero-media { height: clamp(260px, 46vh, 400px); }
     .hero-text { padding: 2rem 1.25rem 1.5rem; }
-    .hero-stat { padding: 1.25rem 1rem 1.5rem 1.25rem; }
-    .hero-stat + .hero-stat { padding-left: 1rem; }
-    .hero-stat:nth-child(2n+1) { padding-left: 1.25rem; }
-    .hero-stat-number { font-size: 1.9rem; }
     .hero-cta { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .doing-grid { grid-template-columns: 1fr; }
     .doing-card { border-right: none; }
@@ -1524,55 +1382,263 @@
     .farmer-card { padding: 2rem 1.5rem; }
     footer { padding: 2rem 1.25rem; }
   }
+
+  /* ── MENTOR REVIEW, 2026-10 ────────────────────────────────────────
+     Centred name with no plant mark, a full-height hero with one line,
+     overview cards, editorial farm cards that open their story, a
+     sensory taste section, three ways to take part, a bare footer. */
+
+  .status-state { display: none; }
+
+  /* nav: name centred, destinations either side */
+  nav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; }
+  .nav-links-left { justify-self: start; }
+  .nav-right { justify-self: end; }
+  .nav-logo { grid-column: 2; justify-self: center; display: flex; align-items: baseline; gap: 0.7rem; white-space: nowrap; }
+  .nav-right { grid-column: 3; }
+  .nav-logo-jp { font-family: 'Noto Serif JP', serif; font-weight: 400; font-size: 1.2rem; letter-spacing: 0.2em; }
+  .nav-logo-en { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.05rem; letter-spacing: 0.28em; text-transform: uppercase; }
+
+  /* hero: the land, full height, one headline at its foot */
+  .hero { position: relative; height: 100vh; height: 100svh; min-height: 540px; padding: 0; display: block; }
+  .hero-media { position: absolute; inset: 0; height: auto; }
+  .hero-media::after {
+    background: linear-gradient(to bottom,
+      rgba(26, 58, 42, 0.5) 0%, rgba(26, 58, 42, 0.12) 18%, rgba(26, 58, 42, 0) 34%,
+      rgba(26, 58, 42, 0) 50%, rgba(16, 36, 24, 0.68) 100%);
+  }
+  .hero-text {
+    position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
+    display: block; padding: 0 5rem clamp(3rem, 10vh, 6.5rem); text-align: center;
+  }
+  .hero-eyebrow { justify-content: center; color: var(--gold-light); margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { background: var(--gold-light); }
+  .hero-title {
+    color: var(--ivory); margin: 0 auto; max-width: none;
+    font-size: clamp(2.1rem, 3.9vw, 4.1rem); line-height: 1.14;
+    text-shadow: 0 1px 24px rgba(16, 36, 24, 0.45);
+  }
+  body.ja .hero-title { max-width: none; font-size: clamp(1.7rem, 3.2vw, 3.2rem); line-height: 1.5; }
+  .hero-title em { color: var(--gold-light); }
+  .hero-vmark {
+    position: absolute; z-index: 2; left: 3rem; top: 7rem;
+    writing-mode: vertical-rl; font-family: 'Noto Serif JP', serif; font-weight: 400;
+    font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1; letter-spacing: 0.3em;
+    color: var(--ivory); opacity: 0.92; text-shadow: 0 1px 18px rgba(16, 36, 24, 0.45);
+  }
+
+  /* overview: one card per part of the work */
+  .overview { background: var(--warm-white); padding: 5rem; }
+  .overview-grid { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .overview-card {
+    display: flex; flex-direction: column; gap: 0.6rem; height: 100%;
+    padding: 2rem 1.75rem 2.25rem; text-decoration: none;
+    border: 0.5px solid var(--border); background: rgba(255, 255, 255, 0.6);
+    transition: background 0.3s, transform var(--t-crit-300) var(--ease-spring);
+  }
+  .overview-card:hover { background: var(--parchment); transform: translateY(-3px); }
+  .overview-kanji { font-family: 'Noto Serif JP', serif; font-size: 2.1rem; line-height: 1.2; color: var(--forest); margin-bottom: 0.6rem; }
+  .overview-name { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest); }
+  .overview-line { font-size: 0.85rem; line-height: 1.75; color: var(--muted); }
+
+  /* "in progress", said plainly */
+  .progress { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 1rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+  .progress-chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
+    color: var(--moss); border: 0.5px solid rgba(90, 124, 94, 0.45); padding: 0.25rem 0.7rem;
+  }
+  .progress-chip::before { content: ''; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--tea); }
+  body.ja .progress-chip[lang-ja] { display: inline-flex !important; }
+  .progress-dark { color: rgba(255, 255, 255, 0.55); }
+  .progress-dark .progress-chip { color: var(--gold-light); border-color: rgba(212, 184, 122, 0.4); }
+
+  /* farms: editorial photograph, name set on it, opens the story */
+  .farmers h2 { margin-bottom: 1.25rem; line-height: 1.2; }
+  .farmer-grid { gap: 1.5rem; align-items: start; }
+  .farm-card {
+    display: flex; flex-direction: column; gap: 0.9rem; padding: 0; text-align: left;
+    background: none; border: 0; color: inherit; font: inherit; cursor: pointer;
+  }
+  .farm-photo {
+    position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden;
+    background: linear-gradient(160deg, #3a6448, #1f4430 55%, #16301f);
+    transition: filter 0.4s;
+  }
+  .farm-card:hover .farm-photo { filter: brightness(1.12); }
+  .farm-photo-slot {
+    position: absolute; top: 1.25rem; left: 1.25rem; right: 1.25rem; text-align: center;
+    font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.3);
+  }
+  .farm-photo-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 0.4rem;
+    padding: 3rem 1.5rem 1.5rem; background: linear-gradient(rgba(16, 36, 24, 0), rgba(16, 36, 24, 0.6));
+  }
+  .farm-photo-cap .farm-index { margin: 0; color: rgba(255, 255, 255, 0.7); }
+  .farm-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.75rem; line-height: 1.15; color: var(--ivory); }
+  body.ja .farm-name { font-family: 'Noto Serif JP', serif; font-style: normal; font-size: 1.2rem; }
+  .farm-body { font-size: 0.87rem; line-height: 1.8; color: rgba(255, 255, 255, 0.55); }
+  .farm-more { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); }
+  .farm-card:hover .farm-more { color: var(--ivory); }
+  .farmer-add { aspect-ratio: 4 / 5; }
+
+  /* the story behind a card */
+  .story {
+    width: min(52rem, calc(100% - 2rem)); max-height: calc(100% - 2rem); margin: auto; padding: 0;
+    border: 0; background: var(--ivory); color: var(--ink); overflow: auto;
+  }
+  .story::backdrop { background: rgba(16, 36, 24, 0.62); }
+  .story-close {
+    position: absolute; top: 0.75rem; right: 1rem; z-index: 2; width: 2.5rem; height: 2.5rem;
+    background: none; border: 0; color: var(--ivory); font-size: 1.6rem; line-height: 1; cursor: pointer;
+  }
+  .story-photo { position: relative; aspect-ratio: 16 / 7; background: linear-gradient(160deg, #3a6448, #1f4430 55%, #16301f); }
+  .story-photo .farm-photo-slot { top: auto; bottom: 1.25rem; }
+  .story-inner { padding: 2.5rem 3rem 3rem; }
+  .story .farm-index { color: var(--gold); }
+  .story h3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 2.2rem; line-height: 1.2; color: var(--forest); margin: 0.4rem 0 0.8rem; }
+  .story-lede { font-size: 0.92rem; color: var(--muted); line-height: 1.85; max-width: 52ch; }
+  .story-chapters { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 2.5rem; margin-top: 2.5rem; }
+  .story-chapters li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding-top: 1.1rem; border-top: 0.5px solid var(--border); }
+  .story-chapters h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.4rem; color: var(--forest); }
+  .story-chapters p { font-size: 0.87rem; color: var(--muted); line-height: 1.8; }
+
+  /* taste: flavour map, three moments */
+  .fmap { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 3.5rem 0 4.5rem; }
+  .fmap-node {
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem; text-align: center;
+    width: 11.5rem; padding: 1.5rem 1.25rem; border: 0.5px solid var(--border); background: rgba(255, 255, 255, 0.6);
+  }
+  .fmap-k { font-family: 'Noto Serif JP', serif; font-size: 2.1rem; line-height: 1.15; color: var(--forest); }
+  .fmap-h { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest); }
+  .fmap-p { font-size: 0.8rem; line-height: 1.6; color: var(--muted); }
+  .fmap-arrow { position: relative; flex: 0 0 3rem; height: 0.5px; background: var(--gold); }
+  .fmap-arrow::after {
+    content: ''; position: absolute; right: 0; top: -4px; width: 8px; height: 8px;
+    border-top: 0.5px solid var(--gold); border-right: 0.5px solid var(--gold); transform: rotate(45deg);
+  }
+  .fmap-notes { list-style: none; display: flex; flex-direction: column; gap: 1.4rem; padding-left: 2rem; border-left: 0.5px solid var(--gold); }
+  .fmap-notes li { display: flex; align-items: center; gap: 1rem; }
+  .fmap-notes li > span:last-child { display: flex; flex-direction: column; gap: 0.15rem; }
+  .moments-label { margin-top: 1rem; }
+  .moments { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  .moments li { display: flex; flex-direction: column; gap: 0.6rem; padding-top: 1.25rem; border-top: 0.5px solid var(--border); }
+  .moments .doing-number { font-size: 2.2rem; margin-bottom: 0.4rem; }
+  .moment-h { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; color: var(--forest); }
+  .moment-p { font-size: 0.87rem; line-height: 1.8; color: var(--muted); }
+  .farm-line { max-width: 36em; margin: 3.5rem auto 4.5rem; text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; line-height: 1.5; color: var(--forest); }
+  body.ja .farm-line { font-family: 'Noto Serif JP', serif; font-style: normal; font-size: 1.05rem; line-height: 2; }
+  button.btn-ghost { background: none; border: 0; border-bottom: 0.5px solid var(--forest); font-family: inherit; cursor: pointer; padding: 0 0 0.1rem; }
+
+  /* why: the figures carry their own heading */
+  .figure-heading {
+    grid-column: 1 / -1; font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem); line-height: 1.2; color: var(--forest); max-width: 26ch;
+  }
+  .figure-source { margin-top: 0; }
+
+  /* take part: one heading, three ways, then the petition and the form */
+  .involve-head { grid-column: 1 / -1; padding: 7rem 5rem 3rem; }
+  .involve-head h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--forest); line-height: 1.2; margin-bottom: 1.25rem; }
+  .involve-head p { font-size: 0.95rem; color: var(--muted); }
+  .ways { grid-column: 1 / -1; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding: 0 5rem 5rem; }
+  .way {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+    padding: 2.5rem 2rem; border: 0.5px solid var(--border); background: rgba(255, 255, 255, 0.65);
+  }
+  .way .doing-number { margin-bottom: 0.25rem; }
+  .way h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.9rem; line-height: 1.15; color: var(--forest); }
+  .way p { font-size: 0.9rem; line-height: 1.85; color: var(--muted); }
+  .way .progress { margin-top: 0; }
+  .way-act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: auto; padding-top: 0.75rem; }
+  .btn-outline {
+    background: transparent; color: var(--forest); border: 0.5px solid var(--forest); padding: 0.85rem 1.8rem;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.3s, color 0.3s, transform var(--t-press) ease-out;
+  }
+  .btn-outline:hover { background: var(--forest); color: var(--ivory); }
+  .btn-outline:active { transform: scale(0.97); }
+  .petition { border-top: 0.5px solid var(--border); scroll-margin-top: 90px; }
+  .involve-left h2 { margin-bottom: 2rem; }
+
+  /* footer: email and social, nothing else */
+  footer { justify-content: center; flex-direction: column; gap: 1.25rem; text-align: center; }
+  .footer-links { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 2rem; }
+  .footer-links a { color: rgba(255, 255, 255, 0.6); text-decoration: none; letter-spacing: 0.08em; }
+  .footer-links a:hover { color: var(--ivory); }
+
+  @media (max-width: 900px) {
+    /* language left, name centred, menu right */
+    nav { grid-template-columns: 1fr auto 1fr; gap: 0.75rem; padding: 1rem 1.25rem; }
+    .nav-right { display: contents; }
+    .nav-lang { grid-column: 1; grid-row: 1; justify-self: start; font-size: 0.66rem; letter-spacing: 0.04em; padding: 0.3rem 0.45rem; }
+    .nav-toggle { grid-column: 3; grid-row: 1; justify-self: end; }
+    .nav-logo-en { font-size: 0.9rem; letter-spacing: 0.22em; }
+    .nav-logo-jp { font-size: 1rem; }
+    .hero-text { padding: 0 2rem 4.5rem; }
+    .hero-vmark { left: 1.5rem; top: 5.5rem; }
+    .overview { padding: 3.5rem 2rem; }
+    .overview-grid { grid-template-columns: 1fr 1fr; }
+    .farmer-add { aspect-ratio: auto; }
+    .fmap { flex-direction: column; gap: 1rem; }
+    .fmap-arrow { flex: 0 0 2rem; width: 0.5px; height: 2rem; }
+    .fmap-arrow::after { right: -4px; top: auto; bottom: 0; transform: rotate(135deg); }
+    .fmap-notes { padding: 1.25rem 0 0; border-left: 0; border-top: 0.5px solid var(--gold); }
+    .moments { grid-template-columns: 1fr; gap: 1.75rem; }
+    .story-inner { padding: 2rem 1.5rem 2.5rem; }
+    .story-chapters { grid-template-columns: 1fr; }
+    .involve-head { padding: 4rem 2rem 2rem; }
+    .ways { grid-template-columns: 1fr; padding: 0 2rem 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .nav-logo { gap: 0.45rem; }
+    .nav-logo-en { font-size: 0.8rem; letter-spacing: 0.16em; }
+    .hero-text { padding: 0 1.25rem 4rem; }
+    .hero-title { font-size: 2.05rem; }
+    body.ja .hero-title { font-size: 1.45rem; }
+    .overview { padding: 3rem 1.25rem; }
+    .overview-grid { gap: 0.75rem; }
+    .overview-card { padding: 1.5rem 1.1rem 1.6rem; }
+    .overview-kanji { font-size: 1.6rem; }
+    .involve-head { padding: 4rem 1.25rem 2rem; }
+    .ways { padding: 0 1.25rem 3.5rem; }
+    .way { padding: 2rem 1.5rem; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAV
+     The brand name sits centred on its own, set in both scripts; no plant
+     mark. Four destinations split either side of it, the language switch
+     at the far right. -->
 <nav>
-  <a href="#" class="nav-logo">
-    <svg class="brand-mark" viewBox="0 0 120 100" role="img" aria-label="Uji Terroir">
-      <circle cx="60" cy="46" r="33" fill="none" stroke="var(--mk-4)" stroke-width="5"/>
-      <path d="M60 68 L60 48" stroke="var(--mk-3)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-      <path d="M59 54 C54 46 47 41 39 39 C38 48 45 55 57 57 Z" fill="var(--mk-2)"/>
-      <path d="M61 51 C65 42 72 36 80 34 C81 43 74 51 63 54 Z" fill="var(--mk-1)"/>
-      <path d="M22 80 C36 58 54 56 66 66 C77 75 88 80 102 80 Z" fill="var(--mk-1)" opacity="0.9"/>
-      <path d="M8 80 C24 62 38 60 50 70 C60 78 66 80 78 80 Z" fill="var(--mk-2)"/>
-      <path d="M14 80 C34 70 50 76 66 79 C80 82 96 78 110 80 Z" fill="var(--mk-3)"/>
-      <path d="M4 79 C34 76 86 76 116 79 C86 93 34 93 4 79 Z" fill="var(--mk-4)"/>
-    </svg>
-    <span>宇治 Uji Terroir</span>
-  </a>
-  <ul class="nav-links">
-    <li>
-      <a href="#why" lang-en>Why It Matters</a>
-      <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
-    </li>
-    <li>
-      <a href="#approach" lang-en>Our Approach</a>
-      <a href="#approach" lang-ja style="display:none;">やり方</a>
-    </li>
+  <ul class="nav-links nav-links-left">
     <li>
       <a href="#farms" lang-en>The Farms</a>
-      <a href="#farms" lang-ja style="display:none;">農家と畑</a>
+      <a href="#farms" lang-ja style="display:none;">茶園と作り手</a>
     </li>
     <li>
       <a href="#taste" lang-en>Taste</a>
       <a href="#taste" lang-ja style="display:none;">味わう</a>
     </li>
-    <li>
-      <a href="#status" lang-en>Where This Stands</a>
-      <a href="#status" lang-ja style="display:none;">いまの進み方</a>
-    </li>
-    <li>
-      <a href="#support" lang-en>Take Part</a>
-      <a href="#support" lang-ja style="display:none;">参加する</a>
-    </li>
   </ul>
+  <a href="#" class="nav-logo"><span class="nav-logo-jp">宇治</span><span class="nav-logo-en">Uji Terroir</span></a>
   <div class="nav-right">
+    <ul class="nav-links">
+      <li>
+        <a href="#why" lang-en>Why It Matters</a>
+        <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
+      </li>
+      <li>
+        <a href="#support" lang-en>Take Part</a>
+        <a href="#support" lang-ja style="display:none;">参加する</a>
+      </li>
+    </ul>
     <button type="button" class="nav-lang" onclick="toggleLang()" aria-label="Switch language / 言語を切り替える">日本語 / EN</button>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu / メニュー">
-      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar"></span>
     </button>
   </div>
 </nav>
@@ -1583,24 +1649,20 @@
   <div class="nav-drawer-grab" aria-hidden="true"></div>
   <ul>
     <li>
-      <a href="#why" lang-en>Why It Matters</a>
-      <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
-    </li>
-    <li>
-      <a href="#approach" lang-en>Our Approach</a>
-      <a href="#approach" lang-ja style="display:none;">やり方</a>
-    </li>
-    <li>
       <a href="#farms" lang-en>The Farms</a>
-      <a href="#farms" lang-ja style="display:none;">農家と畑</a>
+      <a href="#farms" lang-ja style="display:none;">茶園と作り手</a>
     </li>
     <li>
       <a href="#taste" lang-en>Taste</a>
       <a href="#taste" lang-ja style="display:none;">味わう</a>
     </li>
     <li>
-      <a href="#status" lang-en>Where This Stands</a>
-      <a href="#status" lang-ja style="display:none;">いまの進み方</a>
+      <a href="#why" lang-en>Why It Matters</a>
+      <a href="#why" lang-ja style="display:none;">なぜ、いま</a>
+    </li>
+    <li>
+      <a href="#research" lang-en>Research</a>
+      <a href="#research" lang-ja style="display:none;">研究</a>
     </li>
     <li>
       <a href="#support" lang-en>Take Part</a>
@@ -1609,113 +1671,304 @@
   </ul>
 </div>
 
-<!-- HERO / WHY -->
+<!-- HERO
+     The land, full height, and one headline at its foot. Nothing else. -->
 <section class="hero">
   <figure class="hero-media">
     <img class="hero-photo" id="hero-photo"
          src="uji-farms.jpg"
          alt="Terraced tea fields on the hills at Uji, each plot planted and clipped along its own lines."
          data-alt-en="Terraced tea fields on the hills at Uji, each plot planted and clipped along its own lines."
-         data-alt-ja="宇治の丘に広がる段々の茶畑。畑ごとに、畝の向きも仕立ても異なる。"
+         data-alt-ja="宇治の丘に広がる段々の茶園。茶園ごとに、畝の向きも仕立ても異なります。"
          width="1920" height="1280"
          fetchpriority="high" decoding="async">
   </figure>
+  <p class="hero-vmark" aria-hidden="true">宇治</p>
   <div class="hero-text">
     <div class="hero-eyebrow fade-up">Uji, Kyoto · 宇治、京都</div>
     <h1 class="hero-title fade-up delay-1">
-      <span lang-en>Matcha has never been more popular.<br>Uji has never had<br><em>fewer farmers.</em></span>
-      <span lang-ja style="display:none;">抹茶は、かつてなく<br>人気がある。<br>宇治の農家は、<br><em>かつてなく少ない。</em></span>
+      <span lang-en>Matcha has never been more popular.<br>Uji has never had <em>fewer farmers.</em></span>
+      <span lang-ja style="display:none;">抹茶は、かつてなく飲まれている。<br>宇治の茶農家は、<em>かつてなく少ない。</em></span>
     </h1>
-    <p class="hero-jp fade-up delay-2">宇治の風土を、畑ごとに。</p>
-    <div class="hero-aside">
-    <p class="hero-body fade-up delay-3" lang-en>
-      Matcha has moved out of the tea room and into cafés, kitchens, and daily routines everywhere. Uji is not a flavour category. It is a place, a set of methods, and a small number of farms that still work them. We keep that character visible, farm by farm, while there is still time.
-    </p>
-    <p class="hero-body fade-up delay-3" lang-ja style="display:none;">
-      抹茶は茶室を出て、世界中のカフェへ、台所へ、日々の習慣の中へと広がりました。けれど宇治は、味の分類ではありません。ひとつの土地であり、受け継がれてきた手法であり、いまもそれを続ける数少ない農家のことです。その個性を、畑ごとに見えるかたちで残していきます。
-    </p>
-    <div class="hero-cta fade-up delay-4">
-      <a href="#farms" class="btn-primary" lang-en>Meet the Farms</a>
-      <a href="#farms" class="btn-primary" lang-ja style="display:none;">農家を訪ねる</a>
-      <a href="#taste" class="btn-ghost" lang-en>Taste the Difference</a>
-      <a href="#taste" class="btn-ghost" lang-ja style="display:none;">味の違いを知る</a>
-    </div>
-    </div>
-  </div>
-  <div class="hero-stat-grid">
-      <div class="hero-stat">
-        <div class="hero-stat-number">800+</div>
-        <div class="hero-stat-label" lang-en>Years of Tea Growing in Uji</div>
-        <div class="hero-stat-label" lang-ja style="display:none;">宇治で茶が育てられてきた年数</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">Few</div>
-        <div class="hero-stat-label" lang-en>Farms Still Working This Way</div>
-        <div class="hero-stat-label" lang-ja style="display:none;">いまも伝統の手法を続ける農家</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">1 : 1</div>
-        <div class="hero-stat-label" lang-en>One Farm, One Taste Profile</div>
-        <div class="hero-stat-label" lang-ja style="display:none;">ひとつの農家に、ひとつの味</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">0</div>
-        <div class="hero-stat-label" lang-en>Blending Across Farms</div>
-        <div class="hero-stat-label" lang-ja style="display:none;">農家をまたいだブレンドはしない</div>
-      </div>
   </div>
 </section>
 
-<!-- WHY / WHAT -->
+<!-- OVERVIEW
+     One line per part of the work, each a card that takes you to it. -->
+<section class="overview" aria-label="Overview / 概要">
+  <ul class="overview-grid">
+    <li><a class="overview-card" href="#farms">
+      <span class="overview-kanji" aria-hidden="true">茶園</span>
+      <span class="overview-name" lang-en>The Farms</span>
+      <span class="overview-name" lang-ja style="display:none;">茶園と作り手</span>
+      <span class="overview-line" lang-en>The people and plots behind each matcha, one farm at a time.</span>
+      <span class="overview-line" lang-ja style="display:none;">一杯の抹茶の向こうにいる人と茶園を、一軒ずつ。</span>
+    </a></li>
+    <li><a class="overview-card" href="#taste">
+      <span class="overview-kanji" aria-hidden="true">味</span>
+      <span class="overview-name" lang-en>Taste</span>
+      <span class="overview-name" lang-ja style="display:none;">味わう</span>
+      <span class="overview-line" lang-en>Savoury, sweet, silky: how Uji matcha tastes, traced to one field.</span>
+      <span class="overview-line" lang-ja style="display:none;">旨み、甘み、なめらかさ。ひとつの茶園までたどれる宇治抹茶。</span>
+    </a></li>
+    <li><a class="overview-card" href="#why">
+      <span class="overview-kanji" aria-hidden="true">宇治の今</span>
+      <span class="overview-name" lang-en>Why It Matters</span>
+      <span class="overview-name" lang-ja style="display:none;">なぜ、いま</span>
+      <span class="overview-line" lang-en>Fewer farms, a borrowed name, and the petition to protect it.</span>
+      <span class="overview-line" lang-ja style="display:none;">減りゆく茶園、借りられる名前、そしてそれを守る署名。</span>
+    </a></li>
+    <li><a class="overview-card" href="#support">
+      <span class="overview-kanji" aria-hidden="true">参加</span>
+      <span class="overview-name" lang-en>Take Part</span>
+      <span class="overview-name" lang-ja style="display:none;">参加する</span>
+      <span class="overview-line" lang-en>Sign, donate or partner: three ways to keep the farms going.</span>
+      <span class="overview-line" lang-ja style="display:none;">署名、寄付、協働。茶園を支える三つの方法。</span>
+    </a></li>
+  </ul>
+</section>
+
+<!-- THE FARMS -->
+<section class="farmers" id="farms">
+  <div class="section-label" lang-en>The Farms</div>
+  <div class="section-label" lang-ja style="display:none;">茶園と作り手</div>
+  <h2 lang-en>Each farm has its own<br>story and its own taste.</h2>
+  <h2 lang-ja style="display:none;">茶園ごとに、<br>物語と味がある。</h2>
+  <p class="section-note" lang-en>The land, the method, the people and the cup, recorded one farm at a time.</p>
+  <p class="section-note" lang-ja style="display:none;">土地、製法、人、そして一椀の味を、一軒ずつ記録します。</p>
+  <div class="farmer-grid">
+    <button type="button" class="farm-card" data-story="story-01" aria-haspopup="dialog">
+      <span class="farm-photo">
+        <span class="farm-photo-slot">Editorial portrait · to be photographed at the farm</span>
+        <span class="farm-photo-cap">
+          <span class="farm-index" lang-en>Farm 01 · Uji, Kyoto</span>
+          <span class="farm-index" lang-ja style="display:none;">茶園① · 京都府宇治市</span>
+          <span class="farm-name" lang-en>Farm name to come</span>
+          <span class="farm-name" lang-ja style="display:none;">茶園名は近日掲載</span>
+        </span>
+      </span>
+      <span class="farm-body" lang-en>Shade, harvest, and how this plot differs from its neighbours.</span>
+      <span class="farm-body" lang-ja style="display:none;">覆いのかけ方、摘み取りの時期、隣の茶園との違い。</span>
+      <span class="farm-more" lang-en>The farm story →</span>
+      <span class="farm-more" lang-ja style="display:none;">茶園の物語 →</span>
+    </button>
+    <button type="button" class="farm-card" data-story="story-02" aria-haspopup="dialog">
+      <span class="farm-photo">
+        <span class="farm-photo-slot">Editorial portrait · to be photographed at the farm</span>
+        <span class="farm-photo-cap">
+          <span class="farm-index" lang-en>Farm 02 · Uji, Kyoto</span>
+          <span class="farm-index" lang-ja style="display:none;">茶園② · 京都府宇治市</span>
+          <span class="farm-name" lang-en>Farm name to come</span>
+          <span class="farm-name" lang-ja style="display:none;">茶園名は近日掲載</span>
+        </span>
+      </span>
+      <span class="farm-body" lang-en>Shade, harvest, and how this plot differs from its neighbours.</span>
+      <span class="farm-body" lang-ja style="display:none;">覆いのかけ方、摘み取りの時期、隣の茶園との違い。</span>
+      <span class="farm-more" lang-en>The farm story →</span>
+      <span class="farm-more" lang-ja style="display:none;">茶園の物語 →</span>
+    </button>
+    <div class="farmer-add">
+      <div class="farmer-add-icon">+</div>
+      <span lang-en>More farms as their stories are recorded</span>
+      <span lang-ja style="display:none;">記録が整いしだい、茶園を追加します</span>
+    </div>
+  </div>
+  <p class="progress progress-dark">
+    <span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span>
+    <span lang-en>Profiles are published once each farmer has confirmed them.</span>
+    <span lang-ja style="display:none;">記録は、作り手ご本人に確認いただいてから公開します。</span>
+  </p>
+
+  <!-- the full story behind each card; template chapters until the farmer confirms -->
+  <dialog class="story" id="story-01" aria-labelledby="story-01-title">
+    <button type="button" class="story-close" data-story-close aria-label="Close / 閉じる">×</button>
+    <div class="story-photo"><span class="farm-photo-slot">Farm 01 · wide: the grower and their plot</span></div>
+    <div class="story-inner">
+      <div class="farm-index" lang-en>Farm 01 · Uji, Kyoto</div>
+      <div class="farm-index" lang-ja style="display:none;">茶園① · 京都府宇治市</div>
+      <h3 id="story-01-title"><span lang-en>Farm name to come</span><span lang-ja style="display:none;">茶園名は近日掲載</span></h3>
+      <p class="story-lede" lang-en>This story will be written with the farmer and published once they have confirmed every word.</p>
+      <p class="story-lede" lang-ja style="display:none;">この記録は作り手とともにまとめ、ご本人にすべて確認いただいてから公開します。</p>
+      <ol class="story-chapters">
+        <li><h4 lang-en>The land</h4><h4 lang-ja style="display:none;">土地</h4><p lang-en>Where the plot sits: its soil, its slope, its shade.</p><p lang-ja style="display:none;">茶園の場所、土、斜面、そして覆い。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The method</h4><h4 lang-ja style="display:none;">製法</h4><p lang-en>How it is shaded, picked and finished, in the farmer’s own words.</p><p lang-ja style="display:none;">覆いのかけ方、摘み取り、仕上げ。作り手自身の言葉で。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The people</h4><h4 lang-ja style="display:none;">人</h4><p lang-en>Who works it, and for how many generations.</p><p lang-ja style="display:none;">誰が、何代にわたって、この茶園を守ってきたか。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The cup</h4><h4 lang-ja style="display:none;">一椀</h4><p lang-en>How its matcha tastes beside its neighbours’.</p><p lang-ja style="display:none;">隣の茶園と並べたときの、この茶園の味。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+      </ol>
+    </div>
+  </dialog>
+  <dialog class="story" id="story-02" aria-labelledby="story-02-title">
+    <button type="button" class="story-close" data-story-close aria-label="Close / 閉じる">×</button>
+    <div class="story-photo"><span class="farm-photo-slot">Farm 02 · wide: the grower and their plot</span></div>
+    <div class="story-inner">
+      <div class="farm-index" lang-en>Farm 02 · Uji, Kyoto</div>
+      <div class="farm-index" lang-ja style="display:none;">茶園② · 京都府宇治市</div>
+      <h3 id="story-02-title"><span lang-en>Farm name to come</span><span lang-ja style="display:none;">茶園名は近日掲載</span></h3>
+      <p class="story-lede" lang-en>This story will be written with the farmer and published once they have confirmed every word.</p>
+      <p class="story-lede" lang-ja style="display:none;">この記録は作り手とともにまとめ、ご本人にすべて確認いただいてから公開します。</p>
+      <ol class="story-chapters">
+        <li><h4 lang-en>The land</h4><h4 lang-ja style="display:none;">土地</h4><p lang-en>Where the plot sits: its soil, its slope, its shade.</p><p lang-ja style="display:none;">茶園の場所、土、斜面、そして覆い。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The method</h4><h4 lang-ja style="display:none;">製法</h4><p lang-en>How it is shaded, picked and finished, in the farmer’s own words.</p><p lang-ja style="display:none;">覆いのかけ方、摘み取り、仕上げ。作り手自身の言葉で。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The people</h4><h4 lang-ja style="display:none;">人</h4><p lang-en>Who works it, and for how many generations.</p><p lang-ja style="display:none;">誰が、何代にわたって、この茶園を守ってきたか。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+        <li><h4 lang-en>The cup</h4><h4 lang-ja style="display:none;">一椀</h4><p lang-en>How its matcha tastes beside its neighbours’.</p><p lang-ja style="display:none;">隣の茶園と並べたときの、この茶園の味。</p><span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span></li>
+      </ol>
+    </div>
+  </dialog>
+</section>
+
+<!-- HOW -->
+<section class="doing" id="approach">
+  <div class="section-label" lang-en>How We Work</div>
+  <div class="section-label" lang-ja style="display:none;">私たちのやり方</div>
+  <div class="doing-grid">
+    <div class="doing-card">
+      <div class="doing-number">01</div>
+      <div class="doing-title" lang-en>One at a Time</div>
+      <div class="doing-title" lang-ja style="display:none;">一軒ずつ</div>
+      <div class="doing-jp">茶園単位</div>
+      <p class="doing-body" lang-en>One farm and one farmer at a time. Each plot, its knowledge and its taste treated as worth keeping.</p>
+      <p class="doing-body" lang-ja style="display:none;">ひとつの茶園、ひとりの作り手と向き合う。土地も技も味の違いも、守るべきものとして。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">02</div>
+      <div class="doing-title" lang-en>Made Visible</div>
+      <div class="doing-title" lang-ja style="display:none;">見えるようにする</div>
+      <div class="doing-jp">見える化</div>
+      <p class="doing-body" lang-en>Who grew it, where, how, and how it tastes: recorded and published instead of hidden in a blend.</p>
+      <p class="doing-body" lang-ja style="display:none;">誰が、どの茶園で、どう育て、どんな味か。ブレンドに隠さず、記録して公開する。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">03</div>
+      <div class="doing-title" lang-en>Direct</div>
+      <div class="doing-title" lang-ja style="display:none;">直接つながる</div>
+      <div class="doing-jp">直接つなぐ</div>
+      <p class="doing-body" lang-en>The growers and the people who care about origin, with as little as possible in between.</p>
+      <p class="doing-body" lang-ja style="display:none;">作り手と、産地を大切にする人を、間にできるだけ何も挟まずにつなぐ。</p>
+    </div>
+    <div class="doing-card">
+      <div class="doing-number">04</div>
+      <div class="doing-title" lang-en>Scarcity as Strength</div>
+      <div class="doing-title" lang-ja style="display:none;">希少であること</div>
+      <div class="doing-jp">希少性</div>
+      <p class="doing-body" lang-en>Small lots, named farms, and seasons that end when the harvest does.</p>
+      <p class="doing-body" lang-ja style="display:none;">小さなロット、名前のある茶園、収穫とともに終わる季節。</p>
+    </div>
+  </div>
+</section>
+
+<!-- TASTE -->
+<section class="taste" id="taste">
+  <div class="section-label" lang-en>Taste</div>
+  <div class="section-label" lang-ja style="display:none;">味わう</div>
+  <h2 lang-en>Savoury, then sweet,<br>then silk.</h2>
+  <h2 lang-ja style="display:none;">旨み、甘み、<br>そしてなめらかさ。</h2>
+  <p class="section-note" lang-en>Leaf shaded before harvest gives Uji matcha a bold, savoury umami, a subtle sweetness and a silky, creamy texture.</p>
+  <p class="section-note" lang-ja style="display:none;">摘み取り前に覆いをかけて育てた宇治の茶葉は、力強い旨み、ほのかな甘み、絹のようになめらかな口あたりの抹茶になります。</p>
+
+  <!-- flavour map: leaf → powder → three notes -->
+  <div class="fmap" aria-label="Flavour map / 味の地図">
+    <div class="fmap-node"><span class="fmap-k" aria-hidden="true">葉</span><span class="fmap-h" lang-en>Leaf</span><span class="fmap-h" lang-ja style="display:none;">茶葉</span><span class="fmap-p" lang-en>Shaded for weeks before picking.</span><span class="fmap-p" lang-ja style="display:none;">摘み取り前の数週間、覆いをかけて育てる。</span></div>
+    <span class="fmap-arrow" aria-hidden="true"></span>
+    <div class="fmap-node"><span class="fmap-k" aria-hidden="true">粉</span><span class="fmap-h" lang-en>Powder</span><span class="fmap-h" lang-ja style="display:none;">抹茶</span><span class="fmap-p" lang-en>Ground slowly to a fine powder.</span><span class="fmap-p" lang-ja style="display:none;">ゆっくりと挽いて、細かな粉に。</span></div>
+    <span class="fmap-arrow" aria-hidden="true"></span>
+    <ul class="fmap-notes">
+      <li><span class="fmap-k" aria-hidden="true">旨</span><span><span class="fmap-h" lang-en>Umami</span><span class="fmap-h" lang-ja style="display:none;">旨み</span><span class="fmap-p" lang-en>Bold and savoury.</span><span class="fmap-p" lang-ja style="display:none;">力強く、ふくよか。</span></span></li>
+      <li><span class="fmap-k" aria-hidden="true">甘</span><span><span class="fmap-h" lang-en>Sweetness</span><span class="fmap-h" lang-ja style="display:none;">甘み</span><span class="fmap-p" lang-en>Subtle, arriving late.</span><span class="fmap-p" lang-ja style="display:none;">ほのかに、あとから。</span></span></li>
+      <li><span class="fmap-k" aria-hidden="true">滑</span><span><span class="fmap-h" lang-en>Texture</span><span class="fmap-h" lang-ja style="display:none;">口あたり</span><span class="fmap-p" lang-en>Silky and creamy.</span><span class="fmap-p" lang-ja style="display:none;">なめらかで、まろやか。</span></span></li>
+    </ul>
+  </div>
+
+  <div class="section-label moments-label" lang-en>The Cup, in Three Moments</div>
+  <div class="section-label moments-label" lang-ja style="display:none;">ひと口の、三つの瞬間</div>
+  <ol class="moments">
+    <li><span class="doing-number">01</span><span class="moment-h" lang-en>First sip</span><span class="moment-h" lang-ja style="display:none;">口に含んで</span><span class="moment-p" lang-en>A deep, savoury richness, closer to broth than to green tea.</span><span class="moment-p" lang-ja style="display:none;">緑茶というより、出汁に近い深い旨み。</span></li>
+    <li><span class="doing-number">02</span><span class="moment-h" lang-en>Mid-palate</span><span class="moment-h" lang-ja style="display:none;">舌の上で</span><span class="moment-p" lang-en>Sweetness comes forward; any bitterness stays soft and in the background.</span><span class="moment-p" lang-ja style="display:none;">甘みが前に出て、苦みは控えめに奥へ。</span></li>
+    <li><span class="doing-number">03</span><span class="moment-h" lang-en>Finish</span><span class="moment-h" lang-ja style="display:none;">余韻</span><span class="moment-p" lang-en>Silky and creamy, leaving a clean green note that lingers.</span><span class="moment-p" lang-ja style="display:none;">なめらかでまろやか。すっきりとした青い香りが長く残る。</span></li>
+  </ol>
+  <p class="farm-line" lang-en>That is Uji matcha in general. How each farm departs from it is what its profile records.</p>
+  <p class="farm-line" lang-ja style="display:none;">これは宇治抹茶全体の話です。茶園ごとにどう違うかを記すのが、それぞれの記録です。</p>
+
+  <div class="offer-grid">
+    <div class="offer-card">
+      <div class="doing-number">01</div>
+      <div class="doing-title" lang-en>Single-Farm Matcha</div>
+      <div class="doing-title" lang-ja style="display:none;">単一茶園の抹茶</div>
+      <div class="doing-jp">単一茶園</div>
+      <p class="doing-body" lang-en>One farm, one harvest, named on the tin.</p>
+      <p class="doing-body" lang-ja style="display:none;">ひとつの茶園、ひとつの収穫。缶にその名を記します。</p>
+      <div class="offer-cta">
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-en>Ask about availability</button>
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-ja style="display:none;">取り扱いを問い合わせる</button>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="doing-number">02</div>
+      <div class="doing-title" lang-en>Tasting Bundle</div>
+      <div class="doing-title" lang-ja style="display:none;">飲み比べセット</div>
+      <div class="doing-jp">飲み比べ</div>
+      <p class="doing-body" lang-en>Small portions from several Uji farms, side by side. Neighbouring fields are easiest to tell apart in front of you.</p>
+      <p class="doing-body" lang-ja style="display:none;">宇治の複数の茶園を少量ずつ。隣り合う茶園の違いは、並べて味わうとよくわかります。</p>
+      <div class="offer-cta">
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-en>Ask about a bundle</button>
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-ja style="display:none;">セットを問い合わせる</button>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="doing-number">03</div>
+      <div class="doing-title" lang-en>Seasonal Lots</div>
+      <div class="doing-title" lang-ja style="display:none;">季節の限定ロット</div>
+      <div class="doing-jp">季節限定</div>
+      <p class="doing-body" lang-en>When a plot gives something unusual, we keep it apart. Small by nature, not by marketing.</p>
+      <p class="doing-body" lang-ja style="display:none;">その年、その茶園にしか出ない味は、混ぜずに残します。少量なのは演出ではなく、収量のためです。</p>
+      <div class="offer-cta">
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-en>Hear when a lot opens</button>
+        <button type="button" class="btn-ghost" onclick="chooseHelp('matcha')" lang-ja style="display:none;">入荷の知らせを受け取る</button>
+      </div>
+    </div>
+  </div>
+  <p class="progress">
+    <span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span>
+    <span lang-en>Enquiry only for now. Prices and ordering are published farm by farm, as terms are agreed with each farmer.</span>
+    <span lang-ja style="display:none;">現在はお問い合わせのみです。価格とご注文は、茶園ごとに条件が整いしだい、一軒ずつ掲載します。</span>
+  </p>
+</section>
+
+<!-- WHY -->
 <section class="problem" id="why">
   <div class="problem-left">
     <div class="section-label" lang-en>Why It Matters</div>
     <div class="section-label" lang-ja style="display:none;">なぜ、いま</div>
     <h2 lang-en>Matcha is everywhere now.<br>The place it came from<br>should not disappear.</h2>
-    <h2 lang-ja style="display:none;">抹茶は世界に広がった。<br>その味が生まれた土地は、<br>失われてはならない。</h2>
-    <p lang-en>
-      Matcha consumption is rising quickly around the world. It has moved from traditional tea rooms into cafés, kitchens, and daily routines, and that is a good thing.
-    </p>
-    <p lang-ja style="display:none;">
-      抹茶の消費は、いま世界中で急速に増えています。茶室を出て、カフェへ、台所へ、日々の習慣の中へ。それ自体は、よろこばしいことです。
-    </p>
-    <p lang-en>
-      But as the category grows, the Uji name, the name that helped define high-quality matcha for centuries, is being used more loosely and protected less. The farmers who still work the traditional way are ageing, and the distinctive character of this place, the one we grew up with, is quietly slipping away.
-    </p>
-    <p lang-ja style="display:none;">
-      けれど市場が広がる一方で、何世紀にもわたって上質な抹茶の基準をつくってきた「宇治」という名前は、ゆるやかに使われ、守られなくなってきています。昔ながらの手法を続ける農家は高齢化し、私たちが育ったこの土地ならではの個性は、静かに失われつつあります。
-    </p>
-    <p lang-en>
-      We believe that as matcha becomes more popular, the origin and the craftsmanship that made it special should not disappear, and that we still have time to protect both.
-    </p>
-    <p lang-ja style="display:none;">
-      抹茶が広まっていくほど、それを生んだ土地と手仕事こそ残されるべきだと考えています。そして、その両方を守る時間は、まだ残されています。
-    </p>
+    <h2 lang-ja style="display:none;">抹茶は世界に広がった。<br>その味を生んだ土地を、<br>失ってはならない。</h2>
+    <p lang-en>As matcha spreads, the Uji name is used more loosely and the farms behind it grow fewer. There is still time to protect both.</p>
+    <p lang-ja style="display:none;">抹茶が広がるほど「宇治」の名は安易に使われ、それを支える茶園は減っています。守る時間は、まだ残されています。</p>
   </div>
   <div class="problem-right">
     <div class="section-label" lang-en>What We Are Trying to Change</div>
     <div class="section-label" lang-ja style="display:none;">変えたいこと</div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>The Uji Name, Used Loosely</div>
-      <div class="issue-card-title" lang-ja style="display:none;">ゆるやかに使われる「宇治」の名</div>
-      <p class="issue-card-body" lang-en>The name is increasingly applied at a distance from the work that earned it. Each time it is used loosely, it carries a little less meaning, and the farms that still stand behind it become harder to find.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">「宇治」の名は、その名を支えてきた仕事から離れて使われることが増えています。使われ方がゆるくなるほど名前の意味は薄れ、いまも名に見合う仕事を続ける農家は見つけにくくなります。</p>
+      <div class="issue-card-title" lang-en>A Name Used for Tea Grown Elsewhere</div>
+      <div class="issue-card-title" lang-ja style="display:none;">宇治で育っていない茶に、「宇治」の名</div>
+      <p class="issue-card-body" lang-en>With no clear labelling rules, matcha sold as Uji matcha need not come from Uji. Each time, the name means a little less.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">産地表示に明確な決まりがないため、「宇治抹茶」と書かれていても宇治の茶とは限りません。そのたびに、名の意味は薄れていきます。</p>
     </div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>Knowledge Held in Ageing Hands</div>
-      <div class="issue-card-title" lang-ja style="display:none;">高齢の手に残る知識</div>
-      <p class="issue-card-body" lang-en>Shade cultivation, picking, and the judgement of when a leaf is ready are carried by farmers who have practised them for decades. Much of that knowledge has never been written down, and fewer people are there to receive it.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">覆下栽培、摘み方、茶葉の見極め。その多くは、何十年も続けてきた農家の身体に残る知識です。書き残されておらず、受け継ぐ人も少なくなっています。</p>
+      <div class="issue-card-title" lang-en>Fewer Farms, Knowledge in Fewer Hands</div>
+      <div class="issue-card-title" lang-ja style="display:none;">減る茶園、減る担い手</div>
+      <p class="issue-card-body" lang-en>Shading, picking, and judging when a leaf is ready live in growers who have done it for decades. Little is written down.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">覆下栽培、摘み取り、茶葉の見極め。長年の経験に宿る技は、書き残されたものが少なく、受け継ぐ人も減っています。</p>
     </div>
     <div class="issue-card">
-      <div class="issue-card-title" lang-en>Farm-by-Farm Character</div>
-      <div class="issue-card-title" lang-ja style="display:none;">畑ごとの個性</div>
-      <p class="issue-card-body" lang-en>Fields a short walk apart do not give the same cup. When tea is blended and sold by region alone, that difference, the most interesting thing about this place, never reaches anyone's bowl.</p>
-      <p class="issue-card-body" lang-ja style="display:none;">歩いて数分の畑でも、同じ味にはなりません。産地だけを名乗って混ぜてしまうと、この土地のいちばん面白い違いが、誰の一椀にも届かなくなります。</p>
+      <div class="issue-card-title" lang-en>Every Farm, Its Own Cup</div>
+      <div class="issue-card-title" lang-ja style="display:none;">茶園ごとに異なる一椀</div>
+      <p class="issue-card-body" lang-en>Fields a short walk apart do not give the same cup. Blend by region alone and that difference never reaches the bowl.</p>
+      <p class="issue-card-body" lang-ja style="display:none;">歩いて数分の茶園でも、同じ味にはなりません。産地名だけで混ぜれば、その違いは誰の一椀にも届きません。</p>
     </div>
   </div>
 
   <div class="figure-band">
+    <h3 class="figure-heading" lang-en>Demand has never been higher.<br>The farms that meet it have never been fewer.</h3>
+    <h3 class="figure-heading" lang-ja style="display:none;">需要は、かつてなく高まっている。<br>それに応える茶園は、かつてなく少ない。</h3>
     <div class="figure-col">
       <div class="figure-eyebrow" lang-en>The World</div>
       <div class="figure-eyebrow" lang-ja style="display:none;">世界</div>
@@ -1736,16 +1989,9 @@
         <span class="figure-to" aria-hidden="true">→</span>
         <span class="figure-num now">≈40</span>
       </div>
-      <div class="figure-note" lang-en>Cooperative tea farms in Uji City (last two decades)</div>
-      <div class="figure-note" lang-ja style="display:none;">宇治市の茶業組合に加盟する農家数（この二十年）</div>
+      <div class="figure-note" lang-en>Tea farms in Uji City, last two decades (local tea cooperative members)</div>
+      <div class="figure-note" lang-ja style="display:none;">宇治市の茶園の数（過去20年・地元茶業組合の加盟農家）</div>
     </div>
-
-    <p class="figure-caption" lang-en>
-      Demand has never been higher. The number of hands able to meet it the traditional way has never been lower.
-    </p>
-    <p class="figure-caption" lang-ja style="display:none;">
-      需要は、かつてないほど高まっています。その需要に昔ながらのやり方で応えられる手は、かつてないほど少なくなっています。
-    </p>
 
     <div class="figure-source" lang-en>
       Sources: Grand View Research (market size) · Local cooperative reporting / Yomiuri (Uji farm numbers)
@@ -1756,272 +2002,78 @@
   </div>
 </section>
 
-<!-- HOW -->
-<section class="doing" id="approach">
-  <div class="section-label" lang-en>Our Approach</div>
-  <div class="section-label" lang-ja style="display:none;">私たちのやり方</div>
-  <h2 lang-en>Farm by farm,<br>not region by region.</h2>
-  <h2 lang-ja style="display:none;">産地ごとではなく、<br>畑ごとに。</h2>
-  <div class="doing-grid">
-    <div class="doing-card">
-      <div class="doing-number">01</div>
-      <div class="doing-title" lang-en>Farm by Farm</div>
-      <div class="doing-title" lang-ja style="display:none;">畑ごとに</div>
-      <div class="doing-jp">畑ごと</div>
-      <p class="doing-body" lang-en>We work one farm at a time, treating each piece of land, each farmer's knowledge, and each slight difference in taste as something valuable and worth protecting.</p>
-      <p class="doing-body" lang-ja style="display:none;">ひとつの農家、ひとつの畑ずつ向き合います。その土地も、農家の知識も、わずかな味の違いも、守る価値のあるものとして扱います。</p>
-    </div>
-    <div class="doing-card">
-      <div class="doing-number">02</div>
-      <div class="doing-title" lang-en>Made Visible</div>
-      <div class="doing-title" lang-ja style="display:none;">見えるようにする</div>
-      <div class="doing-jp">見える化</div>
-      <p class="doing-body" lang-en>The human and place-based character of Uji usually stays hidden behind a blend. We record it and publish it: who grew the tea, on which land, by which methods, and how it tastes.</p>
-      <p class="doing-body" lang-ja style="display:none;">宇治の人と土地の個性は、ふつうブレンドの奥に隠れたままです。誰が、どの土地で、どんな手法で育て、どんな味になるのか。私たちはそれを記録し、公開します。</p>
-    </div>
-    <div class="doing-card">
-      <div class="doing-number">03</div>
-      <div class="doing-title" lang-en>Direct Connections</div>
-      <div class="doing-title" lang-ja style="display:none;">直接つながる</div>
-      <div class="doing-jp">直接つなぐ</div>
-      <p class="doing-body" lang-en>We create direct connections between the farmers who still work this way and the people who care about origin and craftsmanship, with as little as possible in between.</p>
-      <p class="doing-body" lang-ja style="display:none;">昔ながらの手法を続ける農家と、産地と手仕事を大切にする人。その間にできるだけ何も挟まずに、直接つなぎます。</p>
-    </div>
-    <div class="doing-card">
-      <div class="doing-number">04</div>
-      <div class="doing-title" lang-en>Scarcity as Strength</div>
-      <div class="doing-title" lang-ja style="display:none;">希少であること</div>
-      <div class="doing-jp">希少性</div>
-      <p class="doing-body" lang-en>Farm-specific Uji matcha is naturally limited. We treat that as a strength rather than a limitation: small lots, named farms, and seasons that end when the harvest does.</p>
-      <p class="doing-body" lang-ja style="display:none;">畑を特定できる宇治抹茶は、もともと量が限られています。それを制約ではなく強みと考えます。小さなロット、名前のある農家、収穫とともに終わる季節。</p>
-    </div>
-  </div>
-</section>
-
-<!-- THE FARMS -->
-<section class="farmers" id="farms" style="padding: 7rem 5rem;">
-  <div class="section-label">The Farms / 農家と畑</div>
-  <h2 lang-en>Each farm has its own<br>story and its own taste.</h2>
-  <h2 lang-ja style="display:none;">農家ごとに、<br>物語と味がある。</h2>
-  <p class="section-note" lang-en>
-    Farm profiles are being recorded one farm at a time: the land, the methods, the family behind them, and the taste that comes out of that particular plot. The cards below show the structure a finished profile takes. Names and tasting notes appear only once they have been confirmed with the farmer.
-  </p>
-  <p class="section-note" lang-ja style="display:none;">
-    農家ごとのプロフィールは、いま一軒ずつ取材して記録しています。その土地、その手法、受け継いできた人、そしてその畑から生まれる味。以下のカードは、完成したプロフィールの掲載のかたちを示すものです。名前と味の記述は、農家ご本人に確認できたものだけを掲載します。
-  </p>
-  <div class="farmer-grid">
-    <div class="farmer-card">
-      <div class="farmer-avatar">一</div>
-      <div class="farm-index">Farm 01 · Uji, Kyoto</div>
-      <div class="farmer-name farm-pending" lang-en>Farm name to be added</div>
-      <div class="farmer-name farm-pending" lang-ja style="display:none;">農家名は今後掲載</div>
-      <div class="farmer-name-jp" lang-en>Placeholder card: not a real farm yet</div>
-      <div class="farmer-name-jp" lang-ja style="display:none;">掲載準備中のサンプルです</div>
-      <div class="farm-tag">
-        <div class="farmer-gen" lang-en>Placeholder</div>
-        <div class="farmer-gen" lang-ja style="display:none;">掲載準備中</div>
-      </div>
-      <div class="farm-profile">
-        <div class="farm-profile-label" lang-en>Taste Profile</div>
-        <div class="farm-profile-label" lang-ja style="display:none;">味の輪郭</div>
-        <p class="farm-profile-body" lang-en>To be recorded with the farmer: shading, harvest, and how this plot differs from the fields beside it. Nothing is written here until it has been tasted and confirmed.</p>
-        <p class="farm-profile-body" lang-ja style="display:none;">覆いのかけ方、収穫の時期、隣の畑との違い。農家とともに確かめてから記します。実際に味わって確認できるまで、ここには何も書きません。</p>
-      </div>
-      <div class="farm-cta">
-        <a href="#support" class="farm-link" lang-en>Follow this farm's story</a>
-        <a href="#support" class="farm-link" lang-ja style="display:none;">この農家の記録を追う</a>
-      </div>
-    </div>
-    <div class="farmer-card">
-      <div class="farmer-avatar">二</div>
-      <div class="farm-index">Farm 02 · Uji, Kyoto</div>
-      <div class="farmer-name farm-pending" lang-en>Farm name to be added</div>
-      <div class="farmer-name farm-pending" lang-ja style="display:none;">農家名は今後掲載</div>
-      <div class="farmer-name-jp" lang-en>Placeholder card: not a real farm yet</div>
-      <div class="farmer-name-jp" lang-ja style="display:none;">掲載準備中のサンプルです</div>
-      <div class="farm-tag">
-        <div class="farmer-gen" lang-en>Placeholder</div>
-        <div class="farmer-gen" lang-ja style="display:none;">掲載準備中</div>
-      </div>
-      <div class="farm-profile">
-        <div class="farm-profile-label" lang-en>Taste Profile</div>
-        <div class="farm-profile-label" lang-ja style="display:none;">味の輪郭</div>
-        <p class="farm-profile-body" lang-en>To be recorded with the farmer: shading, harvest, and how this plot differs from the fields beside it. Nothing is written here until it has been tasted and confirmed.</p>
-        <p class="farm-profile-body" lang-ja style="display:none;">覆いのかけ方、収穫の時期、隣の畑との違い。農家とともに確かめてから記します。実際に味わって確認できるまで、ここには何も書きません。</p>
-      </div>
-      <div class="farm-cta">
-        <a href="#support" class="farm-link" lang-en>Follow this farm's story</a>
-        <a href="#support" class="farm-link" lang-ja style="display:none;">この農家の記録を追う</a>
-      </div>
-    </div>
-    <div class="farmer-add">
-      <div class="farmer-add-icon">+</div>
-      <span lang-en>Farms added as their stories are recorded</span>
-      <span lang-ja style="display:none;">記録が整い次第、農家を追加します</span>
-    </div>
-  </div>
-</section>
-
-<!-- TASTE -->
-<section class="taste" id="taste">
-  <div class="section-label" lang-en>Taste the Difference</div>
-  <div class="section-label" lang-ja style="display:none;">味の違いを知る</div>
-  <h2 lang-en>Matcha you can trace<br>back to one field.</h2>
-  <h2 lang-ja style="display:none;">ひとつの畑まで<br>たどれる抹茶。</h2>
-  <p class="section-note" lang-en>
-    Everything below is tied to a named farm and a specific harvest, with that farm's story alongside it. Nothing is blended across farms. Quantities follow the harvest rather than demand, so lots are small. When a lot is finished, that particular cup is finished with it.
-  </p>
-  <p class="section-note" lang-ja style="display:none;">
-    以下はいずれも、名前のある農家と、特定の収穫に結びついています。その農家の物語を添えてお届けし、農家をまたいで混ぜることはしません。量は需要ではなく収穫に従うため、ロットは小さく、なくなればその味も終わりです。
-  </p>
-  <div class="offer-grid">
-    <div class="offer-card">
-      <div class="doing-number">01</div>
-      <div class="doing-title" lang-en>Single-Farm Matcha</div>
-      <div class="doing-title" lang-ja style="display:none;">単一農家の抹茶</div>
-      <div class="doing-jp">単一農家</div>
-      <p class="doing-body" lang-en>One farm, one harvest, named on the tin, with the story of that plot beside it, so you know whose work and whose land you are drinking.</p>
-      <p class="doing-body" lang-ja style="display:none;">ひとつの農家、ひとつの収穫。缶にその名を記し、畑の物語を添えます。誰の仕事と、どの土地を飲んでいるのかがわかるように。</p>
-      <div class="offer-meta" lang-en>Availability follows each farm's harvest.</div>
-      <div class="offer-meta" lang-ja style="display:none;">取り扱いは、各農家の収穫に従います。</div>
-      <div class="offer-cta">
-        <a href="#support" class="btn-ghost" lang-en>Ask about availability</a>
-        <a href="#support" class="btn-ghost" lang-ja style="display:none;">取り扱いを問い合わせる</a>
-      </div>
-    </div>
-    <div class="offer-card">
-      <div class="doing-number">02</div>
-      <div class="doing-title" lang-en>Tasting Bundle</div>
-      <div class="doing-title" lang-ja style="display:none;">飲み比べセット</div>
-      <div class="doing-jp">飲み比べ</div>
-      <p class="doing-body" lang-en>Small portions from several Uji farms, side by side, each with its own notes. The difference between neighbouring fields is easiest to believe when it is in front of you.</p>
-      <p class="doing-body" lang-ja style="display:none;">宇治の複数の農家の抹茶を少量ずつ、それぞれの記録とともに。隣り合う畑の違いは、並べて味わうといちばんよくわかります。</p>
-      <div class="offer-meta" lang-en>The line-up changes with the season.</div>
-      <div class="offer-meta" lang-ja style="display:none;">セットの構成は季節ごとに変わります。</div>
-      <div class="offer-cta">
-        <a href="#support" class="btn-ghost" lang-en>Ask about a bundle</a>
-        <a href="#support" class="btn-ghost" lang-ja style="display:none;">セットを問い合わせる</a>
-      </div>
-    </div>
-    <div class="offer-card">
-      <div class="doing-number">03</div>
-      <div class="doing-title" lang-en>Limited Seasonal Lots</div>
-      <div class="doing-title" lang-ja style="display:none;">季節の限定ロット</div>
-      <div class="doing-jp">季節限定</div>
-      <p class="doing-body" lang-en>When a plot gives something unusual in a given year, we keep it separate instead of blending it away. These lots are small by nature, not by marketing.</p>
-      <p class="doing-body" lang-ja style="display:none;">その年、その畑にしか出ない味は、混ぜずにそのまま残します。少量なのは演出ではなく、もともとの量がそうだからです。</p>
-      <div class="offer-meta" lang-en>Announced when a harvest allows it.</div>
-      <div class="offer-meta" lang-ja style="display:none;">収穫の状況に応じてお知らせします。</div>
-      <div class="offer-cta">
-        <a href="#support" class="btn-ghost" lang-en>Hear when a lot opens</a>
-        <a href="#support" class="btn-ghost" lang-ja style="display:none;">入荷の知らせを受け取る</a>
-      </div>
-    </div>
-  </div>
-  <p class="section-note section-note-after" lang-en>
-    Prices and direct ordering are not published yet. They are added farm by farm, as each farm's terms are agreed with the farmer. Until then, enquiries are handled through the form below.
-  </p>
-  <p class="section-note section-note-after" lang-ja style="display:none;">
-    価格と直接のご注文は、まだ公開していません。各農家との条件が整った順に、一軒ずつ掲載していきます。それまでは、下のフォームからのお問い合わせで承ります。
-  </p>
-</section>
-
 <!-- RESEARCH (secondary) -->
 <section class="research" id="research">
   <div class="research-inner">
     <div>
-      <div class="section-label" lang-en>Research · Secondary Work</div>
-      <div class="section-label" lang-ja style="display:none;">研究・補助的な取り組み</div>
+      <div class="section-label" lang-en>Research</div>
+      <div class="section-label" lang-ja style="display:none;">研究</div>
       <h3 lang-en>What becomes of the leaves that fall outside the grade.</h3>
-      <h3 lang-ja style="display:none;">規格から外れた茶葉の、その先。</h3>
+      <h3 lang-ja style="display:none;">規格外の茶葉を、どう生かすか。</h3>
     </div>
     <div>
-      <p lang-en>Part of every harvest is set aside as over-spec: leaves that do not meet the specification for premium matcha, even though the growing, shading, and picking behind them were the same. We are studying what those leaves can properly become, so that a farmer's year is not measured only by its highest grade.</p>
-      <p lang-ja style="display:none;">収穫のうち一定量は、規格外として選り分けられます。育て方も、覆いのかけ方も、摘み方も同じでありながら、高級抹茶の規格には合わなかった茶葉です。その茶葉を何に活かせるのか、私たちは調べています。農家の一年が、最上級の等級だけで測られないように。</p>
-      <p lang-en>This is a secondary strand of the work and it is still early. We will publish what we actually find, farm by farm, rather than what we hope to find.</p>
-      <p lang-ja style="display:none;">これは補助的な取り組みで、まだ始まったばかりです。期待ではなく、実際にわかったことを、農家ごとに公開していきます。</p>
+      <p lang-en>Part of every harvest misses the premium grade, though grown, shaded and picked the same way. We are studying what that leaf can properly become.</p>
+      <p lang-ja style="display:none;">同じように育て、覆い、摘みながら、規格に届かず選り分けられる茶葉があります。その茶葉に何ができるのかを調べています。</p>
+      <p class="progress">
+        <span class="progress-chip" lang-en>In progress</span><span class="progress-chip" lang-ja style="display:none;">進行中</span>
+        <span lang-en>Early research. Findings are published once they are confirmed, not before.</span>
+        <span lang-ja style="display:none;">初期の研究です。わかったことを、確かめてから公開します。</span>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- STATUS -->
-<section class="status" id="status">
-  <div class="section-label" lang-en>Where This Stands</div>
-  <div class="section-label" lang-ja style="display:none;">いまの進み方</div>
-  <h2 lang-en>What is recorded,<br>and what is not yet.</h2>
-  <h2 lang-ja style="display:none;">記録できたこと、<br>まだできていないこと。</h2>
-  <p class="section-note" lang-en>
-    This work is early. We would rather set out its state in one place than let the rest of the page imply more than that. Every line below moves farm by farm, and this section is updated as each one does.
-  </p>
-  <p class="section-note" lang-ja style="display:none;">
-    まだ始まったばかりの取り組みです。ページの各所で実際より進んでいるように見せるより、現状をひとつの場所に記します。以下はいずれも農家ごとに進み、進むたびにこの欄を書き換えます。
-  </p>
-
-  <div class="status-list">
-    <div class="status-row">
-      <div class="status-what-cell">
-        <div class="status-what" lang-en>Farm profiles</div>
-        <div class="status-what" lang-ja style="display:none;">農家のプロフィール</div>
-      </div>
-      <div class="status-state-cell">
-        <div class="status-state" lang-en>Being recorded</div>
-        <div class="status-state" lang-ja style="display:none;">取材中</div>
-      </div>
-      <div>
-        <p class="status-note" lang-en>Interviews and tasting go one farm at a time. A profile is published only after the farmer has confirmed it, which is why the cards above still read as placeholders.</p>
-        <p class="status-note" lang-ja style="display:none;">取材と試飲は、一軒ずつ進めています。農家ご本人に確認できたものだけを掲載するため、上のカードはまだ掲載準備中の表示のままです。</p>
-      </div>
-    </div>
-
-    <div class="status-row">
-      <div class="status-what-cell">
-        <div class="status-what" lang-en>Matcha and tasting bundles</div>
-        <div class="status-what" lang-ja style="display:none;">抹茶と飲み比べセット</div>
-      </div>
-      <div class="status-state-cell">
-        <div class="status-state" lang-en>Enquiry only</div>
-        <div class="status-state" lang-ja style="display:none;">お問い合わせのみ</div>
-      </div>
-      <div>
-        <p class="status-note" lang-en>Prices and direct ordering are not published. Terms are agreed farm by farm, and a farm appears here once its own terms are settled.</p>
-        <p class="status-note" lang-ja style="display:none;">価格と直接のご注文は、まだ公開していません。条件は農家ごとに取り決め、整った農家から順に掲載します。</p>
-      </div>
-    </div>
-
-    <div class="status-row">
-      <div class="status-what-cell">
-        <div class="status-what" lang-en>Support channel</div>
-        <div class="status-what" lang-ja style="display:none;">支援の受け口</div>
-      </div>
-      <div class="status-state-cell">
-        <div class="status-state pending" lang-en>Being set up</div>
-        <div class="status-state pending" lang-ja style="display:none;">準備中</div>
-      </div>
-      <div>
-        <p class="status-note" lang-en>Money cannot be contributed yet. For now the whole of it is leaving a name in the form below, and you will hear first when it opens.</p>
-        <p class="status-note" lang-ja style="display:none;">金銭でのご支援は、まだお受けできません。いまは下のフォームにお名前をお預けいただくだけです。開設の際は、まずご連絡します。</p>
-      </div>
-    </div>
-
-    <div class="status-row">
-      <div class="status-what-cell">
-        <div class="status-what" lang-en>Over-spec leaf research</div>
-        <div class="status-what" lang-ja style="display:none;">規格外茶葉の研究</div>
-      </div>
-      <div class="status-state-cell">
-        <div class="status-state" lang-en>Early</div>
-        <div class="status-state" lang-ja style="display:none;">着手したばかり</div>
-      </div>
-      <div>
-        <p class="status-note" lang-en>A secondary strand, still at the stage of reading and asking. We will publish what we find rather than what we hope to find.</p>
-        <p class="status-note" lang-ja style="display:none;">補助的な取り組みで、まだ調べて尋ねている段階です。期待ではなく、わかったことを公開します。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACTION -->
+<!-- TAKE PART
+     One heading, then three clear ways in. The petition's full statement and
+     the enquiry form follow, each under its own name. -->
 <section class="involve" id="support">
+  <div class="involve-head">
+    <div class="section-label" lang-en>Take Part</div>
+    <div class="section-label" lang-ja style="display:none;">参加する</div>
+    <h2 lang-en>Three ways to keep<br>Uji’s farms going.</h2>
+    <h2 lang-ja style="display:none;">宇治の茶園を支える、<br>三つの方法。</h2>
+    <p lang-en>Each one helps directly. Choose one, or all three.</p>
+    <p lang-ja style="display:none;">どれも、茶園の力になります。ひとつでも、三つすべてでも。</p>
+  </div>
+
+  <ol class="ways">
+    <li class="way">
+      <span class="doing-number">01</span>
+      <h3 lang-en>Sign the petition</h3>
+      <h3 lang-ja style="display:none;">署名する</h3>
+      <p lang-en>Ask Japan to require regional labelling on matcha, so the Uji name keeps meaning Uji.</p>
+      <p lang-ja style="display:none;">抹茶の産地表示の義務化を国に求めます。「宇治」の名が、宇治を意味し続けるように。</p>
+      <div class="way-act">
+        <a class="btn-primary" href="https://www.change.org/p/mandate-regional-traceability-for-matcha-products-in-japan" target="_blank" rel="noopener noreferrer" lang-en>Sign on Change.org</a>
+        <a class="btn-primary" href="https://www.change.org/p/mandate-regional-traceability-for-matcha-products-in-japan" target="_blank" rel="noopener noreferrer" lang-ja style="display:none;">Change.org で署名する</a>
+        <a class="btn-ghost" href="#petition" lang-en>The petition</a>
+        <a class="btn-ghost" href="#petition" lang-ja style="display:none;">署名の内容</a>
+      </div>
+    </li>
+    <li class="way">
+      <span class="doing-number">02</span>
+      <h3 lang-en>Donate</h3>
+      <h3 lang-ja style="display:none;">寄付する</h3>
+      <p lang-en>Donations will fund recording each farm’s story, translating it, and sending out small single-farm lots.</p>
+      <p lang-ja style="display:none;">ご寄付は、茶園の記録、翻訳、そして単一茶園の小さなロットの発送に充てます。</p>
+      <p class="progress"><span class="progress-chip" lang-en>In progress · Opening soon</span><span class="progress-chip" lang-ja style="display:none;">進行中 · 近日開設</span></p>
+      <div class="way-act">
+        <button type="button" class="btn-outline" onclick="chooseHelp('support')" lang-en>Notify me when it opens</button>
+        <button type="button" class="btn-outline" onclick="chooseHelp('support')" lang-ja style="display:none;">開設の知らせを受け取る</button>
+      </div>
+    </li>
+    <li class="way">
+      <span class="doing-number">03</span>
+      <h3 lang-en>Partner with us</h3>
+      <h3 lang-ja style="display:none;">協働する</h3>
+      <p lang-en>For cafés, shops, chefs, researchers and press who want to work with named Uji farms.</p>
+      <p lang-ja style="display:none;">名前のある宇治の茶園と取り組みたいカフェ、店舗、料理人、研究者、メディアの方へ。</p>
+      <div class="way-act">
+        <button type="button" class="btn-outline" onclick="chooseHelp('partner')" lang-en>Start a conversation</button>
+        <button type="button" class="btn-outline" onclick="chooseHelp('partner')" lang-ja style="display:none;">相談する</button>
+      </div>
+    </li>
+  </ol>
 
   <!-- PETITION
        QR decoded from petition-qrcode.png: https://c.org/MfppBDLyJG, which
@@ -2030,18 +2082,18 @@
        link carries recruiter/share tracking parameters. To keep share
        attribution on link clicks as well as QR scans, swap the href for
        https://c.org/MfppBDLyJG -->
-  <div class="petition">
+  <div class="petition" id="petition">
     <div>
       <div class="section-label" lang-en>Petition</div>
       <div class="section-label" lang-ja style="display:none;">署名</div>
       <h3 lang-en>Make regional traceability the law.</h3>
-      <h3 lang-ja style="display:none;">産地のトレーサビリティを、<br>法律に。</h3>
+      <h3 lang-ja style="display:none;">産地表示の義務化を、<br>国に求めます。</h3>
 
       <p class="petition-lead" lang-en>
         Because there are no clear regional traceability rules, matcha labelled as Uji matcha need not have come from Uji. This petition asks the Japanese government to mandate clear regional traceability labelling on all matcha products, so that consumers can tell authentic Uji matcha apart and the work of local farmers is protected.
       </p>
       <p class="petition-lead" lang-ja style="display:none;">
-        産地のトレーサビリティに関する明確な規則がないため、「宇治抹茶」と表示されていても、実際に宇治で生まれたものとは限りません。この署名は、すべての抹茶製品に明確な産地トレーサビリティ表示を義務づけるよう、日本政府に求めるものです。消費者が本来の宇治抹茶を見分けられるように、そして地元の農家の仕事が守られるように。
+        産地の表示について明確な決まりがないため、「宇治抹茶」と書かれていても、宇治で育った茶とは限りません。この署名は、すべての抹茶製品に産地表示を義務づけるよう、国に求めるものです。本来の宇治抹茶を見分けられるように、そして地元の作り手の仕事が守られるように。
       </p>
 
       <div class="petition-cta">
@@ -2056,19 +2108,19 @@
         <summary><span lang-en>Read the full statement</span><span lang-ja style="display:none;">署名の趣旨を読む</span></summary>
 
         <p lang-en>Living in Uji City, I&rsquo;ve felt a deep connection to Uji matcha &mdash; a symbol of our region&rsquo;s cultural heritage and a testament to generations of dedication and refinement. Uji matcha is an emblem of our community&rsquo;s identity and history. Yet, as matcha has transcended borders and gained popularity worldwide, the distinctiveness of Uji matcha is slowly fading into obscurity due to the lack of proper regional labeling.</p>
-        <p lang-ja style="display:none;">宇治市に暮らすなかで、私は宇治抹茶に深いつながりを感じてきました。宇治抹茶は、この地域の文化遺産の象徴であり、幾世代にもわたる献身と研鑽の証です。それは私たちの共同体の由来と歴史を示すものでもあります。けれど抹茶が国境を越えて世界へ広まる一方で、適切な産地表示の仕組みがないために、宇治抹茶ならではの個性は少しずつ見えにくくなっています。</p>
+        <p lang-ja style="display:none;">私は宇治市に暮らし、宇治抹茶を身近なものとして育ちました。宇治抹茶は、この地域が受け継いできた文化の象徴であり、幾世代にもわたる努力と工夫の積み重ねです。けれども抹茶が世界へ広まる一方で、産地表示の仕組みが整っていないために、宇治抹茶ならではの個性は次第に見えにくくなっています。</p>
 
         <p lang-en>Uji is world-renowned for producing matcha of unparalleled quality, a reputation built over centuries. However, many consumers today, both locally and internationally, remain unaware of where their matcha truly originates. Because of the lack of clear regional traceability rules, many customers consume matcha that is labelled as Uji matcha but doesn&rsquo;t actually originate here. This lack of transparency not only undermines the value of Uji matcha but also poses a threat to our cultural legacy, risking its gradual disappearance from the annals of treasured Japanese traditions.</p>
-        <p lang-ja style="display:none;">宇治は、何世紀もかけて築かれた評価のもと、比類なき品質の抹茶の産地として世界に知られています。しかし国内外を問わず、多くの消費者は自分の飲む抹茶がどこで生まれたものかを知りません。産地のトレーサビリティに関する明確な規則がないため、「宇治抹茶」と表示されていながら、実際にはこの土地で生まれていない抹茶が数多く流通しています。この不透明さは宇治抹茶の価値を損なうだけでなく、私たちの文化的な遺産そのものを脅かし、日本の大切な伝統の記録から静かに消えてしまう危険をはらんでいます。</p>
+        <p lang-ja style="display:none;">宇治は、何世紀もかけて築かれた評価のもと、質の高い抹茶の産地として世界に知られています。しかし国内外を問わず、多くの消費者は、自分の飲む抹茶がどこで育ったものかを知りません。産地表示に明確な決まりがないため、「宇治抹茶」と表示されながら、実際には宇治で育っていない製品が数多く流通しています。この不透明さは、宇治抹茶の価値を損なうだけでなく、受け継いできた文化そのものを危うくします。</p>
 
         <p lang-en>Regional labeling would not only empower consumers with the knowledge of where their matcha leaves were grown and produced but also help preserve Uji&rsquo;s rich heritage. By mandating such labels, we ensure that the centuries-old artistry of Uji matcha cultivation is recognized and that consumers can make informed choices, distinguishing authentic Uji matcha from others.</p>
-        <p lang-ja style="display:none;">産地表示は、茶葉がどこで育てられ、どこで仕上げられたのかを消費者に伝えるだけでなく、宇治の豊かな遺産を守る力にもなります。表示を義務づけることで、何世紀にもわたる宇治抹茶の手仕事が正しく認められ、消費者は本来の宇治抹茶を見分け、納得して選ぶことができるようになります。</p>
+        <p lang-ja style="display:none;">産地表示は、茶葉がどこで育ち、どこで仕上げられたのかを消費者に伝えます。それは同時に、宇治が積み重ねてきたものを守ることにもつながります。表示を義務づけることで、何世紀にもわたる宇治の手仕事が正しく認められ、消費者は本来の宇治抹茶を見分けて選べるようになります。</p>
 
         <p lang-en>The Japanese government has the power to enact policies that would protect the reputations of historically significant regions like Uji. As stewards of our cultural heritage, let&rsquo;s urge the relevant authorities to mandate clear regional traceability labelling for all matcha products to support the tireless work of local farmers. Your signature is a step towards ensuring that future generations can continue to appreciate and marvel at the rich traditions encapsulated in every cup of Uji matcha.</p>
-        <p lang-ja style="display:none;">日本政府には、宇治のように歴史的に重要な産地の名を守る政策を定める力があります。文化を受け継ぐ者として、すべての抹茶製品に明確な産地トレーサビリティ表示を義務づけるよう、関係機関に求めましょう。それは、地元の農家の絶え間ない仕事を支えることにつながります。あなたの署名は、次の世代もまた、一椀ごとに宿る豊かな伝統に触れ、驚くことができる未来への一歩です。</p>
+        <p lang-ja style="display:none;">国には、宇治のように歴史ある産地の名を守る制度を定める力があります。すべての抹茶製品に産地表示を義務づけるよう、関係機関に求めます。それは、地元の作り手の日々の仕事を支えることにつながります。みなさまの署名が、次の世代にこの伝統を手渡すための一歩になります。</p>
 
         <p lang-en>Please sign this petition to preserve the distinguished identity of Uji matcha, celebrate the legacy of Uji City, and push for transparency in matcha labeling. Together, we can prevent the dilution of our cultural heritage and ensure that Uji matcha gains its rightful place on the global stage.</p>
-        <p lang-ja style="display:none;">宇治抹茶という確かな個性を守り、宇治市の歩みを讃え、抹茶の表示に透明性をもたらすために、どうかこの署名にご協力ください。ともに取り組むことで、文化の希薄化を防ぎ、宇治抹茶が世界の舞台でふさわしい位置を得られるようにしていけます。</p>
+        <p lang-ja style="display:none;">宇治抹茶の個性を守り、このまちが積み重ねてきたものを次の世代に渡すために、産地表示に透明性をもたらす必要があります。どうかこの署名にご協力ください。多くの声が集まれば、受け継いできた文化が薄れるのを防ぎ、宇治抹茶が世界のなかでふさわしい位置を得られるはずです。</p>
       </details>
     </div>
 
@@ -2081,12 +2133,10 @@
   </div>
 
   <div class="involve-left">
-    <div class="section-label" lang-en>Take Part</div>
-    <div class="section-label" lang-ja style="display:none;">参加する</div>
-    <h2 lang-en>Discover the farms.<br>Taste the difference.<br>Help protect the craft.</h2>
-    <h2 lang-ja style="display:none;">農家を知り、<br>味の違いを確かめ、<br>この手仕事を守る。</h2>
-    <p lang-en>Tell us what brings you here: curiosity about origin, an interest in one particular farm, or a wish to support this work while there is still time. We will point you to the right part of it.</p>
-    <p lang-ja style="display:none;">産地への興味でも、ある一軒の農家のことでも、まだ間に合ううちにこの仕事を支えたいという気持ちでも。ご連絡いただければ、ふさわしい入り口をご案内します。</p>
+    <div class="section-label" lang-en>Write to Us</div>
+    <div class="section-label" lang-ja style="display:none;">お問い合わせ</div>
+    <h2 lang-en>Questions, orders or ideas.</h2>
+    <h2 lang-ja style="display:none;">ご質問、ご注文、ご提案など。</h2>
     <!-- ────────────────────────────────────────────────────────────────
          This is a static page with no backend, so the form posts to
          Web3Forms, which forwards every submission to ujiterroirjp@gmail.com.
@@ -2119,12 +2169,13 @@
         <label class="sr-only" for="field-email">Email / メール</label>
         <input class="form-input" id="field-email" name="email" type="email" placeholder="Email / メール" autocomplete="email" required>
       </div>
-      <label class="sr-only" for="help-select">What brings you here? / ご用件</label>
+      <label class="sr-only" for="help-select">I’m writing about / ご用件</label>
       <select class="form-select" id="help-select" name="reason" required>
-        <option value="" disabled selected>What brings you here? / ご用件をお選びください</option>
+        <option value="" disabled selected>I’m writing about… / ご用件をお選びください</option>
         <option value="matcha">Matcha or tasting bundle enquiry / 抹茶・飲み比べセットについて</option>
         <option value="support">Support the work / 活動を支える</option>
-        <option value="stories">Help record farm stories / 農家の記録に協力する</option>
+        <option value="partner">A partnership / 協働・パートナーシップ</option>
+        <option value="stories">Help record farm stories / 茶園の記録に協力する</option>
         <option value="farmer">I grow or make tea in Uji / 宇治で茶づくりをしている</option>
         <option value="research">Over-spec leaf research / 規格外茶葉の研究</option>
         <option value="press">Press or media / 取材・メディア</option>
@@ -2142,24 +2193,8 @@
     </form>
   </div>
   <div class="involve-right">
-    <div class="support-card">
-      <h3 lang-en>Support the Work</h3>
-      <h3 lang-ja style="display:none;">活動を支える</h3>
-      <p lang-en>Recording a farm's story, translating it, and putting small farm-specific lots into people's hands costs something before it returns anything. Contributions go straight into that: interviews, tasting notes, and the packing and shipping of small lots. The contribution channel is being set up now. Leave your name and we will tell you first when it opens.</p>
-      <p lang-ja style="display:none;">農家の物語を記録し、翻訳し、畑ごとの小さなロットを届けるまでには、収益より先に費用がかかります。いただいた支援は、取材、テイスティングノートの作成、小ロットの梱包と発送に、そのまま使われます。支援の受け口は現在準備中です。お名前をお預けいただければ、開設時にまずご連絡します。</p>
-      <div class="support-cta">
-        <button type="button" class="btn-primary" onclick="chooseHelp('support')" lang-en>Tell us how you'd like to help</button>
-        <button type="button" class="btn-primary" onclick="chooseHelp('support')" lang-ja style="display:none;">支援について知らせる</button>
-      </div>
-    </div>
-    <div class="section-label" lang-en>Contact</div>
-    <div class="section-label" lang-ja style="display:none;">連絡先</div>
     <div class="contact-item">
-      <div class="contact-label">Location</div>
-      <div class="contact-value">Uji, Kyoto, Japan / 京都府宇治市</div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-label">Enquiries</div>
+      <div class="contact-label">Email</div>
       <div class="contact-value"><a href="mailto:ujiterroirjp@gmail.com">ujiterroirjp@gmail.com</a></div>
     </div>
     <div class="contact-item">
@@ -2192,32 +2227,19 @@
       </div>
       <div class="contact-value"><a href="https://x.com/ujiterroir" target="_blank" rel="noopener noreferrer">@ujiterroir</a></div>
     </div>
-    <div class="contact-item">
-      <div class="contact-label">Language</div>
-      <div class="contact-value">日本語 / English</div>
-    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER: email and social only -->
 <footer>
-  <div class="footer-logo">
-    <svg class="brand-mark" viewBox="0 0 120 100" role="img" aria-label="Uji Terroir">
-      <circle cx="60" cy="46" r="33" fill="none" stroke="var(--mk-4)" stroke-width="5"/>
-      <path d="M60 68 L60 48" stroke="var(--mk-3)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-      <path d="M59 54 C54 46 47 41 39 39 C38 48 45 55 57 57 Z" fill="var(--mk-2)"/>
-      <path d="M61 51 C65 42 72 36 80 34 C81 43 74 51 63 54 Z" fill="var(--mk-1)"/>
-      <path d="M22 80 C36 58 54 56 66 66 C77 75 88 80 102 80 Z" fill="var(--mk-1)" opacity="0.9"/>
-      <path d="M8 80 C24 62 38 60 50 70 C60 78 66 80 78 80 Z" fill="var(--mk-2)"/>
-      <path d="M14 80 C34 70 50 76 66 79 C80 82 96 78 110 80 Z" fill="var(--mk-3)"/>
-      <path d="M4 79 C34 76 86 76 116 79 C86 93 34 93 4 79 Z" fill="var(--mk-4)"/>
-    </svg>
-    <span>宇治 · Uji Terroir</span>
-  </div>
-  <div lang-en>Farm-by-farm Uji matcha · Uji, Kyoto</div>
-  <div lang-ja style="display:none;">畑ごとの宇治抹茶 · 京都府宇治市</div>
-  <div>畑ごとに、宇治を守る</div>
+  <div class="footer-logo">宇治 · Uji Terroir</div>
+  <ul class="footer-links">
+    <li><a href="mailto:ujiterroirjp@gmail.com">ujiterroirjp@gmail.com</a></li>
+    <li><a href="https://instagram.com/uji_terroir" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+    <li><a href="https://x.com/ujiterroir" target="_blank" rel="noopener noreferrer">X</a></li>
+  </ul>
 </footer>
+
 
 <script>
   function toggleLang() {
@@ -2592,8 +2614,22 @@
     var form = document.getElementById('support-form');
     if (form && form.scrollIntoView) {
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var name = document.getElementById('field-name');
+      if (name) { name.focus({ preventScroll: true }); }
     }
   }
+
+  // Farm cards open their story in a native <dialog>: focus is trapped and
+  // Escape closes it for free; a click on the backdrop closes it too.
+  (function () {
+    document.querySelectorAll('[data-story]').forEach(function (card) {
+      var story = document.getElementById(card.getAttribute('data-story'));
+      if (!story || typeof story.showModal !== 'function') { return; }
+      card.addEventListener('click', function () { story.showModal(); });
+      story.addEventListener('click', function (e) { if (e.target === story) { story.close(); } });
+      story.querySelector('[data-story-close]').addEventListener('click', function () { story.close(); });
+    });
+  })();
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -2611,7 +2647,7 @@
   var revealEase = getComputedStyle(document.documentElement)
     .getPropertyValue('--ease-spring').trim() || 'ease';
 
-  document.querySelectorAll('.issue-card, .doing-card, .offer-card, .farmer-card, .status-row').forEach(el => {
+  document.querySelectorAll('.issue-card, .doing-card, .offer-card, .overview-card, .way').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.45s ease, transform 0.588s ' + revealEase;
